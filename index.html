@@ -1689,13 +1689,24 @@
 			quizDiv.appendChild(img);
 		  }
 
-		  q.options.forEach(option => {
-			const btn = document.createElement("button");
-			btn.textContent = option;
-			btn.style.margin = "5px";
-			btn.onclick = () => checkAnswer(option, btn);
-			quizDiv.appendChild(btn);
-		  });
+      q.options.forEach((option, index) => {
+      const btn = document.createElement("button");
+      btn.className = "quiz-option-btn";
+      btn.dataset.option = option;
+
+      const letter = document.createElement("span");
+      letter.className = "quiz-option-index";
+      letter.textContent = String.fromCharCode(65 + index);
+
+      const label = document.createElement("span");
+      label.className = "quiz-option-text";
+      label.textContent = option;
+
+      btn.appendChild(letter);
+      btn.appendChild(label);
+      btn.onclick = () => checkAnswer(option, btn);
+      quizDiv.appendChild(btn);
+      });
 
 		  timerInterval = setInterval(() => {
 			timeLeft--;
@@ -1713,10 +1724,10 @@
       const buttons = quizDiv.querySelectorAll("button");
       buttons.forEach(btn => {
         btn.disabled = true;
-        if (btn.textContent === q.answer) {
-          btn.style.backgroundColor = "lightgreen";
+        if (btn.dataset.option === q.answer) {
+          btn.classList.add("is-correct");
         } else if (btn === clickedBtn) {
-          btn.style.backgroundColor = "lightcoral";
+          btn.classList.add("is-wrong");
         }
       });
       if (selected === q.answer) score++;
@@ -1735,10 +1746,10 @@
       const buttons = quizDiv.querySelectorAll("button");
       buttons.forEach(btn => {
         btn.disabled = true;
-        if (btn.textContent === q.answer) {
-          btn.style.backgroundColor = "lightgreen";
+        if (btn.dataset.option === q.answer) {
+          btn.classList.add("is-correct");
         } else {
-          btn.style.backgroundColor = "lightcoral";
+          btn.classList.add("is-wrong");
         }
       });
       setTimeout(() => {
