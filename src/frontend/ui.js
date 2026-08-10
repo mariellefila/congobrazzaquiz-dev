@@ -5,6 +5,7 @@ const quizDiv = document.getElementById('quiz');
 const timerP = document.getElementById('timer');
 const scoreP = document.getElementById('score');
 const categoryTitle = document.getElementById('categoryTitle');
+const buildFooter = document.getElementById('buildFooter');
 
 let timerInterval = null;
 let timeLeft = quizApi.getTimeLimitSeconds();
@@ -173,4 +174,14 @@ function startQuiz(categorySlug) {
   showQuestion(result.currentQuestion);
 }
 
+function renderBuildFooter() {
+  const buildVersion = 'Build: 1.0.0';
+  const now = new Date();
+  const pad = (num) => String(num).padStart(2, '0');
+  const buildDate = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+  const buildTime = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+  buildFooter.textContent = `${buildVersion} — Publié le ${buildDate} à ${buildTime}`;
+}
+
 renderMenu();
+renderBuildFooter();
