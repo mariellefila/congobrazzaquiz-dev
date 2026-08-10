@@ -1,0 +1,1578 @@
+export const allQuestions = {
+		"Géographie": [
+						  {
+							question: "Quelle est la capitale du Congo-Brazzaville ?",
+							options: ["Pointe-Noire", "Kinshasa", "Brazzaville", "Owando"],
+							answer: "Brazzaville"
+						  },
+						  {
+							question: "Quelle rivière sépare Brazzaville de Kinshasa ?",
+							options: ["Oubangui", "Congo", "Sangha", "Alima"],
+							answer: "Congo"
+						  },
+						  {
+							question: "Combien de départements compte le Congo ?",
+							options: ["10", "12", "7", "15"],
+							answer: "12"
+						  },
+						  {
+							question: "Quel océan borde le Congo-Brazzaville ?",
+							options: ["Atlantique", "Pacifique", "Indien", "Arctique"],
+							answer: "Atlantique"
+						  },
+						  {
+							question: "Quel est le plus grand département du Congo ?",
+							options: ["Sangha", "Likouala", "Niari", "Plateaux"],
+							answer: "Likouala"
+						  },
+						  {
+							question: "Quelle ville est un port important du Congo ?",
+							options: ["Owando", "Pointe-Noire", "Dolisie", "Impfondo"],
+							answer: "Pointe-Noire"
+						  },
+						  {
+							question: "La région des Plateaux se trouve :",
+							options: ["Nord", "Sud", "Est", "Centre"],
+							answer: "Centre"
+						  },
+						  {
+							question: "Quel pays n’a pas de frontière avec le Congo ?",
+							options: ["Gabon", "RDC", "Angola", "Mali"],
+							answer: "Mali"
+						  },
+						  {
+							question: "Quelle est la superficie approximative du Congo ?",
+							options: ["342 000 km²", "500 000 km²", "700 000 km²", "900 000 km²"],
+							answer: "342 000 km²"
+						  },
+						  {
+							question: "Quelle rivière traverse Owando ?",
+							options: ["Kouyou", "Sangha", "Niari", "Cuvette"],
+							answer: "Kouyou"
+						  },
+						  {
+							question: "Quelle ville est proche du Parc Nouabalé-Ndoki ?",
+							options: ["Impfondo", "Pointe-Noire", "Ouesso", "Brazzaville"],
+							answer: "Ouesso"
+						  },
+						  {
+							question: "Quelle île fluviale est située près de Brazzaville ?",
+							options: ["Mbamou", "Likouala", "Alima", "Kouilou"],
+							answer: "Mbamou"
+						  },
+						  {
+							question: "La région du Niari est riche en :",
+							options: ["Or", "Fer", "Diamant", "Cuivre"],
+							answer: "Fer"
+						  },
+						  {
+							question: "Quel fleuve est utilisé pour l’hydroélectricité ?",
+							options: ["Niari", "Congo", "Sangha", "Oubangui"],
+							answer: "Congo"
+						  },
+						  {
+							question: "Quelle est la deuxième ville du Congo ?",
+							options: ["Dolisie", "Owando", "Pointe-Noire", "Makoua"],
+							answer: "Pointe-Noire"
+						  },
+						  {
+							question: "Quelle zone est marécageuse ?",
+							options: ["Likouala", "Niari", "Bouenza", "Lékoumou"],
+							answer: "Likouala"
+						  },
+						  {
+							question: "Quel climat domine au Congo ?",
+							options: ["Désertique", "Tempéré", "Équatorial", "Méditerranéen"],
+							answer: "Équatorial"
+						  },
+						  {
+							question: "Quelle est la langue majoritaire du nord du Congo ?",
+							options: ["Kikongo", "Lingala", "Téké", "Mboshi"],
+							answer: "Mboshi"
+						  },
+						  {
+							question: "Où se situe la ville de Sibiti ?",
+							options: ["Niari", "Lékoumou", "Cuvette", "Sangha"],
+							answer: "Lékoumou"
+						  },
+						  {
+							question: "Quelle ville est au bord du fleuve Congo ?",
+							options: ["Brazzaville", "Dolisie", "Owando", "Ouesso"],
+							answer: "Brazzaville"
+						  },
+						  {
+							question: "Quelle est la ressource naturelle la plus exportée par le Congo-Brazzaville ?",
+							options: ["Bois", "Diamant", "Pétrole", "Fer"],
+							answer: "Pétrole"
+						  },
+						  {
+							question: "Quelle ville côtière est un important port pétrolier du Congo ?",
+							options: ["Brazzaville", "Dolisie", "Owando", "Pointe-Noire"],
+							answer: "Pointe-Noire"
+						  },
+						  {
+							question: "Quel fleuve traverse Brazzaville ?",
+							options: ["Ogooué", "Ubangi", "Congo", "Sangha"],
+							answer: "Congo"
+						  },
+						  {
+							question: "Dans quelle région se trouvent les gisements de fer de Mayoko ?",
+							options: ["Niari", "Cuvette", "Likouala", "Plateaux"],
+							answer: "Niari"
+						  },
+						  {
+							question: "Quel est le principal produit forestier du Congo ?",
+							options: ["Ébène", "Okoumé", "Sipo", "Acajou"],
+							answer: "Okoumé"
+						  },
+						  {
+							question: "Quel parc national du nord est inscrit au patrimoine mondial de l'UNESCO ?",
+							options: [
+							  "Parc de Conkouati-Douli",
+							  "Parc d'Odzala-Kokoua",
+							  "Parc de la Lekoli",
+							  "Parc de la Ngoko"
+							],
+							answer: "Parc d'Odzala-Kokoua"
+						  },
+						  {
+							question: "Le Congo est traversé par combien de grands bassins hydrographiques ?",
+							options: ["1", "2", "3", "4"],
+							answer: "2"
+						  },
+						  {
+							question: "Quelle ressource minérale est exploitée dans la région de Zanaga ?",
+							options: ["Cuivre", "Diamant", "Fer", "Or"],
+							answer: "Fer"
+						  },
+						  {
+							"question": "Quel type de viande est souvent associé au Mbika dans sa version traditionnelle ?",
+							"options": ["Porc", "Poisson fumé", "Poulet", "Agneau"],
+							"answer": "Poisson fumé"
+						  },
+						  {
+						"question": "Quelle texture le plat Mbika doit-il idéalement avoir une fois préparé ?",
+						"options": ["Très liquide comme une soupe", "Sec comme une grillade", "Crémeuse et épaisse", "Croquante et sèche"],
+						"answer": "Crémeuse et épaisse"
+					  },
+					  {
+							question: "Quel est le principal cours d'eau du nord du pays ?",
+							options: ["Sangha", "Niari", "Oubangui", "Alima"],
+							answer: "Sangha"
+						  },
+						  {
+							question: "Quelle est la capitale du département du Niari ?",
+							options: ["Dolisie", "Mossendjo", "Loubomo", "Nkayi"],
+							answer: "Dolisie"
+						  },
+						  {
+							question: "Quelle ville est surnommée la capitale économique du Congo ?",
+							options: ["Brazzaville", "Pointe-Noire", "Ouesso", "Dolisie"],
+							answer: "Pointe-Noire"
+						  },
+						  {
+							question: "Quel département a pour chef-lieu Owando ?",
+							options: ["Cuvette", "Sangha", "Plateaux", "Lékoumou"],
+							answer: "Cuvette"
+						  },
+						  {
+							question: "Dans quel département se trouve la ville de Sibiti ?",
+							options: ["Cuvette-Ouest", "Niari", "Lékoumou", "Bouenza"],
+							answer: "Lékoumou"
+						  },
+						  {
+							question: "Quelle ville est située à la frontière avec le Cameroun ?",
+							options: ["Ouesso", "Owando", "Impfondo", "Makoua"],
+							answer: "Ouesso"
+						  },
+						  {
+							question: "Quelle est la capitale du département de la Likouala ?",
+							options: ["Ouesso", "Impfondo", "Makoua", "Epena"],
+							answer: "Impfondo"
+						  },
+						  {
+							question: "Dans quel département se trouve la ville de Kinkala ?",
+							options: ["Pool", "Bouenza", "Plateaux", "Cuvette-Ouest"],
+							answer: "Pool"
+						  },
+						  {
+							question: "Quelle région abrite les gorges de Diosso ?",
+							options: ["Sangha", "Kouilou", "Niari", "Pool"],
+							answer: "Kouilou"
+						  },
+						  { question: "Quel fleuve forme une frontière naturelle entre le Congo-Brazzaville et la RDC ?", options: ["Fleuve Congo", "Sangha", "Niari", "Oubangui"], answer: "Fleuve Congo" },
+							{ question: "Quelle est la plus grande rivière du sud du Congo-Brazzaville ?", options: ["Lékéti", "Alima", "Niari", "Kouilou"], answer: "Niari" },
+							{ question: "Quel affluent du fleuve Congo traverse la ville d’Owando ?", options: ["Sangha", "Oubangui", "Alima", "Djoué"], answer: "Alima" },
+							{ question: "Le fleuve Oubangui marque la frontière entre le Congo et :", options: ["Le Cameroun", "La RDC", "Le Gabon", "La Centrafrique"], answer: "La Centrafrique" },
+							{ question: "Quel cours d’eau traverse le Sud de Brazzaville ?", options: ["Fleuve Congo", "Djoué", "Kouilou", "Sangha"], answer: "Djoué" },
+							{ question: "Quelle rivière forme une frontière avec le Gabon à l’ouest ?", options: ["Kouilou", "Lékéti", "Niari", "Bouenza"], answer: "Niari" },
+							{ question: "Quelle rivière passe près de la ville de Dolisie ?", options: ["Niari", "Kouilou", "Lékéti", "Alima"], answer: "Niari" },
+							  {
+							"question": "Quel est l’un des bienfaits nutritionnels du Mbika ?",
+							"options": ["Riche en protéines végétales", "Très faible en calories", "Favorise la digestion", "Très riche en sucre"],
+							"answer": "Riche en protéines végétales"
+						  },
+						{ question: "Le lac Télé se trouve dans quel département du Congo ?", options: ["Likouala", "Plateaux", "Cuvette", "Sangha"], answer: "Likouala" },
+							{ question: "Le lac Télé est réputé pour :", options: ["Son activité volcanique", "Le Mokélé-Mbembé", "Ses mines de diamants", "Ses crocodiles blancs"], answer: "Le Mokélé-Mbembé" },
+							{ question: "Quel affluent du fleuve Congo passe par Impfondo ?", options: ["Sangha", "Ubangi", "Likouala-Mossaka", "Niari"], answer: "Likouala-Mossaka" },
+							{ question: "Quel fleuve a donné son nom au pays ?", options: ["Niari", "Sangha", "Fleuve Congo", "Oubangui"], answer: "Fleuve Congo" },
+							  {
+								"question": "Comment les graines de courges sont-elles préparées dans le Mbika ?",
+								"options": ["Elles sont bouillies entières", "Elles sont grillées", "Elles sont écrasées en pâte", "Elles sont fermentées"],
+								"answer": "Elles sont écrasées en pâte"
+							  },
+							{ question: "Quel cours d’eau alimente les chutes de Loufoulakari près de Brazzaville ?", options: ["Alima", "Djoué", "Niari", "Lefini"], answer: "Djoué" },
+							{ question: "La rivière Lefini est un affluent :", options: ["Du Kouilou", "De l’Alima", "Du fleuve Congo", "Du Niari"], answer: "Du fleuve Congo" },
+							{ question: "Quelle rivière passe par Ewo dans la Cuvette-Ouest ?", options: ["Lékéti", "Lefini", "Kouilou", "Bouenza"], answer: "Lékéti" },
+							{ question: "Le confluent entre la Sangha et le fleuve Congo est situé près de :", options: ["Ouesso", "Impfondo", "Makoua", "Pointe-Noire"], answer: "Ouesso" },
+							  {
+								"question": "Quel accompagnement est le plus courant avec le Mbika ?",
+								"options": ["Riz", "Baton de manioc", "Banane plantain", "Pommes de terre"],
+								"answer": "Baton de manioc"
+							  },
+							{ question: "Quel est le cours d’eau dont la Likouala-aux-Herbes est un affluent ?", options: ["Congo", "Alima", "Sangha", "Oubangui"], answer: "Sangha" },
+							{ question: "Quelle est la principale chaîne de montagnes du Congo-Brazzaville ?", options: ["Massif du Chaillu", "Monts Cristal", "Massif de Mayombe", "Monts Tibesti"], answer: "Massif du Chaillu" },
+							{ question: "Quel est le point culminant du Congo-Brazzaville ?", options: ["Mont Nabemba", "Monts du Chaillu", "Mont Lékéti", "Mont Mayombe"], answer: "Mont Nabemba" },
+							  {
+							"question": "Quel rôle culinaire symbolique peut jouer le Mbika dans certaines cérémonies ?",
+							"options": ["Plat de mariage", "Repas de deuil", "Offrande rituelle", "Plat pour les jumeaux"],
+							"answer": "Offrande rituelle"
+						  },
+						{ question: "Dans quel département se trouve le Mont Nabemba ?", options: ["Sangha", "Cuvette", "Niari", "Lekoumou"], answer: "Sangha" },
+							{ question: "La forêt équatoriale du nord du Congo fait partie du bassin :", options: ["du Nil", "du Congo", "du Niger", "du Zambèze"], answer: "du Congo" },
+							{ question: "La réserve de biosphère d’Odzala-Kokoua est connue pour :", options: ["Ses volcans", "Ses savanes", "Sa forêt tropicale", "Ses dunes de sable"], answer: "Sa forêt tropicale" },
+							{ question: "Quel type de forêt domine dans le nord du Congo-Brazzaville ?", options: ["Forêt équatoriale dense", "Forêt méditerranéenne", "Forêt de conifères", "Forêt sèche"], answer: "Forêt équatoriale dense" },
+							  {
+								"question": "Quelle autre préparation culinaire congolaise utilise aussi les graines de courge ?",
+								"options": ["Saka-saka", "Ngai-ngai", "Mbika au poulet", "Ntaba grillé"],
+								"answer": "Mbika au poulet"
+							  },
+							{ question: "Le Massif du Mayombe est situé dans :", options: ["La région de la Sangha", "Le Kouilou", "Le Pool", "La Cuvette-Ouest"], answer: "Le Kouilou" },
+							{ question: "Le Massif du Chaillu traversent principalement :", options: ["La Lekoumou", "La Cuvette", "Le Niari", "Le Kouilou"], answer: "La Lekoumou" },
+							{ question: "La savane est plus présente dans quelle région du Congo ?", options: ["Le nord-est", "Le littoral", "Le sud-est", "Le nord-ouest"], answer: "Le sud-est" },
+							 { "question": "Quel est l'ingrédient principal du plat appelé Mbika ou Bibétés ?",
+								"options": ["Feuilles de manioc", "Graine de courge", "Arachide", "Noix de palme"],
+								"answer": "Graine de courge"
+							  },
+							{ question: "Quelle forêt dense et marécageuse est connue pour sa biodiversité dans la Likouala ?", options: ["Forêt de l’Ipendja", "Forêt de Conkouati", "Forêt de la Cuvette", "Forêt de la Sangha"], answer: "Forêt de l’Ipendja" },
+							{ question: "Quel parc national est situé dans le département de la Sangha ?", options: ["Parc d’Odzala-Kokoua", "Parc de Conkouati-Douli", "Parc de Nouabalé-Ndoki", "Parc de la Lekoumou"], answer: "Parc de Nouabalé-Ndoki" },
+						  {
+							"question": "Comment appelle-t-on les graines utilisées pour faire le Mbika en langue locale dans certaines régions ?",
+							"options": ["Bibétés", "Nkui", "Miondo", "Kanda"],
+							"answer": "Bibétés"
+						  },
+							{ question: "Les plateaux Batéké se trouvent principalement dans :", options: ["Les Plateaux", "Le Niari", "Le Kouilou", "La Sangha"], answer: "Les Plateaux" },
+							{ question: "Les plateaux Batéké sont caractérisés par :", options: ["Des forêts de conifères", "Des plaines inondées", "Des formations sableuses et des savanes", "Des volcans éteints"], answer: "Des formations sableuses et des savanes" },
+							  {
+								"question": "Dans quelle région du Congo-Brazzaville ce plat est-il particulièrement populaire ?",
+								"options": ["Niari", "Plateaux", "Likouala", "Bouenza"],
+								"answer": "Niari"
+							  }] ,
+		  "Histoire": [
+		{ question: "Le Congo-Brazzaville a obtenu son indépendance en :", options: ["1960", "1958", "1962", "1965"], answer: "1960" },
+		{ question: "Quel président a proclamé la République populaire du Congo ?", options: ["Fulbert Youlou", "Denis Sassou Nguesso", "Alphonse Massamba-Débat", "Marien Ngouabi"], answer: "Marien Ngouabi" },
+		{ question: "Le Congo était une colonie de quel pays ?", options: ["Belgique", "Portugal", "France", "Royaume-Uni"], answer: "France" },
+		{ question: "Quel événement marquant a eu lieu en 1991 ?", options: ["Indépendance", "Guerre civile", "Conférence nationale", "Coup d'État"], answer: "Conférence nationale" },
+		{ question: "Quel royaume historique existait avant la colonisation ?", options: ["Kongo", "Luba", "Songhaï", "Zulu"], answer: "Kongo" },
+		{ question: "Quel est le nom du traité qui a officialisé la colonisation ?", options: ["Berlin", "Brazzaville", "Versailles", "Tordesillas"], answer: "Berlin" },
+		{ question: "Qui fut le premier président du Congo indépendant ?", options: ["Fulbert Youlou", "Ngouabi", "Sassou", "Massamba"], answer: "Fulbert Youlou" },
+		{ question: "Qui a été assassiné en 1977 ?", options: ["Alphonse Massamba-Debat", "Alfred Raouln	", "Fulbert Youlou", "Désiré Kabila"], answer: "Alphonse Massamba-Debat" },
+		{ question: "Quel était le nom de la capitale du Royaume Kongo ?", options: ["Mbanza Kongo", "Loango", "Brazzaville", "Nkayi"], answer: "Mbanza Kongo" },
+		{ question: "Le Royaume de Loango était situé principalement dans quelle région actuelle ?", options: ["Nord du Congo", "Sud du Gabon et côte du Congo", "Centre du Cameroun", "Est du Congo-Brazzaville"], answer: "Sud du Gabon et côte du Congo" },
+		{ question: "Quel explorateur français a fondé Brazzaville en 1880 ?", options: ["David Livingstone", "Pierre Savorgnan de Brazza", "Henry Morton Stanley", "De Gaulle"], answer: "Pierre Savorgnan de Brazza" },
+		{ question: "Quel peuple a fondé le Royaume Téké ?", options: ["Les Fang", "Les Kongo", "Les Téké", "Les Lari"], answer: "Les Téké" },
+		{ question: "Comment s'appelait le roi du Royaume Téké qui a signé un traité avec Pierre Savorgnan de Brazza ?", options: ["Makoko Ilo I", "Nzinga Mbemba", "Mwana Makoko", "Matsoua I"], answer: "Makoko Ilo I" },
+		{ question: "Quel royaume congolais était réputé pour son commerce maritime et ses ports ?", options: ["Royaume Téké", "Royaume de Loango", "Royaume de Ndongo", "Empire Luba"], answer: "Royaume de Loango" },
+		{ question: "Dans quel royaume africain a-t-on vu le roi se convertir au christianisme au 15e siècle ?", options: ["Loango", "Kongo", "Téké", "Benin"], answer: "Kongo" },
+		{ question: "Quel roi célèbre du Royaume Kongo a entretenu des relations diplomatiques avec le Portugal ?", options: ["Makoko", "Nzinga Mbemba (Afonso Ier)", "Mwene Mutapa", "Loango II"], answer: "Nzinga Mbemba (Afonso Ier)" },
+		{ question: "Quelle activité économique était importante dans le Royaume de Loango ?", options: ["L’orpaillage", "Le commerce maritime, y compris les esclaves", "L’agriculture céréalière", "La métallurgie lourde"], answer: "Le commerce maritime, y compris les esclaves" },
+		{ question: "Quel est le nom traditionnel du chef suprême du Royaume Téké ?", options: ["Nganga", "Mfumu", "Makoko", "Mwene"], answer: "Makoko" },
+		{ question: "Quel royaume a disparu progressivement au 19e siècle à cause de la colonisation portugaise puis française ?", options: ["Royaume du Bénin", "Royaume Kongo", "Empire Songhaï", "Royaume Mossi"], answer: "Royaume Kongo" },
+		{ question: "Quelle est la langue principale parlée dans les anciens territoires du Royaume Téké ?", options: ["Lingala", "Kikongo", "Téké", "Swahili"], answer: "Téké" },
+		{ question: "Quelle était la base de l’organisation politique du Royaume de Loango ?", options: ["Système républicain", "Roi héréditaire et conseils des notables", "Colonies locales", "État militaire permanent"], answer: "Roi héréditaire et conseils des notables" },
+		{ question: "Quand Brazzaville devient-elle officiellement la capitale de l’Afrique-Équatoriale française ?", options: ["1880", "1910", "1934", "1940"], answer: "1910" },
+		{ question: "Quel mouvement religieux et politique congolais a été fondé par André Matsoua dans les années 1920 ?", options: ["Kimbanguisme", "Matsouanisme", "Lariisme", "Tékisme"], answer: "Matsouanisme" },
+		 {
+    "question": "En quelle année le Congo-Brazzaville a-t-il obtenu son indépendance ?",
+    "options": ["1958", "1960", "1965", "1970"],
+    "answer": "1960"
+  },
+  {
+    "question": "Quel homme politique est devenu le premier président du Congo-Brazzaville indépendant ?",
+    "options": ["Denis Sassou Nguesso", "Fulbert Youlou", "Marien Ngouabi", "Pascal Lissouba"],
+    "answer": "Fulbert Youlou"
+  },
+  {
+    "question": "Quel président congolais a instauré le régime marxiste-léniniste en 1969 ?",
+    "options": ["Fulbert Youlou", "Alphonse Massamba-Débat", "Marien Ngouabi", "Denis Sassou Nguesso"],
+    "answer": "Marien Ngouabi"
+  },
+  {
+    "question": "Quel président est revenu au pouvoir après la guerre civile de 1997 ?",
+    "options": ["Pascal Lissouba", "Jacques Opangault", "Denis Sassou Nguesso", "Jean-Pierre Thystère Tchicaya"],
+    "answer": "Denis Sassou Nguesso"
+  },
+  {
+    "question": "Quel rôle a joué Brazzaville pendant la Seconde Guerre mondiale ?",
+    "options": ["Capitale de la Résistance française en Afrique", "Base allemande", "Centre de déportation", "Lieu de l’armistice"],
+    "answer": "Capitale de la Résistance française en Afrique"
+  },
+  {
+    "question": "Quel événement majeur a eu lieu à Brazzaville en 1944 ?",
+    "options": ["La déclaration d’indépendance", "La conférence de Brazzaville", "Le congrès du Parti unique", "Le traité de l’AEF"],
+    "answer": "La conférence de Brazzaville"
+  },
+  {
+    "question": "Quel président congolais a été démocratiquement élu en 1992 ?",
+    "options": ["Marien Ngouabi", "Fulbert Youlou", "Denis Sassou Nguesso", "Pascal Lissouba"],
+    "answer": "Pascal Lissouba"
+  },
+  {
+    "question": "Comment s'appelait l’ensemble des colonies administrées depuis Brazzaville sous la France ?",
+    "options": ["Afrique Occidentale Française", "Union des États Congolais", "Afrique-Équatoriale Française", "Union française d’outre-mer"],
+    "answer": "Afrique-Équatoriale Française"
+  },
+  {
+    "question": "Quel personnage religieux et politique congolais fut emprisonné après son éviction du pouvoir en 1963 ?",
+    "options": ["Marien Ngouabi", "André Matsoua", "Fulbert Youlou", "Stéphane Tchichelle"],
+    "answer": "Fulbert Youlou"
+  }
+	  ],
+      "Gastronomie": [
+						{"question": "Dans quelle région du Congo-Brazzaville prépare-t-on souvent la sauce gnetum (feuilles de koko) ?", "options": ["Niari", "Cuvette", "Lekoumou", "Plateaux"], "answer": "Lekoumou"},
+						{"question": "Quel plat est considéré comme emblématique au Congo-Brazzaville ?", "options": ["Poulet Moambe", "Ndolé", "Mafé", "Yassa"], "answer": "Poulet Moambe"},
+						{"question": "Le saka-saka est préparé avec :", "options": ["Feuilles de manioc", "Feuilles de patate douce", "Feuilles de taro", "Feuilles de goyavier"], "answer": "Feuilles de manioc"},
+						{"question": "Le foufou congolais est traditionnellement à base de :", "options": ["Manioc", "Mil", "Riz", "Maïs"], "answer": "Manioc"},
+						{"question": "Quelle viande est couramment consommée dans les villages congolais ?", "options": ["Cabri", "Porc", "Bœuf", "Lapin"], "answer": "Cabri"},
+						{"question": "Le liboké désigne :", "options": ["Un plat cuit à l’étouffée dans des feuilles", "Un dessert à la banane", "Un beignet frit", "Une soupe pimentée"], "answer": "Un plat cuit à l’étouffée dans des feuilles"},
+						{"question": "Le saka-saka est généralement accompagné de :", "options": ["Foufou", "Riz", "Plantains", "Bananes frites"], "answer": "Foufou"},
+						{"question": "Quelle boisson artisanale est très populaire dans les campagnes congolaises ?", "options": ["Vin de palme", "Bière de mil", "Thé à la menthe", "Jus de tamarin"], "answer": "Vin de palme"},
+						{"question": "Les beignets sucrés congolais sont appelés :", "options": ["Mikate", "Maboké", "Konda", "Ngulu"], "answer": "Mikate"},
+						{"question": "Le manioc est consommé sous plusieurs formes, sauf :", "options": ["Cru", "Fermenté", "Bouilli", "Grillé"], "answer": "Cru"},
+						{"question": "La moambe est une sauce préparée à base de :", "options": ["Graines de palme", "Arachide", "Feuilles vertes", "Épices"], "answer": "Graines de palme"},
+						{"question": "Le 'mfumbu' est :", "options": ["Une herbe locale utilisée en cuisine", "Un poisson fumé", "Une boisson artisanale", "Un type de manioc"], "answer": "Une herbe locale utilisée en cuisine"},
+						{"question": "Les feuilles de patate douce sont appelées :", "options": ["Ngai ngai", "Saka-saka", "Liboké", "Pondu"], "answer": "Ngai ngai"},
+						{"question": "Quel plat est préparé avec du poisson enveloppé dans des feuilles puis grillé ou cuit à la vapeur ?", "options": ["Liboké", "Makayabu", "Ngai ngai", "Moambe"], "answer": "Liboké"},
+						{"question": "Quel féculent est souvent fermenté pour la préparation de la chikwangue ?", "options": ["Manioc", "Maïs", "Mil", "Riz"], "answer": "Manioc"},
+						{"question": "Le 'mbika', souvent utilisé dans les sauces, provient de :", "options": ["Graines de courge", "Graines de palme", "Graines de tournesol", "Noix de cajou"], "answer": "Graines de courge"},
+						{"question": "La viande séchée consommée au Congo est appelée :", "options": ["Ntaba", "Mbisi", "Makoso", "Ngulu"], "answer": "Ntaba"},
+						{"question": "La chikwangue est :", "options": ["Une pâte de manioc fermentée emballée dans des feuilles", "Une galette de maïs", "Une boule de riz pimentée", "Une soupe de légumes"], "answer": "Une pâte de manioc fermentée emballée dans des feuilles"},
+						{"question": "Quel est le plat national emblématique du Congo-Brazzaville ?", "options": ["Riz jollof", "Poulet à la moambe", "Ndolé", "Attiéké"], "answer": "Poulet à la moambe"},
+						{"question": "Quel est le nom du plat à base de pâte de manioc fermentée souvent consommée avec des sauces ?", "options": ["Couscous", "Tô", "Foufou", "Alloco"], "answer": "Foufou"},
+						{"question": "Quel est l’autre nom donné à la pâte de manioc au Congo ?", "options": ["Gari", "Amala", "Chikwangue (ou kwanga)", "Koki"], "answer": "Chikwangue (ou kwanga)"},
+						{"question": "Quel plat congolais est fait à base de feuilles de manioc pilées et cuites ?", "options": ["Eru", "Saka-saka (ou pondu)", "Kédjénou", "Ndolé"], "answer": "Saka-saka (ou pondu)"},
+						{"question": "Comment appelle-t-on le poisson salé et séché utilisé dans de nombreuses sauces congolaises ?", "options": ["Tilapia", "Mbika", "Makayabu", "Ngolo"], "answer": "Makayabu"},
+						{"question": "Quelle huile est typique dans la préparation des plats traditionnels congolais ?", "options": ["Huile d’olive", "Huile de tournesol", "Huile de palme", "Beurre clarifié"], "answer": "Huile de palme"},
+						{"question": "Quel tubercule est très consommé au Congo, souvent bouilli ou pilé ?", "options": ["Pomme de terre", "Manioc", "Carotte", "Taro"], "answer": "Manioc"},
+						{"question": "Quelle légumineuse est à la base de nombreuses sauces congolaises ?", "options": ["Lentilles", "Arachide (cacahuète)", "Haricots rouges", "Pois chiches"], "answer": "Arachide (cacahuète)"},
+						{"question": "Quel aliment accompagne souvent la sauce gombo au Congo ?", "options": ["Riz", "Foufou", "Semoule", "Attiéké"], "answer": "Foufou"},
+						{"question": "Quelle céréale est utilisée pour faire la bouillie populaire au petit-déjeuner ?", "options": ["Riz", "Maïs", "Blé", "Millet"], "answer": "Maïs"},
+						{"question": "Quel plat est généralement servi lors des fêtes et cérémonies ?", "options": ["Couscous royal", "Poulet à la moambe avec foufou", "Yassa au poulet", "Riz gras"], "answer": "Poulet à la moambe avec foufou"},
+						{"question": "Comment appelle-t-on les feuilles de manioc cuites à la vapeur dans des feuilles ?", "options": ["Koki", "Mbongo", "Mfumbwa", "Chikwangue"], "answer": "Mfumbwa"},
+						{"question": "Quelle boisson alcoolisée traditionnelle est issue de la fermentation de la sève du palmier ?", "options": ["Bissap", "Vin rouge", "Nsamba", "Tequila"], "answer": "Nsamba"},
+						{"question": "Quelle boisson non alcoolisée à base de racines est populaire au Congo ?", "options": ["Jus de mangue", "Jus de gingembre", "Jus de citron", "Jus de bissap"], "answer": "Jus de gingembre"},
+						{"question": "Quel fruit africain est violet, gras et souvent grillé ou bouilli ?", "options": ["Mangue", "Safou (prune africaine)", "Corossol", "Goyave"], "answer": "Safou (prune africaine)"},
+						{"question": "Quel dessert est préparé à base de bananes plantains frites ?", "options": ["Beignets", "Aloko (bananes plantains frites)", "Croquettes", "Chinchin"], "answer": "Aloko (bananes plantains frites)"},
+						{"question": "Quel aliment est souvent utilisé pour faire une confiserie ?", "options": ["Farine de manioc", "Noix de coco", "Arachide (nougat d’arachide)", "Riz soufflé"], "answer": "Arachide (nougat d’arachide)"},
+						{"question": "Quel condiment est très utilisé pour relever les sauces au Congo ?", "options": ["Piment", "Cube Maggi ou piment", "Curry", "Safran"], "answer": "Cube Maggi ou piment"},
+						{"question": "Quel fruit est souvent séché pour être consommé ou utilisé en infusion au Congo ?", "options": ["Papaye", "Hibiscus (bissap)", "Tomate", "Pomme"], "answer": "Hibiscus (bissap)"},
+						{"question": "Quelle est la particularité du tswi Téké ?", "options": ["C’est un thé sucré", "C’est un alcool fort", "C’est une pâte rouge acide faite à partir d’un fruit local", "C’est un jus de gingembre"], "answer": "C’est une pâte rouge acide faite à partir d’un fruit local"},
+						{"question": "Dans quel contenant est traditionnellement servi le tswi Téké ?", "options": ["Une bouteille en verre", "Une feuille fraîche repliée à la main", "Un bol en calebasse", "Un sachet en plastique"], "answer": "Une feuille fraîche repliée à la main"},
+						{"question": "Quel est le goût caractéristique du tswi Téké ?", "options": ["Doux et sucré", "Aigre ou acide", "Amer et piquant", "Salé"], "answer": "Aigre ou acide"},
+						{"question": "Le tswi Téké est associé principalement à quel peuple ?", "options": ["Mbochi", "Vili", "Téké", "Bembé"], "answer": "Téké"},
+						{"question": "Quel est le rôle culturel du tswi Téké ?", "options": ["Utilisé dans les compétitions sportives", "Servi lors de rites, cérémonies ou comme rafraîchissement traditionnel", "Utilisé comme carburant", "Produit d’exportation commerciale"], "answer": "Servi lors de rites, cérémonies ou comme rafraîchissement traditionnel"},
+      ],
+      "Politique": [
+	  	  { question: "Qui est l'actuel président du Congo-Brazzaville (2024) ?", options: ["Denis Sassou Nguesso", "Pascal Lissouba", "André Milongo", "Fulbert Youlou"], answer: "Denis Sassou Nguesso" },
+		  { question: "Quel parti politique est actuellement au pouvoir ?", options: ["PCT", "UPADS", "UDR-Mwinda", "MCDDI"], answer: "PCT" },
+		  { question: "Quel président a été élu démocratiquement en 1992 ?", options: ["Pascal Lissouba", "Sassou Nguesso", "Youlou", "Ngouabi"], answer: "Pascal Lissouba" },
+		  { question: "Quel homme politique était surnommé 'le pasteur président' ?", options: ["Fulbert Youlou", "Kolelas", "Lissouba", "Massamba-Débat"], answer: "Fulbert Youlou" },
+		  { question: "Le multipartisme a été instauré après :", options: ["La Conférence nationale", "La guerre de 1997", "L'indépendance", "L’élection de 2002"], answer: "La Conférence nationale" },
+		  { question: "Qui a dirigé la transition après la Conférence nationale ?", options: ["André Milongo", "Denis Sassou Nguesso", "Lissouba", "Ngouabi"], answer: "André Milongo" },
+		  { question: "Quel leader politique a dirigé le MCDDI ?", options: ["Bernard Kolélas", "Youlou", "Milongo", "Tchicaya"], answer: "Bernard Kolélas" },
+		  { question: "Le PCT signifie :", options: ["Parti Congolais du Travail", "Parti Communiste du Tchad", "Parti Citoyen du Travail", "Programme Congolais pour Tous"], answer: "Parti Congolais du Travail" },
+		  { question: "Quel événement a ramené Sassou au pouvoir en 1997 ?", options: ["Une guerre civile", "Une élection", "Un référendum", "Un coup d’État militaire"], answer: "Une guerre civile" },
+		  { question: "Combien de mandats présidentiels peut effectuer un président selon la Constitution actuelle ?", options: ["Illimité", "2", "3", "1"], answer: "Illimité" },
+		  { question: "Qui était l’opposant principal en 2016 ?", options: ["Jean-Marie Michel Mokoko", "Kolelas", "Lissouba", "Youlou"], answer: "Jean-Marie Michel Mokoko" },
+		  { question: "Le Sénat est :", options: ["La chambre haute", "La chambre basse", "Le parlement local", "Le tribunal suprême"], answer: "La chambre haute" },
+		  { question: "Quel organisme supervise les élections ?", options: ["CNEI", "CEMI", "SNEC", "CENCO"], answer: "CNEI" },
+		  { question: "En 2002, Sassou a été élu avec :", options: ["plus de 85%", "moins de 50%", "70%", "60%"], answer: "plus de 85%" },
+		  { question: "Quelle ville est le siège de l’Assemblée Nationale ?", options: ["Brazzaville", "Pointe-Noire", "Dolisie", "Owando"], answer: "Brazzaville" },
+		  { question: "Quel ministère gère l’intérieur ?", options: ["Ministère de l'Intérieur et de la Décentralisation", "Ministère de l’État", "Ministère de l’Administration", "Ministère de la Défense"], answer: "Ministère de l'Intérieur et de la Décentralisation" },
+		  { question: "Quelle figure politique a été exilée en France ?", options: ["Pascal Lissouba", "Ngouabi", "Milongo", "Mokoko"], answer: "Pascal Lissouba" },
+		  { question: "Quelle année a vu une révision constitutionnelle majeure ?", options: ["2015", "1992", "2002", "1977"], answer: "2015" },
+		  { question: "Quel est le rôle du Conseil constitutionnel ?", options: ["Contrôler la conformité des lois", "Organiser les élections", "Négocier les lois", "Appliquer les peines"], answer: "Contrôler la conformité des lois" },
+		  { question: "La diplomatie congolaise est orientée vers :", options: ["La coopération Sud-Sud", "L’axe franco-belge", "L’Union soviétique", "Les pays arabes"], answer: "La coopération Sud-Sud" },
+		  { "question": "En quelle année le Congo-Brazzaville a-t-il obtenu son indépendance ?", "options": ["1960", "1958", "1962", "1965"], "answer": "1960" },
+		  { "question": "Qui fut le premier président de la République du Congo ?", "options": ["Alphonse Massamba-Débat", "Marien Ngouabi", "Jacques Opangault", "Fulbert Youlou"], "answer": "Fulbert Youlou" },
+		  { "question": "Quel président congolais a instauré un régime marxiste-léniniste en 1969 ?", "options": ["Denis Sassou-Nguesso", "Fulbert Youlou", "Marien Ngouabi", "Alphonse Massamba-Débat"], "answer": "Marien Ngouabi" },
+		  { "question": "Quel parti unique dirigeait le Congo pendant la période marxiste ?", "options": ["PCT", "MPR", "UPADS", "UDDIA"], "answer": "PCT" },
+		  { "question": "Qui est revenu au pouvoir après la guerre civile de 1997 ?", "options": ["Pascal Lissouba", "Bernard Kolelas", "Denis Sassou-Nguesso", "André Milongo"], "answer": "Denis Sassou-Nguesso" },
+		  { "question": "Quel président fut élu démocratiquement en 1992 ?", "options": ["Denis Sassou-Nguesso", "Fulbert Youlou", "Pascal Lissouba", "André Milongo"], "answer": "Pascal Lissouba" },
+		  { "question": "Quel était le nom du parti politique de Fulbert Youlou ?", "options": ["UDDIA", "PCT", "UPADS", "MCDDI"], "answer": "UDDIA" },
+		  { "question": "Comment s'appelait la constitution adoptée en 2002 ?", "options": ["Constitution de la Cinquième République", "Constitution de la Troisième République", "Charte nationale", "Constitution de la Seconde République"], "answer": "Constitution de la Troisième République" },
+		  { "question": "Quel homme politique a été maire de Brazzaville puis chef de guerre ?", "options": ["Bernard Kolelas", "Jean-Pierre Thystère Tchicaya", "Ange Edouard Poungui", "Parfait Kolelas"], "answer": "Bernard Kolelas" },
+		  { "question": "Quel événement politique majeur a eu lieu en 1991 ?", "options": ["Conférence nationale souveraine", "Coup d'État militaire", "Election de Marien Ngouabi", "Adoption de la constitution de 1963"], "answer": "Conférence nationale souveraine" },
+		  { "question": "Quel président fut en exil après la guerre de 1997 ?", "options": ["Pascal Lissouba", "Denis Sassou-Nguesso", "Fulbert Youlou", "Bernard Kolelas"], "answer": "Pascal Lissouba" },
+		  { "question": "Le PCT signifie :", "options": ["Parti Congolais du Travail", "Parti Communiste de Tunisie", "Programme Commun Transitoire", "Peuple Congolais Triomphant"], "answer": "Parti Congolais du Travail" },
+		  { "question": "Qui a pris le pouvoir après l'assassinat de Marien Ngouabi ?", "options": ["Joachim Yhombi-Opango", "Denis Sassou-Nguesso", "André Milongo", "David Charles Ganao"], "answer": "Joachim Yhombi-Opango" },
+		  { "question": "Quel chef d’État congolais a dirigé le pays pendant plus de 30 ans au total ?", "options": ["Denis Sassou-Nguesso", "Pascal Lissouba", "Marien Ngouabi", "Fulbert Youlou"], "answer": "Denis Sassou-Nguesso" },
+		  { "question": "Qui fut Premier ministre lors de la transition après la conférence nationale ?", "options": ["André Milongo", "Bernard Kolelas", "Pascal Lissouba", "Raymond Damase Ngollo"], "answer": "André Milongo" },
+		  { "question": "Quel est le nom du mouvement rebelle dirigé par Frédéric Bintsamou (Ntumi) ?", "options": ["Ninjas", "Cobras", "Zoulous", "Kouyous"], "answer": "Ninjas" },
+		  { "question": "Quel président congolais était aussi professeur d’économie ?", "options": ["Pascal Lissouba", "Fulbert Youlou", "Alphonse Massamba-Débat", "Denis Sassou-Nguesso"], "answer": "Pascal Lissouba" },
+		  { "question": "Quel président a mis en place le multipartisme au début des années 1990 ?", "options": ["Denis Sassou-Nguesso", "Pascal Lissouba", "André Milongo", "Marien Ngouabi"], "answer": "Denis Sassou-Nguesso" },
+		  { "question": "En 2015, un référendum a été organisé pour :", "options": ["Modifier la constitution", "Supprimer les partis d’opposition", "Instaurer un régime fédéral", "Fusionner avec la RDC"], "answer": "Modifier la constitution" },
+		  { "question": "Qui fut Premier ministre sous Alphonse Massamba-Débat ?", "options": ["Pascal Lissouba", "David Charles Ganao", "Pierre Nzé", "Denis Sassou-Nguesso"], "answer": "Pascal Lissouba" },
+		  { "question": "Qui fut nommé Premier ministre par Marien Ngouabi en 1975 ?", "options": ["Henri Lopès", "Jean-Pierre Thystère Tchicaya", "Yhombi-Opango", "Denis Sassou-Nguesso"], "answer": "Henri Lopès" },
+		  { "question": "Qui était Premier ministre au moment du départ de Pascal Lissouba en 1997 ?", "options": ["Charles David Ganao", "Bernard Kolelas", "Clément Mouamba", "Isidore Mvouba"], "answer": "Charles David Ganao" },
+		  { "question": "Qui fut nommé Premier ministre lors du retour au pouvoir de Denis Sassou-Nguesso en 1997 ?", "options": ["André Milongo", "Isidore Mvouba", "Bernard Kolelas", "Raymond Damase Ngollo"], "answer": "Bernard Kolelas" },
+		  { "question": "Qui était Premier ministre sous Denis Sassou-Nguesso entre 2005 et 2009 ?", "options": ["Isidore Mvouba", "Gilbert Ondongo", "Jean-Jacques Bouya", "Raymond Zéphirin Mboulou"], "answer": "Isidore Mvouba" },
+		  { "question": "Quel Premier ministre a servi de 2016 à 2021 sous Denis Sassou-Nguesso ?", "options": ["Clément Mouamba", "Gilbert Ondongo", "Anatole Collinet Makosso", "Thierry Moungalla"], "answer": "Clément Mouamba" },
+		  { "question": "Qui est le Premier ministre en fonction depuis 2021 ?", "options": ["Anatole Collinet Makosso", "Clément Mouamba", "Isidore Mvouba", "Jean-Jacques Bouya"], "answer": "Anatole Collinet Makosso" },
+		  { "question": "Quel Premier ministre congolais était aussi diplomate et proche de Lissouba ?", "options": ["David Charles Ganao", "Henri Lopès", "André Milongo", "Raymond Damase Ngollo"], "answer": "David Charles Ganao" },
+		  { "question": "Sous quel président Isidore Mvouba a-t-il été nommé Premier ministre ?", "options": ["Denis Sassou-Nguesso", "Pascal Lissouba", "Alphonse Massamba-Débat", "Yhombi-Opango"], "answer": "Denis Sassou-Nguesso" }
+	  ], "Littérature": [
+	  ,
+	{
+    "question": "Quelle est l’une des grandes thématiques du roman le Sabre et le Goupillon ?",
+    "options": [
+      "La révolution industrielle",
+      "La colonisation et les missions religieuses en Afrique centrale",
+      "La guerre froide",
+      "L’esclavage aux États-Unis"
+    ],
+    "answer": "La colonisation et les missions religieuses en Afrique centrale"
+  },
+  {
+    "question": "Dans le roman le Sabre et le Goupillon, quelles forces transforment l’Afrique centrale ?",
+    "options": [
+      "Les commerçants et les rois",
+      "Les explorateurs et les artistes",
+      "L’armée et les missionnaires",
+      "Les paysans et les marchands"
+    ],
+    "answer": "L’armée et les missionnaires"
+  },
+  {
+    "question": "Dans le roman le Sabre et le Goupillon, que symbolise \"le sabre\" ?",
+    "options": [
+      "Le commerce",
+      "La tradition",
+      "Le pouvoir militaire et politique",
+      "L’éducation"
+    ],
+    "answer": "Le pouvoir militaire et politique"
+  },
+  {
+    "question": "Que représente \"le goupillon\" dans le roman le Sabre et le Goupillon ?",
+    "options": [
+      "L’administration coloniale",
+      "Les missionnaires et le pouvoir religieux",
+      "Les explorateurs",
+      "Les commerçants"
+    ],
+    "answer": "Les missionnaires et le pouvoir religieux"
+  },
+  {
+    "question": "Quel personnage missionnaire apparaît dans le roman le Sabre et le Goupillon ?",
+    "options": [
+      "Père Soulas",
+      "Père André",
+      "Père Pierre",
+      "Père Joseph"
+    ],
+    "answer": "Père Soulas"
+  },
+		  { question: "Qui est l’auteur du roman La vie et demie ?", options: ["Henri Lopes", "Sony Labou Tansi", "Alain Mabanckou", "Tchicaya U Tam’si"], answer: "Sony Labou Tansi" },
+		  { question: "Quel écrivain congolais a reçu le Grand Prix de la francophonie de l’Académie française en 2012 ?", options: ["Emmanuel Dongala", "Henri Lopes", "Alain Mabanckou", "Jean-Baptiste Tati Loutard"], answer: "Alain Mabanckou" },
+		  { question: "Quel est le titre du roman d’Alain Mabanckou qui se déroule dans un bar appelé \"Le Crédit a voyagé\" ?", options: ["Verre Cassé", "Mémoires de porc-épic", "Bleu-Blanc-Rouge", "Petit Piment"], answer: "Verre Cassé" },
+		  { question: "Qui a écrit Les sept solitudes de Lorsa Lopez ?", options: ["Sony Labou Tansi", "Tchicaya U Tam’si", "Henri Lopes", "Alain Mabanckou"], answer: "Sony Labou Tansi" },
+		  { question: "Quel écrivain a fondé le théâtre de Rocado Zulu à Brazzaville ?", options: ["Sony Labou Tansi", "Guy Menga", "Lassy Mbouity", "Emmanuel Dongala"], answer: "Sony Labou Tansi" },
+		  { question: "Quel genre littéraire a été fortement influencé par les œuvres de Sony Labou Tansi ?", options: ["La poésie négritude", "Le théâtre politique", "Le roman historique", "Le conte initiatique"], answer: "Le théâtre politique" },
+		  { question: "Quel auteur congolais mêle humour, satire et critique sociale dans ses romans contemporains ?", options: ["Henri Lopes", "Alain Mabanckou", "Emmanuel Dongala", "Tati Loutard"], answer: "Alain Mabanckou" },
+		  { question: "Quelle caractéristique majeure retrouve-t-on dans l’œuvre de Tchicaya U Tam’si ?", options: ["L’écriture autobiographique", "L’absurde et la satire", "Le lyrisme poétique engagé", "L’analyse sociologique"], answer: "Le lyrisme poétique engagé" },
+		  { question: "Quelle période a vu l’émergence de nombreux écrivains congolais engagés dans la politique ?", options: ["1950–1960", "1970–1980", "1990–2000", "2000–2010"], answer: "1970–1980" },
+		  { question: "Quel roman de Wilfried N’Sondé retrace l’histoire d’un prêtre africain esclave au 17e siècle ?", options: ["Le Silence des esprits", "Le Cœur des enfants léopards", "Un océan, deux mers, trois continents", "Femme au collier de velours"], answer: "Un océan, deux mers, trois continents" },
+		  { question: "Quel événement a influencé de nombreux écrivains congolais dans les années 1990 ?", options: ["La guerre civile", "L’indépendance du Congo", "La Conférence nationale souveraine", "Le Printemps arabe"], answer: "La guerre civile" },
+		  { question: "Quel écrivain est également connu pour son engagement scientifique et universitaire (notamment en chimie) ?", options: ["Sony Labou Tansi", "Emmanuel Dongala", "Alain Mabanckou", "Guy Menga"], answer: "Emmanuel Dongala" },
+		  { question: "Qui est le premier écrivain congolais à avoir connu une notoriété internationale ?", options: ["Henri Lopes", "Tchicaya U Tam’si", "Sony Labou Tansi", "Emmanuel Dongala"], answer: "Tchicaya U Tam’si" },
+		  { question: "Quel auteur congolais a aussi été ambassadeur de son pays ?", options: ["Alain Mabanckou", "Emmanuel Dongala", "Henri Lopes", "Guy Menga"], answer: "Henri Lopes" },
+		  { question: "Complétez cette citation célèbre de Sony Labou Tansi : \"La parole est... \"", options: ["un cri de liberté", "une arme de résistance", "un pouvoir de vivre", "la vérité du monde"], answer: "un pouvoir de vivre" },
+		  { question: "Dans Verre Cassé, le narrateur est :", options: ["Un étudiant", "Un écrivain", "Un instituteur", "Un ivrogne qui écrit"], answer: "Un ivrogne qui écrit" },
+		  { question: "Quel auteur congolais a publié Petit Piment ?", options: ["Emmanuel Dongala", "Sony Labou Tansi", "Alain Mabanckou", "Henri Lopes"], answer: "Alain Mabanckou" },
+		  { question: "Quel écrivain a utilisé un porc-épic comme narrateur dans un roman ?", options: ["Tchicaya U Tam’si", "Henri Lopes", "Alain Mabanckou", "Emmanuel Dongala"], answer: "Alain Mabanckou" },
+		  { question: "Quel prix littéraire Wilfried N’Sondé a-t-il reçu pour 'Le Cœur des enfants léopards' ?", options: ["Prix Goncourt", "Prix des cinq continents de la Francophonie", "Prix Renaudot", "Prix Femina"], answer: "Prix des cinq continents de la Francophonie" },
+		  { question: "Quel auteur a créé un \"pays imaginaire\" pour critiquer les dictatures africaines ?", options: ["Sony Labou Tansi", "Guy Menga", "Alain Mabanckou", "Jean Malonga"], answer: "Sony Labou Tansi" },
+		  { question: "Jean Malonga est surtout connu pour son œuvre :", options: ["La légende de Mfoumou Ma Mazono", "Coeur d’Aryenne", "Dilemme d’un bouffon", "Le procès du muet"], answer: "La légende de Mfoumou Ma Mazono" },
+		  { question: "Quelle maison d’édition a popularisé de nombreux auteurs congolais dans la francophonie ?", options: ["Seuil", "Présence Africaine", "Gallimard", "L’Harmattan"], answer: "Présence Africaine" },
+		  { question: "Quel est le premier roman de Wilfried N’Sondé ?", options: ["Le Cœur des enfants léopards", "Un océan, deux mers, trois continents", "Femme au collier de velours", "La Vie très privée de Monsieur Sim"], answer: "Le Cœur des enfants léopards" },
+		  { question: "Quel thème revient souvent dans les romans de Wilfried N’Sondé ?", options: ["La science-fiction", "L’Afrique contemporaine et la diaspora", "Les guerres napoléoniennes", "La gastronomie française"], answer: "L’Afrique contemporaine et la diaspora" },
+		  { question: "Où Wilfried N’Sondé situe-t-il une grande partie de l’action de 'Le Cœur des enfants léopards' ?", options: ["Berlin", "Brazzaville", "Paris", "Kinshasa"], answer: "Paris" },
+		  { "question": "Parmi les personnalités congolaises suivantes, lequel n’est pas un écrivain ?", "options": ["Loko-Massengo", "Sylvain Bemba", "Jean-Baptiste Tati-Loutard", "Henri Lopes"], "answer": "Loko-Massengo" },
+		  { "question": "Qui des quatre écrivains suivants est un poète ?", "options": ["Wilfried N’sondé", "Tchicaya U Tam’si", "Ferdinand Mouangassa", "Sylvain Bemba"], "answer": "Tchicaya U Tam’si" },
+		  { "question": "Quel recueil de poésie de Tchicaya U Tam’si a remporté le Grand prix de poésie au 1er festival des arts nègres à Dakar en 1966 ?", "options": ["Le Mauvais Sang", "Feu de Brousse", "À Triche-cœur", "Épitomé"], "answer": "Épitomé" },
+		  { "question": "Lequel de ces écrivains congolais n’a pas écrit de pièces de théâtre ?",
+			  options: [
+				"Sony Labou Tansi",
+				"Sylvain Bemba",
+				"Jean-Baptiste Tati Loutard",
+				"Guy Menga"
+			  ],
+			  answer: "Jean-Baptiste Tati Loutard"
+			},
+		  {
+			"question": "Dans quelle ville est décédé Sony Labou Tansi ?",
+			"options": ["Pointe-Noire", "Dolisie", "Kinshasa", "Brazzaville"],
+			"answer": "Brazzaville"
+		  },
+		  {
+			"question": "La Fleuvitude est-elle ?",
+			"options": ["Une science qui étudie les fleuves", "Un mouvement artistique", "Un mouvement littéraire", "un style vestimentaire"],
+			"answer": "Un mouvement littéraire"
+		  },
+		  {
+			"question": "Que signifie le pseudonyme de « Tchicaya U Tam’si » ?",
+			"options": ["La petite feuille qui souffre au sommet de l’arbre", "La petite feuille qui est séparée de l’arbre", "La petite feuille qui chante pour son pays", "La petite feuille qui écrit pour son pays"],
+			"answer": "La petite feuille qui chante pour son pays"
+		  },
+		  {
+			"question": "Chaïdana est un célèbre personnage du roman :",
+			"options": ["Photo de groupe au bord du fleuve Congo", "Une enfant de Poto-Poto", "La vie et demie", "Tribaliques"],
+			"answer": "La vie et demie"
+		  },
+		  {
+			"question": "Quel roman a rendu célèbre l’écrivain Alain Mabanckou ?",
+			"options": ["Bleu Blanc Rouge", "Verre Cassé", "Demain j’aurai vingt ans", "Black Bazar"],
+			"answer": "Verre Cassé"
+		  },
+		  {
+			"question": "La « Phratrie » est un terme inventé par :",
+			"options": ["Emmanuel Dongala", "Jean-Baptiste Tati-Loutard", "Sylvain Bemba", "Dominique Ngoïe Ngalla"],
+			"answer": "Sylvain Bemba"
+		  },
+		  {
+			"question": "Comment s’appelait la revue des évolués de l’Afrique équatoriale française (AEF) ?",
+			"options": ["Le Mensuel de l’Afrique Equatoriale Française", "La Revue Liaison", "La Revue L’évolué", "AEF Nouvelle"],
+			"answer": "La Revue Liaison"
+		  },
+		  {
+			"question": "Qui a écrit le roman La Légende de M’Pfoumou Ma Mazono ?",
+			"options": ["Antoine Letembet-Ambily", "Guy Menga", "Jean Malonga", "Maurice Mattambica"],
+			"answer": "Jean Malonga"
+		  },
+		  {
+			"question": "Quel est le premier roman de la littérature congolaise ?",
+			"options": ["La Légende de M’Pfoumou Ma Mazono", "La Légende des chutes de la Lufulakari", "Les souvenirs d’Aryenne", "Cœur d’Aryenne"],
+			"answer": "Cœur d’Aryenne"
+		  },
+		  {
+			"question": "Quel recueil de poésie de Tchicaya U Tam’si a remporté le Grand prix de poésie au 1er festival des arts nègres à Dakar en 1966 ?",
+			"options": ["Le Mauvais Sang", "Feu de Brousse", "À Triche-cœur", "Épitomé"],
+			"answer": "Épitomé"
+		  },
+		  {
+			"question": "Qui est l’auteur du roman intitulé « Johnny Chien méchant » ?",
+			"options": ["Alain Mabanckou", "Henri Djombo", "Emmanuel Dongala", "Henri Lopes"],
+			"answer": "Emmanuel Dongala"
+		  },
+		  {
+			"question": "Quel recueil de poésie de Tchicaya U Tam’si a remporté le Grand prix de poésie au 1er festival des arts nègres à Dakar en 1966 ?",
+			"options": ["Le Mauvais Sang", "Feu de Brousse", "À Triche-cœur", "Épitomé"],
+			"answer": "Épitomé"
+		  },
+		  {
+			  question: "Lequel de ces auteurs congolais a travaillé à l’UNESCO ?",
+			  options: ["Alain Mabanckou", "Henri Lopes", "Wilfried N’Sondé", "Sony Labou Tansi"],
+			  answer: "Henri Lopes"
+			},
+			{
+			  "question": "Quel est le destin tragique du héros de 'Niamo' ?",
+			  "options": ["Il est condamné à mort", "Il s'exile", "Il devient chef", "Il perd la mémoire"],
+			  "answer": "Il est condamné à mort"
+			},
+		  {
+			"question": "Qui parmi ces auteurs n’a pas remporté le Grand prix littéraire d’Afrique noire ?",
+			"options": ["Alain Mabanckou", "Jean-Aimé Dibakana-Mouanda", "Henri Lopes", "Guy Menga"],
+			"answer": "Alain Mabanckou"
+		  },
+			{
+			  "question": "Pourquoi le personnage principal de 'Niamo' est-il condamné ?",
+			  "options": ["Pour avoir réussi sa vie", "Pour avoir volé un bétail", "Pour avoir trahi son clan", "Pour avoir fui son village"],
+			  "answer": "Pour avoir réussi sa vie"
+			},
+		  {
+			"question": "Quel roman a valu à l’écrivain Alain Mabanckou le prix Renaudot en 2006 ?",
+			"options": ["Black Bazar", "African psycho", "Mémoires de Porc-Epic", "Les cigognes sont immortelles"],
+			"answer": "Mémoires de Porc-Epic"
+		  },
+			{
+			  "question": "Quel est le thème principal du film 'Niamo' ?",
+			  "options": ["La jalousie sociale", "La guerre civile", "La migration", "L'éducation des enfants"],
+			  "answer": "La jalousie sociale"
+			},
+		  {
+			"question": "Quel est le poète dont le recueil de poésie est entré en 2025 dans la collection « poésie » des éditions Gallimard ?",
+			"options": ["Alain Mabanckou", "Huppert Malanda", "Gabriel Okoundji", "Maxime N’débéka"],
+			"answer": "Gabriel Okoundji"
+		  },
+		{
+		  "question": "De quel roman est inspiré le film 'Niamo' ?",
+		  "options": ["Vous mourrez dans 10 jours", "La vie et demie", "Le pleurer-rire", "Le feu des origines"],
+		  "answer": "Vous mourrez dans 10 jours"
+		},
+		{
+		  "question": "Qui est l'auteur du roman à l'origine du film 'Niamo' ?",
+		  "options": ["Henri Nzombo", "Sony Labou Tansi", "Henri Lopes", "Emmanuel Dongala"],
+		  "answer": "Henri Nzombo"
+		},
+		{
+			"question": "Qui est l’autrice de 'Beto na beto, le poids de la tribu' ?",
+			"options": ["Mambou Aimée Gnali", "Sony Labou Tansi", "Henri Lopes", "Jean Malonga"],
+			"answer": "Mambou Aimée Gnali"
+		  },
+		  {
+			"question": "Que signifie l’expression 'Beto na beto' en lingala ?",
+			"options": ["Entre nous", "Tous ensemble", "Notre héritage", "Force de la tribu"],
+			"answer": "Entre nous"
+		  },
+		  {
+			"question": "Dans quel contexte historique se déroule le récit du livre 'Beto na beto, le poids de la tribu' de Mambou Aimée Gnali  ?",
+			"options": ["Le Congo précolonial", "Le Congo post-colonial", "La période de l’indépendance", "La guerre civile des années 1990"],
+			"answer": "Le Congo post-colonial"
+		  },
+		  {
+			"question": "Comment s’appelle l’amant et mentor de Mambou Aimée Gnali, assassiné dans le récit du livre 'Beto na beto, le poids de la tribu' 'Beto na beto, le poids de la tribu'  ?",
+			"options": ["Lazare Matsocota", "Henri Lopes", "Jean Malonga", "Sylvain Bemba"],
+			"answer": "Lazare Matsocota"
+		  },
+		  {
+			"question": "Quel thème majeur traverse tout le récit ?",
+			"options": ["L’amour de la nature", "Les luttes politiques et tribales", "La cuisine traditionnelle", "La vie des étudiants en Europe"],
+			"answer": "Les luttes politiques et tribales"
+		  },
+         {
+        "question": "Quelle est l’une des grandes thématiques du roman les cancres heureux ?",
+        "options": [
+            "La réussite scolaire classique",
+            "La critique du système social et politique",
+            "La vie rurale traditionnelle",
+            "Le développement technologique"
+        ],
+        "answer": "La critique du système social et politique"
+    },
+    {
+        "question": "Dans le roman les cancres heureux, que représentent les “cancres” ?",
+        "options": [
+            "Des élèves paresseux",
+            "Des jeunes marginalisés par le système",
+            "Des criminels organisés",
+            "Des étudiants étrangers"
+        ],
+        "answer": "Des jeunes marginalisés par le système"
+    },
+    {
+        "question": "Dans le roman les cancres heureux, pourquoi les personnages sont-ils qualifiés de “heureux” ?",
+        "options": [
+            "Parce qu’ils réussissent financièrement",
+            "Parce qu’ils vivent sans contraintes",
+            "Par ironie face à un système qu’ils rejettent",
+            "Parce qu’ils sont inconscients"
+        ],
+        "answer": "Par ironie face à un système qu’ils rejettent"
+    },
+    {
+        "question": "Dans le roman les cancres heureux, quel type de société est décrit ?",
+        "options": [
+            "Une société stable et équitable",
+            "Une société utopique",
+            "Une société marquée par la corruption et les inégalités",
+            "Une société en pleine prospérité"
+        ],
+        "answer": "Une société marquée par la corruption et les inégalités"
+    },
+    {
+        "question": "Dans le roman les cancres heureux, quelle est l’attitude dominante des jeunes face au système ?",
+        "options": [
+            "Une adhésion totale",
+            "Une révolte organisée",
+            "Une adaptation mêlée de désillusion",
+            "Une ignorance complète"
+        ],
+        "answer": "Une adaptation mêlée de désillusion"
+    },
+	{
+    question: "Dans « L’Afrique, une promesse », quelle qualité Hervé Mahicka considère-t-il comme essentielle pour transformer l’Afrique ?",
+    options: [
+      "La résignation face aux difficultés",
+      "Le leadership et la responsabilité collective",
+      "La dépendance aux multinationales",
+      "L’isolement des pays africains"
+    ],
+    answer: "Le leadership et la responsabilité collective"
+  }, {
+    question: "Quelle est l’idée centrale développée dans le livre « L’Afrique, une promesse » de Hervé Mahicka ?",
+    options: [
+      "L’Afrique dépend uniquement de l’aide extérieure",
+      "L’Afrique possède un fort potentiel de transformation et d’avenir",
+      "L’Afrique doit abandonner ses traditions pour se développer",
+      "L’Afrique est condamnée aux conflits permanents"
+    ],
+    answer: "L’Afrique possède un fort potentiel de transformation et d’avenir"
+  },
+
+  {
+    question: "Selon la vision portée par Hervé Mahicka, quel levier est essentiel pour l’avenir de l’Afrique ?",
+    options: [
+      "La fuite des talents vers l’étranger",
+      "La dépendance aux matières premières",
+      "L’innovation, la jeunesse et l’entrepreneuriat",
+      "La fermeture économique des pays africains"
+    ],
+    answer: "L’innovation, la jeunesse et l’entrepreneuriat"
+  },
+
+  {
+    question: "Quel message fort transmet « L’Afrique, une promesse » ?",
+    options: [
+      "Le développement africain viendra uniquement des grandes puissances",
+      "Les défis africains sont impossibles à surmonter",
+      "Les Africains doivent croire en leur capacité à bâtir leur avenir",
+      "L’Afrique doit copier entièrement le modèle occidental"
+    ],
+    answer: "Les Africains doivent croire en leur capacité à bâtir leur avenir"
+  }
+],
+"Tourisme": [
+  {
+    "question": "Quel monument est représenté sur l’image ?",
+    "image": "images/MémorialPierreSavorgnandeBrazza.jpeg",
+    "options": ["Tour Nabemba", "Mémorial Pierre Savorgnan de Brazza",  "Basilique Sainte-Anne", "Marché Poto-Poto"],
+    "answer": "Mémorial Pierre Savorgnan de Brazza"
+  },
+  {
+    "question": "Quel site naturel spectaculaire illustré sur l’image représente des gorges près de Pointe-Noire ?",
+    "image": "images/gorgediosso.jpeg",
+    "options": ["Parc de Nouabalé-Ndoki", "Chutes de Loufoulakari", "Gorges de Diosso",  "Baie de Loango"],
+    "answer": "Gorges de Diosso"
+  },
+  {
+    "question": "Quel édifice religieux figure sur l’image ?",
+    "image": "images/eglise_notredame_pnr.jpg",
+    "options": ["Cathédrale du Sacré de Brazzaville", "Église Catholique Notre Dame de L'Assomption",  "Basilique Sainte-Anne", "Église Saint Michel de Dolisie"],
+    "answer": "Église Catholique Notre Dame de L'Assomption"
+  },
+  {
+    "question": "Quelle ville est connue pour cette cathédrale ?",
+	"image": "images/eglise_notredame_pnr.jpg",
+    "options": ["Pointe-Noire", "Dolisie", "Brazzaville", "Nkayi"],
+    "answer": "Pointe-Noire"
+  },
+  {
+    "question": "Quelle tour emblématique est montrée sur l’image ?",
+    "image": "images/Tour_Nabemba.jpeg",
+    "options": ["Palais du Peuple", "Musée National du Congo", "Tour de Dolisie", "Tour Nabemba"],
+    "answer": "Tour Nabemba"
+  },
+  {
+    "question": "Dans quelle ville se trouve cette tour ?",
+	"image": "images/Tour_Nabemba.jpeg",
+    "options": ["Pointe-Noire", "Dolisie", "Brazzaville", "Loango"],
+    "answer": "Brazzaville"
+  },
+  {
+    "question": "Quel palais présidentiel est visible sur l’image ?",
+	"image": "images/palais_peuple.jpeg",
+    "options": ["Palais présidentiel de Pointe-Noire", "Palais du Peuple", "Palais de Justice", "Palais des Congrès"],
+    "answer": "Palais du Peuple"
+  },
+  {
+    "question": "Quel quartier animé est représenté sur l’image ?",
+	"image": "images/marche_potopoto.jpg",
+    "options": [ "Corniche du fleuve Congo", "Marché Poto-Poto", "Marché de Dolisie", "Centre-ville de Pointe-Noire"],
+    "answer": "Marché Poto-Poto"
+  },
+  {
+    "question": "Quel site naturel près de Brazzaville est célèbre pour ses cascades et forêts ?",
+	"image": "images/chutes-loufoulakari-palmier.jpeg",
+    "options": ["Chutes de Loufoulakari", "Gorges de Diosso", "Parc Mbudi", "Odzala-Kokoua"],
+    "answer": "Chutes de Loufoulakari"
+  },
+  {
+    "question": "Quelle école artistique pionnière se trouve à Brazzaville ?",
+	"image": "images/ecole_poto_poto.jpg",
+    "options": ["École de Peinture de Poto-Poto", "Académie des Beaux-Arts", "Centre Culturel Moungali", "Ecole du Plateau"],
+    "answer": "École de Peinture de Poto-Poto"
+  },
+  {
+    "question": "Quel musée de Pointe-Noire est consacré à l’art et l’histoire locale ?",
+	"image": "images/musee_cercle_africain.jpg",
+    "options": ["Musée du Cercle Africain", "Musée Ma-Loango", "Musée National du Congo", "Musée de Dolisie"],
+    "answer": "Musée du Cercle Africain"
+  },
+  {
+    "question": "Quelle baie historique au sud de Pointe-Noire était un ancien port d’esclavage ?",
+	"image": "images/port_Loango.jpg",
+    "options": ["Baie de Loango", "Baie de Tchinouka", "Côte Sauvage", "Baie de Dolisie"],
+    "answer": "Baie de Loango"
+  },
+  {
+    "question": "Quel parc national près de Pointe-Noire est riche en biodiversité ?",
+	"image": "images/Parc_National_Conkouati-Douli.jpeg",
+    "options": ["Parc National de Conkouati-Douli", "Odzala-Kokoua", "Parc Mbudi", "Forêt du Mayombe"],
+    "answer": "Parc National de Conkouati-Douli"
+  },
+  {
+    "question": "Quel spot naturel côtier sauvage est apprécié près de Pointe-Noire ?",
+	"image": "images/cote_sauvage_pointe_noire.jpg",
+    "options": ["Côte Sauvage", "Plage Sportive", "Baie de Loango", "Baie de Tchinouka"],
+    "answer": "Côte Sauvage"
+  },
+  {
+	  "question": "Quel monument naturel emblématique se trouve au cœur de la ville de Dolisie ?",
+	  "image": "images/arbre_de_dolisie.jpeg",
+	  "options": ["L’arbre de Dolisie", "Le Rocher de Sibiti", "Le Baobab de Nkayi", "Les Gorges de Diosso"],
+	  "answer": "L’arbre de Dolisie"
+  },
+  {
+    "question": "Quel symbole religieux se dresse à Dolisie dans l’enceinte de la ville ?",
+	"image": "images/dolisie-eglise-saint-paul.jpeg",
+    "options": ["Église Saint-Paul", "Cathédrale du Sacré-Cœur", "Basilique Sainte-Anne", "Cathédrale Saint-Pierre"],
+    "answer": "Église Saint-Paul"
+  },
+  {
+	  "question": "Où se trouve le site touristique représenté sur cette photo, célèbre pour ses bungalows, sa piscine et sa vue sur l’océan Atlantique ?",
+	  "image": "images/malonda_lodge.jpeg",
+	  "options": [
+		"Brazzaville",
+		"Pointe-Noire",
+		"Nkayi",
+		"Owando"
+	  ],
+	  "answer": "Pointe-Noire"
+	},
+	{
+	  "question": "La gare centrale de Pointe-Noire, au Congo-Brazzaville, a été construite dans un style qui rappelle fortement une gare française. Laquelle ?",
+	  "image": "images/gare_centrale_pnr.jpeg",
+	  "options": [
+		"Gare de Lyon (Paris)",
+		"Gare de Deauville",
+		"Gare de La Rochelle",
+		"Gare de Trouville-Deauville"
+	  ],
+	  "answer": "Gare de Trouville-Deauville"
+	},
+	{
+	  "question": "Quelle autorité impose la couleur officielle des taxis ?",
+	  "image": "images/taxis_pointenoire.jpg",
+	  "options": [
+		"La préfecture",
+		"La mairie",
+		"Le ministère du tourisme",
+		"Le syndicat des transporteurs"
+	  ],
+	  "answer": "La mairie"
+	}
+	],
+	  "Droit et Société": [
+    {
+      "question": "Quel texte garantit l’égalité entre hommes et femmes au Congo-Brazzaville ?",
+      "options": [
+        "Code civil",
+        "Constitution",
+        "Code pénal",
+        "Ordonnance coloniale"
+      ],
+      "answer": "Constitution"
+    },
+    {
+      "question": "Quelle loi encadre le mariage au Congo-Brazzaville ?",
+      "options": [
+        "Code de la famille",
+        "Code civil français",
+        "Charte de l’OUA",
+        "Code coutumier"
+      ],
+      "answer": "Code de la famille"
+    },
+    {
+      "question": "Quel âge légal minimum est fixé pour le mariage des femmes au Congo ?",
+      "options": [
+        "15 ans",
+        "18 ans",
+        "20 ans",
+        "21 ans"
+      ],
+      "answer": "18 ans"
+    },
+    {
+      "question": "Le Code de la famille interdit-il le mariage forcé ?",
+      "options": [
+        "Oui",
+        "Non",
+        "Seulement en ville",
+        "Seulement pour les mineures"
+      ],
+      "answer": "Oui"
+    },
+    {
+      "question": "Quelle institution protège les droits de la femme au Congo-Brazzaville ?",
+      "options": [
+        "Ministère de la Promotion de la Femme",
+        "Conseil constitutionnel",
+        "Assemblée nationale",
+        "Mairie"
+      ],
+      "answer": "Ministère de la Promotion de la Femme"
+    },
+    {
+      "question": "La femme congolaise a-t-elle le droit d’hériter des biens de son mari ?",
+      "options": [
+        "Oui, selon le Code de la famille",
+        "Non, selon la coutume",
+        "Seulement si le mari l’autorise",
+        "Jamais"
+      ],
+      "answer": "Oui, selon le Code de la famille"
+    },
+    {
+      "question": "Quelle loi punit les violences basées sur le genre au Congo-Brazzaville ?",
+      "options": [
+        "Code pénal",
+        "Code de la famille",
+        "Code civil",
+        "Ordonnance 1960"
+      ],
+      "answer": "Code pénal"
+    },
+    {
+      "question": "Les femmes peuvent-elles transmettre la nationalité congolaise à leurs enfants ?",
+      "options": [
+        "Oui",
+        "Non",
+        "Seulement si elles sont mariées à un Congolais",
+        "Seulement pour les filles"
+      ],
+      "answer": "Oui"
+    },
+    {
+      "question": "Quelle journée est consacrée à la femme congolaise ?",
+      "options": [
+        "25 mars",
+        "8 mars",
+        "14 juillet",
+        "1er juin"
+      ],
+      "answer": "8 mars"
+    },
+    {
+      "question": "Les femmes mariées ont-elles le droit de travailler sans autorisation du mari ?",
+      "options": [
+        "Oui",
+        "Non",
+        "Seulement avec une procuration",
+        "Seulement en ville"
+      ],
+      "answer": "Oui"
+    },
+    {
+      "question": "La polygamie est-elle légale au Congo-Brazzaville ?",
+      "options": [
+        "Oui",
+        "Non",
+        "Seulement en zone rurale",
+        "Seulement avec accord du tribunal"
+      ],
+      "answer": "Oui"
+    },
+    {
+      "question": "Combien d’épouses un homme peut-il légalement avoir au Congo ?",
+      "options": [
+        "2",
+        "3",
+        "4",
+        "Illimité"
+      ],
+      "answer": "4"
+    },
+    {
+      "question": "La femme a-t-elle le droit de refuser un mariage polygamique ?",
+      "options": [
+        "Oui",
+        "Non",
+        "Seulement si elle est fonctionnaire",
+        "Seulement avec l’accord de sa famille"
+      ],
+      "answer": "Oui"
+    },
+    {
+      "question": "Quel régime matrimonial interdit la polygamie ?",
+      "options": [
+        "Monogamie",
+        "Polygamie",
+        "Communauté de biens",
+        "Séparation de biens"
+      ],
+      "answer": "Monogamie"
+    },
+    {
+      "question": "La polygamie doit être déclarée lors :",
+      "options": [
+        "Du mariage civil",
+        "Du mariage coutumier",
+        "De la dot",
+        "De l’inscription à la mairie"
+      ],
+      "answer": "Du mariage civil"
+    },
+    {
+      "question": "La femme peut-elle avoir plusieurs maris au Congo-Brazzaville ?",
+      "options": [
+        "Non",
+        "Oui",
+        "Seulement en coutume",
+        "Seulement en ville"
+      ],
+      "answer": "Non"
+    },
+    {
+      "question": "Quel document précise le choix de polygamie ou monogamie ?",
+      "options": [
+        "Acte de mariage",
+        "Testament",
+        "Carte d’identité",
+        "Contrat de travail"
+      ],
+      "answer": "Acte de mariage"
+    },
+    {
+      "question": "La polygamie entraîne-t-elle un partage des biens entre coépouses ?",
+      "options": [
+        "Oui, selon la loi",
+        "Non, selon la coutume",
+        "Seulement avec testament",
+        "Jamais"
+      ],
+      "answer": "Oui, selon la loi"
+    },
+    {
+      "question": "Une femme peut-elle exiger la monogamie dans son mariage ?",
+      "options": [
+        "Oui",
+        "Non",
+        "Seulement si elle est héritière",
+        "Seulement en ville"
+      ],
+      "answer": "Oui"
+    },
+    {
+      "question": "Quel est le rôle de l’officier d’état civil dans un mariage polygamique ?",
+      "options": [
+        "Homologuer le choix du régime",
+        "Attribuer la dot",
+        "Donner une autorisation spéciale",
+        "Consulter le tribunal"
+      ],
+      "answer": "Homologuer le choix du régime"
+    },
+    {
+      "question": "La veuve a-t-elle le droit de rester dans la maison conjugale ?",
+      "options": [
+        "Oui",
+        "Non",
+        "Seulement avec accord de la belle-famille",
+        "Seulement si elle a des enfants"
+      ],
+      "answer": "Oui"
+    },
+    {
+      "question": "Quelle coutume est souvent imposée aux veuves ?",
+      "options": [
+        "Port du deuil",
+        "Mariage forcé",
+        "Expulsion immédiate",
+        "Renonciation à l’héritage"
+      ],
+      "answer": "Port du deuil"
+    },
+    {
+      "question": "Combien de temps le deuil traditionnel d’une veuve dure-t-il en moyenne ?",
+      "options": [
+        "40 jours",
+        "6 mois",
+        "1 an",
+        "2 ans"
+      ],
+      "answer": "1 an"
+    },
+    {
+      "question": "Selon le droit congolais, les veuves ont-elles les mêmes droits successoraux que les hommes ?",
+      "options": [
+        "Oui",
+        "Non",
+        "Seulement en ville",
+        "Seulement avec testament"
+      ],
+      "answer": "Oui"
+    },
+    {
+      "question": "La pratique du lévirat (remariage avec un frère du défunt) est-elle autorisée par la loi ?",
+      "options": [
+        "Non",
+        "Oui",
+        "Seulement avec accord du chef",
+        "Seulement si la femme veut"
+      ],
+      "answer": "Non"
+    },
+    {
+      "question": "Qui administre les biens de l’époux décédé si les enfants sont mineurs ?",
+      "options": [
+        "La veuve",
+        "Le tuteur désigné",
+        "Le chef de village",
+        "L’État"
+      ],
+      "answer": "Le tuteur désigné"
+    },
+    {
+      "question": "La veuve peut-elle contester une succession en justice ?",
+      "options": [
+        "Oui",
+        "Non",
+        "Seulement en coutume",
+        "Jamais"
+      ],
+      "answer": "Oui"
+    },
+    {
+      "question": "Quelle loi encadre l’héritage des veuves au Congo-Brazzaville ?",
+      "options": [
+        "Code de la famille",
+        "Code pénal",
+        "Constitution",
+        "Ordonnance coloniale"
+      ],
+      "answer": "Code de la famille"
+    },
+    {
+      "question": "La veuve a-t-elle le droit d’hériter des terres coutumières ?",
+      "options": [
+        "Oui",
+        "Non",
+        "Seulement avec accord du chef",
+        "Seulement en ville"
+      ],
+      "answer": "Non"
+    },
+    {
+      "question": "Quel document protège légalement les droits de la veuve ?",
+      "options": [
+        "Acte de mariage",
+        "Certificat d’hérédité",
+        "Carte d’identité",
+        "Titre foncier"
+      ],
+      "answer": "Certificat d’hérédité"
+    },
+    {
+      "question": "Qui est le premier responsable légal d’un orphelin ?",
+      "options": [
+        "Le tuteur",
+        "Le maire",
+        "Le ministre",
+        "Le chef coutumier"
+      ],
+      "answer": "Le tuteur"
+    },
+    {
+      "question": "Quel code protège les droits des orphelins ?",
+      "options": [
+        "Code de la famille",
+        "Code coutumier",
+        "Code du travail",
+        "Code électoral"
+      ],
+      "answer": "Code de la famille"
+    },
+    {
+      "question": "Les orphelins ont-ils droit à l’héritage de leurs parents ?",
+      "options": [
+        "Oui",
+        "Non",
+        "Seulement les garçons",
+        "Seulement en ville"
+      ],
+      "answer": "Oui"
+    },
+    {
+      "question": "Quel organisme s’occupe de la protection des enfants vulnérables ?",
+      "options": [
+        "Affaires sociales",
+        "Mairie",
+        "Armée",
+        "Église"
+      ],
+      "answer": "Affaires sociales"
+    },
+    {
+      "question": "Peut-on adopter légalement un orphelin au Congo-Brazzaville ?",
+      "options": [
+        "Oui",
+        "Non",
+        "Seulement en ville",
+        "Seulement à l’étranger"
+      ],
+      "answer": "Oui"
+    },
+    {
+      "question": "Quel document prouve la filiation d’un orphelin ?",
+      "options": [
+        "Acte de naissance",
+        "Passeport",
+        "Certificat de travail",
+        "Carte d’électeur"
+      ],
+      "answer": "Acte de naissance"
+    },
+    {
+      "question": "Le placement d’un orphelin doit-il être validé par :",
+      "options": [
+        "Le tribunal",
+        "La mairie",
+        "Le chef de famille",
+        "Le prêtre"
+      ],
+      "answer": "Le tribunal"
+    },
+    {
+      "question": "L’école primaire est-elle gratuite pour les orphelins ?",
+      "options": [
+        "Oui",
+        "Non",
+        "Seulement en ville",
+        "Seulement pour les garçons"
+      ],
+      "answer": "Oui"
+    },
+    {
+      "question": "Les orphelins peuvent-ils être privés d’héritage ?",
+      "options": [
+        "Non",
+        "Oui",
+        "Seulement si la coutume l’exige",
+        "Seulement avec accord de l’État"
+      ],
+      "answer": "Non"
+    },
+    {
+      "question": "Quel ministère assure la protection des orphelins ?",
+      "options": [
+        "Ministère des Affaires sociales",
+        "Ministère de l’Intérieur",
+        "Ministère des Finances",
+        "Ministère de la Défense"
+      ],
+      "answer": "Ministère des Affaires sociales"
+    },
+    {
+      "question": "Quel document officialise la relation entre locataire et propriétaire ?",
+      "options": [
+        "Bail écrit",
+        "Témoignage oral",
+        "Certificat de résidence",
+        "Carte d’électeur"
+      ],
+      "answer": "Bail écrit"
+    },
+    {
+      "question": "Le propriétaire peut-il expulser un locataire sans décision de justice ?",
+      "options": [
+        "Non",
+        "Oui",
+        "Seulement en zone rurale",
+        "Seulement pour non-paiement"
+      ],
+      "answer": "Non"
+    },
+    {
+      "question": "Le dépôt de garantie est-il obligatoire au Congo ?",
+      "options": [
+        "Non",
+        "Oui",
+        "Seulement en ville",
+        "Seulement pour les étrangers"
+      ],
+      "answer": "Oui"
+    },
+    {
+      "question": "Qui paie les réparations majeures dans une maison louée ?",
+      "options": [
+        "Le propriétaire",
+        "Le locataire",
+        "La mairie",
+        "L’État"
+      ],
+      "answer": "Le propriétaire"
+    },
+    {
+      "question": "Le locataire a-t-il le droit de demander un reçu pour chaque loyer payé ?",
+      "options": [
+        "Oui",
+        "Non",
+        "Seulement en ville",
+        "Jamais"
+      ],
+      "answer": "Oui"
+    },
+    {
+      "question": "Quel tribunal tranche les litiges entre bailleurs et locataires ?",
+      "options": [
+        "Tribunal de paix",
+        "Cour constitutionnelle",
+        "Conseil municipal",
+        "Tribunal militaire"
+      ],
+      "answer": "Tribunal de paix"
+    },
+    {
+      "question": "Le propriétaire peut-il augmenter le loyer librement ?",
+      "options": [
+        "Non",
+        "Oui",
+        "Seulement avec accord écrit",
+        "Seulement après 3 ans"
+      ],
+      "answer": "Non"
+    },
+    {
+      "question": "La durée minimale d’un bail d’habitation est généralement :",
+      "options": [
+        "1 an",
+        "2 ans",
+        "3 ans",
+        "6 mois"
+      ],
+      "answer": "1 an"
+    },
+    {
+      "question": "Le locataire doit-il payer la taxe foncière ?",
+      "options": [
+        "Non",
+        "Oui",
+        "Seulement en ville",
+        "Seulement en cas de litige"
+      ],
+      "answer": "Non"
+    },
+    {
+      "question": "Quel document protège le droit du locataire ?",
+      "options": [
+        "Bail enregistré",
+        "Titre foncier",
+        "Acte de mariage",
+        "Certificat de nationalité"
+      ],
+      "answer": "Bail enregistré"
+    },
+    {
+      "question": "Quel est l’âge légal de vote au Congo-Brazzaville ?",
+      "options": [
+        "16 ans",
+        "18 ans",
+        "20 ans",
+        "21 ans"
+      ],
+      "answer": "18 ans"
+    },
+    {
+      "question": "Le Congo reconnaît-il le droit de grève ?",
+      "options": [
+        "Oui",
+        "Non",
+        "Seulement pour les fonctionnaires",
+        "Seulement avec accord du président"
+      ],
+      "answer": "Oui"
+    },
+    {
+      "question": "Quelle est la langue officielle de la République du Congo ?",
+      "options": [
+        "Kikongo",
+        "Lingala",
+        "Français",
+        "Téké"
+      ],
+      "answer": "Français"
+    },
+    {
+      "question": "La liberté de culte est-elle garantie au Congo ?",
+      "options": [
+        "Oui",
+        "Non",
+        "Seulement pour les religions traditionnelles",
+        "Seulement en ville"
+      ],
+      "answer": "Oui"
+    },
+    {
+      "question": "Quel est l’âge minimum légal pour travailler ?",
+      "options": [
+        "14 ans",
+        "15 ans",
+        "16 ans",
+        "18 ans"
+      ],
+      "answer": "16 ans"
+    },
+    {
+      "question": "Les syndicats sont-ils autorisés au Congo-Brazzaville ?",
+      "options": [
+        "Oui",
+        "Non",
+        "Seulement pour enseignants",
+        "Seulement pour médecins"
+      ],
+      "answer": "Oui"
+    },
+    {
+      "question": "Le Congo est-il membre de l’Union Africaine ?",
+      "options": [
+        "Oui",
+        "Non",
+        "Jamais",
+        "Depuis 2010 seulement"
+      ],
+      "answer": "Oui"
+    },
+    {
+      "question": "Quel document garantit les droits fondamentaux au Congo ?",
+      "options": [
+        "Constitution",
+        "Code civil",
+        "Charte coloniale",
+        "Ordonnance coutumière"
+      ],
+      "answer": "Constitution"
+    },
+    {
+      "question": "Les citoyens congolais ont-ils le droit à l’éducation gratuite primaire ?",
+      "options": [
+        "Oui",
+        "Non",
+        "Seulement en ville",
+        "Seulement pour les garçons"
+      ],
+      "answer": "Oui"
+    },
+    {
+      "question": "Le service militaire est-il obligatoire au Congo-Brazzaville ?",
+      "options": [
+        "Non",
+        "Oui",
+        "Seulement en cas de guerre",
+        "Seulement pour les hommes"
+      ],
+      "answer": "Non"
+    },
+    {
+      "question": "Le droit coutumier au Congo varie selon :",
+      "options": [
+        "Les ethnies",
+        "Les religions",
+        "Les écoles",
+        "Les régions administratives uniquement"
+      ],
+      "answer": "Les ethnies"
+    },
+    {
+      "question": "Quelle autorité est garante du droit coutumier ?",
+      "options": [
+        "Chef traditionnel",
+        "Président de la République",
+        "Maire",
+        "Député"
+      ],
+      "answer": "Chef traditionnel"
+    },
+    {
+      "question": "Le mariage coutumier inclut généralement :",
+      "options": [
+        "La dot",
+        "Le baptême",
+        "Le divorce",
+        "Le vote"
+      ],
+      "answer": "La dot"
+    },
+    {
+      "question": "Les terres coutumières appartiennent :",
+      "options": [
+        "Aux familles lignagères",
+        "À l’État",
+        "Aux chefs seuls",
+        "Aux mairies"
+      ],
+      "answer": "Aux familles lignagères"
+    },
+    {
+      "question": "Le règlement des conflits coutumiers se fait souvent par :",
+      "options": [
+        "Palabre",
+        "Vote",
+        "Procès pénal",
+        "Arbitrage militaire"
+      ],
+      "answer": "Palabre"
+    },
+    {
+      "question": "Dans la coutume Kongo, qui hérite en priorité ?",
+      "options": [
+        "L’oncle maternel",
+        "Le fils aîné",
+        "La fille aînée",
+        "Le chef de village"
+      ],
+      "answer": "L’oncle maternel"
+    },
+    {
+      "question": "La justice coutumière privilégie :",
+      "options": [
+        "La réconciliation",
+        "La punition sévère",
+        "La prison",
+        "Les amendes en argent uniquement"
+      ],
+      "answer": "La réconciliation"
+    },
+    {
+      "question": "La dot coutumière peut être payée en :",
+      "options": [
+        "Biens, argent, vivres",
+        "Seulement en argent",
+        "Seulement en bétail",
+        "Seulement en or"
+      ],
+      "answer": "Biens, argent, vivres"
+    },
+    {
+      "question": "Le mariage coutumier est-il reconnu par l’État ?",
+      "options": [
+        "Non, il doit être complété par le civil",
+        "Oui, seul",
+        "Seulement dans les villages",
+        "Seulement à Brazzaville"
+      ],
+      "answer": "Non, il doit être complété par le civil"
+    },
+    {
+      "question": "Les coutumes peuvent-elles primer sur la Constitution ?",
+      "options": [
+        "Non",
+        "Oui",
+        "Seulement en zone rurale",
+        "Seulement avec accord du chef"
+      ],
+      "answer": "Non"
+    }
+  ]
+    };

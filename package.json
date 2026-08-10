@@ -1,0 +1,27 @@
+{
+  "name": "congo-brazza-quizz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "questions_tourismes.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "npx playwright test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mariellefila/congo-brazza-quizz.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mariellefila/congo-brazza-quizz/issues"
+  },
+  "homepage": "https://github.com/mariellefila/congo-brazza-quizz#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1"
+  }
+}
