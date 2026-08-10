@@ -7,6 +7,9 @@ const scoreP = document.getElementById('score');
 const categoryTitle = document.getElementById('categoryTitle');
 const buildFooter = document.getElementById('buildFooter');
 
+const BUILD_REF = 'main@8896491';
+const BUILD_PUBLISHED_AT = '2026-08-10 09:46';
+
 let timerInterval = null;
 let timeLeft = quizApi.getTimeLimitSeconds();
 let currentQuestion = null;
@@ -175,12 +178,7 @@ function startQuiz(categorySlug) {
 }
 
 function renderBuildFooter() {
-  const buildVersion = 'Build: 1.0.0';
-  const now = new Date();
-  const pad = (num) => String(num).padStart(2, '0');
-  const buildDate = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
-  const buildTime = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
-  buildFooter.textContent = `${buildVersion} — Publié le ${buildDate} à ${buildTime}`;
+  buildFooter.textContent = `Build: ${BUILD_REF} — Publié le ${BUILD_PUBLISHED_AT}`;
 }
 
 renderMenu();
