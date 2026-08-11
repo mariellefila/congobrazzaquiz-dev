@@ -83,5 +83,23 @@
   }, 5000);
         </script>
     </div>
-    <script type="module" src="src/frontend/ui.js"></script>
+        <script type="module">
+            // Initialise Supabase si des variables sont définies (supabase-config.js)
+            import('./src/lib/supabaseClient.js').then(async ({ initSupabase }) => {
+                try {
+                    if (window.SUPABASE_URL && window.SUPABASE_ANON_KEY) {
+                        await initSupabase(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+                        console.log('Supabase initialisé');
+                    }
+                } catch (err) {
+                    console.warn('Échec de l\'initialisation Supabase', err);
+                } finally {
+                    // Démarre l'UI quand même (fallback local possible)
+                    await import('./src/frontend/ui.js');
+                }
+            }).catch((e) => {
+                console.error('Impossible de charger le client Supabase', e);
+                import('./src/frontend/ui.js');
+            });
+        </script>
 </body>

@@ -1,4 +1,6 @@
 import * as quizApi from '../api/quizApi.js';
+import * as quizService from '../application/quizService.js';
+import { isSupabaseInitialized, getSupabase } from '../lib/supabaseClient.js';
 
 const menuDiv = document.getElementById('menu');
 const quizDiv = document.getElementById('quiz');
@@ -181,5 +183,18 @@ function renderBuildFooter() {
   buildFooter.textContent = `Build: ${BUILD_REF} — Publié le ${BUILD_PUBLISHED_AT}`;
 }
 
-renderMenu();
-renderBuildFooter();
+// Initialisation asynchrone : si Supabase est initialisé, précharge les questions
+async function initAndRender() {
+  if (isSupabaseInitialized()) {
+    try {
+      await quizService.initWithSupabase(getSupabase(), { includeAnswers: true });
+      console.log('Questions préchargées depuis Supabase');
+    } catch (e) {
+      console.warn('Échec du préchargement Supabase, utilisation locale', e);
+    }
+  }
+  renderMenu();
+  renderBuildFooter();
+}
+
+initAndRender();

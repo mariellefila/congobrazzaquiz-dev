@@ -1,0 +1,23 @@
+[
+  {
+    "id": "ad-1",
+    "image_url": "reseau120bannere.jpg",
+    "link_url": "https://www.facebook.com/share/p/1CrPDJFjfo/",
+    "title": "Réseau 120 Bannière",
+    "active": true
+  },
+  {
+    "id": "ad-2",
+    "image_url": "publicite02.jpg",
+    "link_url": "https://www.facebook.com/share/1E9R3oiV4M/",
+    "title": "Publicité 02",
+    "active": true
+  },
+  {
+    "id": "ad-3",
+    "image_url": "lesabre_et_le_goupillon.png",
+    "link_url": "https://www.leslettresmouchetees.com/product-page/le-sabre-et-le-goupillon",
+    "title": "Le Sabre et le Goupillon",
+    "active": true
+  }
+]

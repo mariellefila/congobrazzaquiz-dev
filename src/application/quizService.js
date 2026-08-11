@@ -92,3 +92,38 @@ export function getResult() {
 export function getTimeLimitSeconds() {
   return 20;
 }
+
+// Initialise le repository depuis Supabase en rechargeant les données en mémoire.
+// includeAnswers=true récupère aussi le champ `answer` (utile pour le mode solo),
+// mais en production multi compétitif il est recommandé de valider côté serveur.
+export async function initWithSupabase(supabaseClient, { includeAnswers = true } = {}) {
+  if (!supabaseClient) throw new Error('Supabase client requis');
+  const selectCols = includeAnswers ? 'id, category_id, question, options, image, answer' : 'id, category_id, question, options, image';
+  const { data, error } = await supabaseClient.from('questions').select(selectCols).order('id', { ascending: true });
+  if (error) throw error;
+  // rebuild a local `source` object compatible with createQuestionRepository
+  const source = {};
+  (data || []).forEach((q) => {
+    const cat = q.category_id || 'uncategorized';
+    source[cat] = source[cat] || [];
+    source[cat].push({
+      question: q.question,
+      options: q.options || [],
+      answer: includeAnswers ? q.answer : null,
+      image: q.image || null,
+    });
+  });
+  // replace repository with preloaded in-memory repo to keep existing sync API
+  const repo = createQuestionRepository(source);
+  // mutate current module-level reference
+  // eslint-disable-next-line no-unused-vars
+  // Note: we intentionally keep the same API surface (sync) by preloading data.
+  // For larger datasets consider paginating instead of preloading all questions.
+  // Assign to outer-scope variable
+  // (can't re-declare const; mutate by assigning to same name via indirect means)
+  // We'll replace methods on existing repository object if possible.
+  Object.keys(repo).forEach((k) => {
+    // eslint-disable-next-line no-param-reassign
+    questionRepository[k] = repo[k];
+  });
+}
