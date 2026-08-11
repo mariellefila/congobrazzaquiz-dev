@@ -43,6 +43,14 @@
         </header>
         <main>
             <h1 id="categoryTitle"></h1>
+            <section class="auth-panel" aria-label="Authentification joueur">
+                <p id="authStatus" class="auth-status">Mode invité</p>
+                <div class="auth-actions">
+                    <button id="loginGoogle" class="auth-btn auth-google" type="button">Connexion Google</button>
+                    <button id="loginFacebook" class="auth-btn auth-facebook" type="button">Connexion Facebook</button>
+                    <button id="logoutBtn" class="auth-btn auth-logout" type="button" hidden>Déconnexion</button>
+                </div>
+            </section>
             <div id="menu"></div>
             <div id="quiz"></div>
             <p id="timer" class="timer"></p>

@@ -1,6 +1,6 @@
-# 🚀 SUPABASE SETUP — READY FOR RESTART
+# 🚀 SUPABASE SETUP — PHASE 1 COMPLETED
 
-**Status: All files prepared. Ready for Codespace restart.**
+**Status: Server initialized and data imported (7 categories, 356 questions, 3 ads).**
 
 ---
 
@@ -110,15 +110,16 @@ See: **`SUPABASE_CHECKPOINT.md`** for complete details
 
 ## 🎯 Summary
 
-**Before Restart:**
+**Current status:**
 - ✅ All files in place
 - ✅ Dependencies installed
-- ⏳ Waiting for secrets
+- ✅ Migrations applied
+- ✅ Data imported
 
-**After Restart:**
+**Safe rerun command:**
 1. Verify secrets load
 2. Run `npm run setup-supabase`
-3. Done! Data will be in Supabase
+3. Script now performs idempotent upserts
 
 **Then:**
 - Phase 2: Auth UI (Google/Facebook login)

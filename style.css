@@ -26,6 +26,66 @@ h1, h2 {
   text-align: center;
 }
 
+.auth-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: linear-gradient(180deg, #f3f8ff 0%, #e9f2ff 100%);
+  border: 1px solid #d4e5ff;
+  border-radius: 12px;
+  padding: 12px;
+  margin: 10px 0 14px;
+}
+
+.auth-status {
+  margin: 0;
+  text-align: center;
+  font-weight: 700;
+  color: #123a6f;
+}
+
+.auth-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.auth-btn {
+  margin: 0;
+  padding: 10px 12px;
+  font-size: 15px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.auth-google {
+  background: #ffffff;
+  color: #1f1f1f;
+  border: 1px solid #d5d5d5;
+}
+
+.auth-google:hover {
+  background: #f4f4f4;
+}
+
+.auth-facebook {
+  background: #1877f2;
+  color: #ffffff;
+}
+
+.auth-facebook:hover {
+  background: #0e63d8;
+}
+
+.auth-logout {
+  background: #8c2f39;
+  color: #ffffff;
+}
+
+.auth-logout:hover {
+  background: #74262f;
+}
+
 .ad {
   background-color: #e0e0e0;
   text-align: center;
@@ -66,6 +126,11 @@ button:hover {
   button {
     font-size: 14px;
     padding: 12px;
+  }
+
+  .auth-btn {
+    font-size: 14px;
+    padding: 10px;
   }
 }
 

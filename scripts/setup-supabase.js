@@ -23,7 +23,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Configuration
 const SUPABASE_URL = process.env.SUPABASE_URL || 'https://dhmkhogszktonyuynpns.supabase.co';
-const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SECRET_KEYS;
 
 if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
   console.error('❌ Missing SUPABASE_URL or SUPABASE_SERVICE_KEY');
@@ -144,20 +144,21 @@ async function loadAdvertisements() {
 async function verifyMigrations() {
   console.log('✅ Checking if migrations are already applied...');
   
-  try {
-    const { data, error } = await supabase
-      .from('categories')
-      .select('count', { count: 'exact', head: true });
-    
-    if (error && error.code === 'PGRST116') {
-      return false; // Table doesn't exist
-    }
-    
+  const { error } = await supabase
+    .from('categories')
+    .select('id', { head: true, count: 'exact' })
+    .limit(1);
+
+  if (!error) {
     console.log('✅ Migrations already applied (tables exist)');
     return true;
-  } catch (e) {
+  }
+
+  if (error.code === 'PGRST205' || error.code === 'PGRST116') {
     return false;
   }
+
+  throw new Error(`Cannot verify migrations: ${error.message} (code: ${error.code || 'unknown'})`);
 }
 
 /**
@@ -168,7 +169,7 @@ async function insertCategories(categories) {
   
   const { error } = await supabase
     .from('categories')
-    .insert(categories);
+    .upsert(categories, { onConflict: 'id' });
   
   if (error) {
     console.error('❌ Error inserting categories:', error);
@@ -189,7 +190,7 @@ async function insertQuestions(questions) {
     const batch = questions.slice(i, i + BATCH_SIZE);
     const { error } = await supabase
       .from('questions')
-      .insert(batch);
+      .upsert(batch, { onConflict: 'id' });
     
     if (error) {
       console.error(`❌ Error inserting questions batch:`, error);
@@ -215,7 +216,7 @@ async function insertAdvertisements(ads) {
   
   const { error } = await supabase
     .from('advertisements')
-    .insert(ads);
+    .upsert(ads, { onConflict: 'id' });
   
   if (error) {
     console.error('❌ Error inserting advertisements:', error);
@@ -234,7 +235,14 @@ async function main() {
     console.log(`📌 Project URL: ${SUPABASE_URL}\n`);
     
     // Step 1: Check if migrations are applied
-    const migrationsApplied = await verifyMigrations();
+    let migrationsApplied = false;
+    try {
+      migrationsApplied = await verifyMigrations();
+    } catch (verifyError) {
+      console.error(`❌ ${verifyError.message}`);
+      console.error('ℹ️  This usually means missing GRANT privileges for your API key role.');
+      process.exit(1);
+    }
     
     if (!migrationsApplied) {
       console.log('\n⚠️  Migrations not yet applied. Please do one of the following:\n');

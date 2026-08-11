@@ -1,6 +1,6 @@
-const { defineConfig } = require('@playwright/test');
+import { defineConfig } from '@playwright/test';
 
-module.exports = defineConfig({
+export default defineConfig({
   testDir: 'tests',
   timeout: 60 * 1000,
   expect: {
@@ -18,6 +18,6 @@ module.exports = defineConfig({
     command: 'python3 -m http.server 4173',
     port: 4173,
     reuseExistingServer: !process.env.CI,
-    cwd: __dirname,
+    cwd: process.cwd(),
   },
 });

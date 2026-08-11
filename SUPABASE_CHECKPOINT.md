@@ -1,6 +1,6 @@
 # 🔄 CHECKPOINT — Supabase Integration for Congo-Brazza Quizz
 # Created: 2026-08-11
-# Status: READY FOR RESTART
+# Status: PHASE 1 COMPLETED
 
 ## 📋 CURRENT STATE
 
@@ -11,12 +11,13 @@
 - [x] QuestionRepository async adapter
 - [x] Frontend async initialization
 - [x] Migration file (supabase/migrations/20260811_init_schema.sql)
+- [x] Corrective migration (supabase/migrations/20260811_fix_permissions_and_validate_answer.sql)
 - [x] Setup script (scripts/setup-supabase.js)
 - [x] Documentation (docs/SUPABASE_INTEGRATION.md)
+- [x] Migrations applied on project `dhmkhogszktonyuynpns`
+- [x] Data imported (7 categories, 356 questions, 3 advertisements)
 
 ### Pending 🔄
-- [ ] Push migrations to Supabase
-- [ ] Import questions + advertisements
 - [ ] Configure OAuth (Google/Facebook)
 - [ ] Auth UI implementation
 - [ ] Multiplayer/Realtime features
@@ -43,7 +44,7 @@ echo "PROJECT_URL: $SUPABASE_PROJECT_URL"
 
 ---
 
-## 🚀 IMMEDIATE NEXT STEPS (AFTER RESTART)
+## 🚀 IMMEDIATE NEXT STEPS
 
 ### Step 1: Verify Secrets Loaded ✅
 ```bash
@@ -58,7 +59,7 @@ Expected output: All 3 variables should appear
 npm install
 ```
 
-### Step 3: Run Complete Setup
+### Step 3: Run Complete Setup (idempotent)
 ```bash
 SUPABASE_URL="https://dhmkhogszktonyuynpns.supabase.co" \
 SUPABASE_SERVICE_KEY="$SUPABASE_SECRET_KEYS" \
@@ -66,10 +67,9 @@ node scripts/setup-supabase.js
 ```
 
 This will:
-1. Check if migrations exist
-2. If not → show instructions to apply them manually (via SQL Studio or CLI)
-3. Import all questions + advertisements
-4. Print summary
+1. Check if migrations exist and are readable with the configured key role
+2. Upsert all questions and advertisements (safe to rerun)
+3. Print summary
 
 ---
 
@@ -114,8 +114,8 @@ supabase db push
 ### Phase 1: Infrastructure (Current) 🟢
 - ✅ Schema designed
 - ✅ Client configured
-- ⏳ Migrations applied (pending restart)
-- ⏳ Data imported (pending restart)
+- ✅ Migrations applied
+- ✅ Data imported
 
 ### Phase 2: Authentication 🔵
 - [ ] OAuth Google/Facebook config
@@ -193,18 +193,17 @@ curl -H "Authorization: Bearer $SUPABASE_SECRET_KEYS" \
 
 ## 🎯 SUMMARY
 
-**Status: Ready for Restart + Setup**
+**Status: Supabase infra ready (Phase 1 complete)**
 
-All foundation files are in place. After you restart Codespace:
-1. Verify secrets load
-2. Run `scripts/setup-supabase.js`
-3. Migrations will be applied (auto or manual guide)
-4. Data will be imported
+All foundation files are in place and data is present on Supabase.
+1. Keep secrets configured in Codespaces
+2. Re-run `scripts/setup-supabase.js` whenever a seed refresh is needed
+3. Continue with Phase 2 (OAuth settings + Auth UI)
 
 Then we move to Phase 2 (Auth UI).
 
 ---
 
-**Last Updated:** 2026-08-11
+**Last Updated:** 2026-08-11 (session resumed and completed)
 **Project:** congo-brazza-quizz
 **Supabase Project:** dhmkhogszktonyuynpns
