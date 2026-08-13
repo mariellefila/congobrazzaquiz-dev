@@ -9,14 +9,19 @@
 <body class="hero-body">
     <div class="hero">
         <div class="hero-video-wrapper" aria-hidden="true">
-            <iframe
+            <video
                 id="heroVideo"
                 class="hero-video"
-                title="Brazzaville"
-                frameborder="0"
-                allow="autoplay; encrypted-media"
                 tabindex="-1"
-            ></iframe>
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+            >
+                <source media="(max-width: 768px)" src="rebuild/CQBphonevideo.mp4" type="video/mp4" />
+                <source src="rebuild/videoCBQ%20desktop.mp4" type="video/mp4" />
+            </video>
         </div>
         <div class="hero-overlay"></div>
 
@@ -76,20 +81,6 @@
                 });
             });
 
-            var params = new URLSearchParams({
-                autoplay: '1',
-                mute: '1',
-                loop: '1',
-                playlist: '3l0XB0kapdU',
-                controls: '0',
-                showinfo: '0',
-                modestbranding: '1',
-                rel: '0',
-                playsinline: '1',
-                origin: window.location.origin,
-            });
-            document.getElementById('heroVideo').src =
-                'https://www.youtube.com/embed/3l0XB0kapdU?' + params.toString();
         })();
     </script>
 </body>
