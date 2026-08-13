@@ -3,7 +3,7 @@
 body {
   margin: 0;
   font-family: 'Product Sans', 'Segoe UI', sans-serif;
-  background-color: #f9f9f9;
+  background: linear-gradient(180deg, #fef6e7 0%, #f2f7ff 100%);
   color: #333;
 }
 
@@ -11,79 +11,13 @@ body {
   max-width: 480px;
   margin: auto;
   padding: 20px;
-  background-color: white;
+  background: linear-gradient(180deg, #ffffff 0%, #fdf8ef 100%);
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.logo {
-  max-width: 100%;
-  height: auto;
-  margin: 0 auto 20px;
-  display: block;
+  border-radius: 24px;
 }
 
 h1, h2 {
   text-align: center;
-}
-
-.auth-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  background: linear-gradient(180deg, #f3f8ff 0%, #e9f2ff 100%);
-  border: 1px solid #d4e5ff;
-  border-radius: 12px;
-  padding: 12px;
-  margin: 10px 0 14px;
-}
-
-.auth-status {
-  margin: 0;
-  text-align: center;
-  font-weight: 700;
-  color: #123a6f;
-}
-
-.auth-actions {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px;
-}
-
-.auth-btn {
-  margin: 0;
-  padding: 10px 12px;
-  font-size: 15px;
-  border-radius: 10px;
-  font-weight: 700;
-}
-
-.auth-google {
-  background: #ffffff;
-  color: #1f1f1f;
-  border: 1px solid #d5d5d5;
-}
-
-.auth-google:hover {
-  background: #f4f4f4;
-}
-
-.auth-facebook {
-  background: #1877f2;
-  color: #ffffff;
-}
-
-.auth-facebook:hover {
-  background: #0e63d8;
-}
-
-.auth-logout {
-  background: #8c2f39;
-  color: #ffffff;
-}
-
-.auth-logout:hover {
-  background: #74262f;
 }
 
 .ad {
@@ -127,11 +61,6 @@ button:hover {
     font-size: 14px;
     padding: 12px;
   }
-
-  .auth-btn {
-    font-size: 14px;
-    padding: 10px;
-  }
 }
 
 .quiz-image {
@@ -140,21 +69,6 @@ button:hover {
   display: block;
   margin: 10px auto;
   border-radius: 8px;
-}
-
-.build-footer {
-  margin-top: 16px;
-  color: #666;
-  font-size: 14px;
-  text-align: center;
-  padding: 10px 0;
-  border-top: 1px solid #e0e0e0;
-}
-
-@media screen and (max-width: 480px) {
-  .build-footer {
-    font-size: 13px;
-  }
 }
 
 .quiz-button {
@@ -253,4 +167,344 @@ button:hover {
     min-width: 32px;
     font-size: 13px;
   }
+}
+
+/* ---------------------------------------------------------------- */
+/* Landing immersive (V2)                                            */
+/* ---------------------------------------------------------------- */
+
+.hero-body {
+  margin: 0;
+  background: #000;
+}
+
+.hero {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero-video-wrapper {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 56.25vw; /* 16:9 */
+  min-height: 100vh;
+  min-width: 177.78vh; /* 16:9 */
+  transform: translate(-50%, -50%);
+  border: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.35) 40%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+.hero-nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 32px;
+}
+
+.hero-nav nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.hero-nav nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.hero-nav nav a:hover,
+.hero-nav nav a:focus-visible {
+  text-decoration: underline;
+}
+
+.hero-nav-facebook {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-main {
+  position: absolute;
+  top: 50%;
+  left: 32px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  transform: translateY(-50%);
+}
+
+.hero-logo {
+  width: min(420px, 60vw);
+  height: auto;
+  mix-blend-mode: screen;
+}
+
+.cta-group {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.cta-btn {
+  --cta-width: 170px;
+  --cta-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--cta-width);
+  min-width: var(--cta-width);
+  height: var(--cta-height);
+  min-height: var(--cta-height);
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 18px;
+  text-decoration: none;
+  padding: 0 20px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  transition: background-color 0.18s ease-in-out, color 0.18s ease-in-out, border-color 0.18s ease-in-out, transform 0.15s ease-in-out;
+}
+
+.cta-btn.is-active {
+  background: #ffffff;
+  color: #1a1a1a;
+  border-color: #ffffff;
+}
+
+.cta-group:hover .cta-btn:not(:hover) {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.cta-btn:hover {
+  background: #ffffff;
+  color: #1a1a1a;
+  border-color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.cta-btn:active {
+  transform: translateY(0);
+}
+
+.cta-btn:focus-visible {
+  outline: none;
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.6);
+}
+
+.mobile-nav {
+  display: none;
+}
+
+@media screen and (max-width: 720px) {
+  .hero {
+    height: 100dvh;
+    min-height: 100dvh;
+    overflow: hidden;
+  }
+
+  .hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    transform: scale(1.22);
+    transform-origin: center center;
+  }
+
+  .hero-video-wrapper,
+  .hero-overlay {
+    inset: 0;
+  }
+
+  .hero-nav {
+    position: absolute;
+    inset: 0 0 auto 0;
+    padding: 14px 16px 0;
+    z-index: 3;
+  }
+
+  .hero-nav nav {
+    display: none;
+  }
+
+  .hero-nav-facebook {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    z-index: 4;
+    width: 30px;
+    height: 30px;
+  }
+
+  .hero-main {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 18px;
+    padding: 18vh 20px 120px 18vw;
+    margin-top: 0;
+    max-width: none;
+  }
+
+  .hero-logo {
+    width: clamp(220px, 58vw, 330px);
+    display: block;
+    margin: 0;
+  }
+
+  .cta-group {
+    width: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .cta-btn {
+    --cta-width: clamp(180px, 46vw, 240px);
+    --cta-height: 38px;
+    width: var(--cta-width);
+    min-width: var(--cta-width);
+    height: var(--cta-height);
+    min-height: var(--cta-height);
+    font-size: 16px;
+    border-radius: 12px;
+    letter-spacing: 0.01em;
+  }
+
+  .mobile-nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    padding: 12px 8px calc(18px + env(safe-area-inset-bottom));
+    background: rgba(0, 0, 0, 0.14);
+  }
+
+  .mobile-nav a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 72px;
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .mobile-nav img {
+    display: block;
+    width: 26px;
+    height: 26px;
+    filter: brightness(0) invert(1);
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Pages secondaires (categorie, mode, classement, contributions)    */
+/* ---------------------------------------------------------------- */
+
+.back-link {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.back-link a {
+  color: #1e8e3e;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.mode-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.mode-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 16px 18px;
+  background: #ffffff;
+  transition: box-shadow 0.15s ease-in-out;
+}
+
+.mode-card:hover,
+.mode-card:focus-visible {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mode-card h2 {
+  margin: 0 0 4px;
+  text-align: left;
+  font-size: 20px;
+}
+
+.mode-card p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.mode-card--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  position: relative;
+}
+
+.mode-card-badge {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #a8720a;
+  background: #fef1d6;
+  padding: 2px 8px;
+  border-radius: 999px;
 }

@@ -7,14 +7,10 @@ const quizDiv = document.getElementById('quiz');
 const timerP = document.getElementById('timer');
 const scoreP = document.getElementById('score');
 const categoryTitle = document.getElementById('categoryTitle');
-const buildFooter = document.getElementById('buildFooter');
 const authStatus = document.getElementById('authStatus');
 const loginGoogleBtn = document.getElementById('loginGoogle');
 const loginFacebookBtn = document.getElementById('loginFacebook');
 const logoutBtn = document.getElementById('logoutBtn');
-
-const BUILD_REF = 'main@8896491';
-const BUILD_PUBLISHED_AT = '2026-08-10 09:46';
 
 let timerInterval = null;
 let timeLeft = quizApi.getTimeLimitSeconds();
@@ -299,10 +295,6 @@ function startQuiz(categorySlug) {
   showQuestion(result.currentQuestion);
 }
 
-function renderBuildFooter() {
-  buildFooter.textContent = `Build: ${BUILD_REF} — Publié le ${BUILD_PUBLISHED_AT}`;
-}
-
 // Initialisation asynchrone : si Supabase est initialisé, précharge les questions
 async function initAndRender() {
   await wireAuth();
@@ -315,7 +307,6 @@ async function initAndRender() {
     }
   }
   renderMenu();
-  renderBuildFooter();
 }
 
 initAndRender();

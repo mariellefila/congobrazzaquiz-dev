@@ -5,109 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Congo-Brazza Quizz</title>
     <link rel="stylesheet" href="style.css" />
-    <style>
-        .ad-bottom {
-            animation: pulse 2s infinite;
-        }
-
-            .ad-bottom img {
-                width: 200px;
-                border-radius: 8px;
-                box-shadow: 0 0 10px rgba(0,0,0,0.3);
-                transition: transform 0.3s ease-in-out;
-            }
-
-                .ad-bottom img:hover {
-                    transform: scale(1.1) rotate(-2deg);
-                }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-    </style>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <img src="bannere.jpg" alt="Congo-Brazza Quizz" class="logo" />
-        </header>
-        <main>
-            <h1 id="categoryTitle"></h1>
-            <section class="auth-panel" aria-label="Authentification joueur">
-                <p id="authStatus" class="auth-status">Mode invité</p>
-                <div class="auth-actions">
-                    <button id="loginGoogle" class="auth-btn auth-google" type="button">Connexion Google</button>
-                    <button id="loginFacebook" class="auth-btn auth-facebook" type="button">Connexion Facebook</button>
-                    <button id="logoutBtn" class="auth-btn auth-logout" type="button" hidden>Déconnexion</button>
-                </div>
-            </section>
-            <div id="menu"></div>
-            <div id="quiz"></div>
-            <p id="timer" class="timer"></p>
-            <p id="score" style="font-weight: bold"></p>
-        </main>
-        <footer class="build-footer" id="buildFooter" aria-label="Informations de version"></footer>
-        <div class="ad ad-bottom">
-            <h3>Pour votre publicité sur le site &nbsp;<a href="https://www.facebook.com/profile.php?id=100063648157074" target="_blank">cliquez ici *</a></h3>
-            <a id="adLink" href="https://www.facebook.com/share/15gqQNoAWR/" target="_blank">
-                <img id="adImage" src="reseau120bannere.jpg" alt="Publicité">
-            </a>
-            <br />
-            <hr />
-            <cite>* pour voir afficher votre publicité sur notre site, vous pouvez nous envoyer un message depuis notre page Facebook</cite>
+<body class="hero-body">
+    <div class="hero">
+        <div class="hero-video-wrapper" aria-hidden="true">
+            <iframe
+                id="heroVideo"
+                class="hero-video"
+                title="Brazzaville"
+                frameborder="0"
+                allow="autoplay; encrypted-media"
+                tabindex="-1"
+            ></iframe>
         </div>
+        <div class="hero-overlay"></div>
 
-        <script>
-      const adImages = [
-    { src: "reseau120bannere.jpg", link: "https://www.facebook.com/share/p/1CrPDJFjfo/" },
-    { src: "publicite02.jpg", link: "https://www.facebook.com/share/1E9R3oiV4M/" },
-	{ src: "lesabre_et_le_goupillon.png", link: "https://www.leslettresmouchetees.com/product-page/le-sabre-et-le-goupillon"}
-  ];
+        <header class="hero-nav">
+            <nav aria-label="Navigation principale">
+                <a href="pages/leaderboard.html">Classement</a>
+                <a href="pages/proposer-question.html">Proposer une question</a>
+                <a href="pages/proposer-publicite.html">Proposer une pub</a>
+            </nav>
+            <a
+                class="hero-nav-facebook"
+                href="https://www.facebook.com/profile.php?id=100063648157074"
+                target="_blank"
+                rel="noopener"
+                aria-label="Congo Brazza Quiz sur Facebook"
+            >
+                <img src="images/brand/facebook-icon.svg" alt="" width="20" height="20" />
+            </a>
+        </header>
 
-  let currentAd = 0;
+        <nav class="mobile-nav" aria-label="Navigation mobile">
+            <a href="pages/leaderboard.html">
+                <img src="rebuild/Classement.svg" alt="" width="22" height="22" />
+                <span>Classement</span>
+            </a>
+            <a href="pages/proposer-question.html">
+                <img src="rebuild/Proposer%20une%20questions.svg" alt="" width="22" height="22" />
+                <span>Proposer une questions</span>
+            </a>
+            <a href="pages/proposer-publicite.html">
+                <img src="rebuild/Proposer%20une%20pub.svg" alt="" width="22" height="22" />
+                <span>Proposer une pub</span>
+            </a>
+        </nav>
 
-  setInterval(() => {
-    currentAd = (currentAd + 1) % adImages.length;
-    const img = document.getElementById("adImage");
-    const link = document.getElementById("adLink");
-    const categoryTitle = document.getElementById("categoryTitle");
-
-    img.style.opacity = 0;
-    setTimeout(() => {
-      img.src = adImages[currentAd].src;
-      link.href = adImages[currentAd].link;
-      img.style.opacity = 1;
-    }, 300);
-  }, 5000);
-        </script>
+        <main class="hero-main">
+            <img class="hero-logo" src="rebuild/LOGO%20CQB.svg" alt="Congo Brazza Quiz" />
+            <div class="cta-group">
+                <a class="cta-btn is-active" href="pages/categorie.html" aria-pressed="true">Catégorie</a>
+                <a class="cta-btn" href="pages/mode.html" aria-pressed="false">Mode</a>
+            </div>
+        </main>
     </div>
-        <script type="module">
-            // Initialise Supabase si des variables sont définies (supabase-config.js)
-            import('./src/lib/supabaseClient.js').then(async ({ initSupabase }) => {
-                try {
-                    if (window.SUPABASE_URL && window.SUPABASE_ANON_KEY) {
-                        await initSupabase(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
-                        console.log('Supabase initialisé');
-                    }
-                } catch (err) {
-                    console.warn('Échec de l\'initialisation Supabase', err);
-                } finally {
-                    // Démarre l'UI quand même (fallback local possible)
-                    await import('./src/frontend/ui.js');
-                }
-            }).catch((e) => {
-                console.error('Impossible de charger le client Supabase', e);
-                import('./src/frontend/ui.js');
+    <script>
+        // Construit l'URL de l'embed avec l'origin exact : évite l'erreur YouTube 153
+        // (validation d'origine) quand le site est servi depuis un domaine dynamique (tunnel, preview...).
+        (function () {
+            var ctaButtons = document.querySelectorAll('.cta-btn');
+
+            ctaButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    ctaButtons.forEach(function (ctaButton) {
+                        var isActive = ctaButton === button;
+                        ctaButton.classList.toggle('is-active', isActive);
+                        ctaButton.setAttribute('aria-pressed', String(isActive));
+                    });
+                });
             });
-        </script>
+
+            var params = new URLSearchParams({
+                autoplay: '1',
+                mute: '1',
+                loop: '1',
+                playlist: '3l0XB0kapdU',
+                controls: '0',
+                showinfo: '0',
+                modestbranding: '1',
+                rel: '0',
+                playsinline: '1',
+                origin: window.location.origin,
+            });
+            document.getElementById('heroVideo').src =
+                'https://www.youtube.com/embed/3l0XB0kapdU?' + params.toString();
+        })();
+    </script>
 </body>
+</html>

@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Congo-Brazza Quizz', () => {
   test('loads the menu and completes a quiz session', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/pages/categorie.html');
 
     await expect(page.getByRole('heading', { name: /Quiz : Congo-Brazzaville/i })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Géographie' })).toBeVisible();
@@ -26,7 +26,7 @@ test.describe('Congo-Brazza Quizz', () => {
   });
 
   test('smoke: reads all categories and starts a quiz with questions', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/pages/categorie.html');
     await expect(page.getByRole('heading', { name: /Quiz : Congo-Brazzaville/i })).toBeVisible();
     await expect(page.locator('#menu h2')).toHaveText(/Choisissez une catégorie/i);
 
@@ -58,7 +58,7 @@ test.describe('Congo-Brazza Quizz', () => {
       const options = page.locator('.quiz-option-btn');
       await expect(options).toHaveCount(4);
 
-      await page.goto('/');
+      await page.goto('/pages/categorie.html');
       await expect(page.getByRole('heading', { name: /Quiz : Congo-Brazzaville/i })).toBeVisible();
     }
   });

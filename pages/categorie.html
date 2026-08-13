@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Choisissez une catégorie — Congo-Brazza Quizz</title>
+    <base href="/" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+        <p class="back-link"><a href="index.html">&larr; Retour</a></p>
+        <main>
+            <h1 id="categoryTitle"></h1>
+            <div id="menu"></div>
+            <div id="quiz"></div>
+            <p id="timer" class="timer"></p>
+            <p id="score" style="font-weight: bold"></p>
+        </main>
+    </div>
+    <script type="module">
+        // Initialise Supabase si des variables sont définies (supabase-config.js)
+        import('./src/lib/supabaseClient.js').then(async ({ initSupabase }) => {
+            try {
+                if (window.SUPABASE_URL && window.SUPABASE_ANON_KEY) {
+                    await initSupabase(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+                    console.log('Supabase initialisé');
+                }
+            } catch (err) {
+                console.warn('Échec de l\'initialisation Supabase', err);
+            } finally {
+                // Démarre l'UI quand même (fallback local possible)
+                await import('./src/frontend/ui.js');
+            }
+        }).catch((e) => {
+            console.error('Impossible de charger le client Supabase', e);
+            import('./src/frontend/ui.js');
+        });
+    </script>
+</body>
+</html>

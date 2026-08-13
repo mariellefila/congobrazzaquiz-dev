@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proposer une pub — Congo-Brazza Quizz</title>
+    <link rel="stylesheet" href="../style.css" />
+    <style>
+        .ad-bottom {
+            animation: pulse 2s infinite;
+        }
+
+            .ad-bottom img {
+                width: 200px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0,0,0,0.3);
+                transition: transform 0.3s ease-in-out;
+            }
+
+                .ad-bottom img:hover {
+                    transform: scale(1.1) rotate(-2deg);
+                }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p class="back-link"><a href="../index.html">&larr; Retour</a></p>
+        <main>
+            <h1>Proposer une pub</h1>
+            <div class="ad ad-bottom">
+                <h3>Pour votre publicité sur le site &nbsp;<a href="https://www.facebook.com/profile.php?id=100063648157074" target="_blank" rel="noopener">cliquez ici *</a></h3>
+                <a id="adLink" href="https://www.facebook.com/share/15gqQNoAWR/" target="_blank" rel="noopener">
+                    <img id="adImage" src="../reseau120bannere.jpg" alt="Publicité">
+                </a>
+                <br />
+                <hr />
+                <cite>* pour voir afficher votre publicité sur notre site, vous pouvez nous envoyer un message depuis notre page Facebook</cite>
+            </div>
+        </main>
+    </div>
+    <script>
+        const adImages = [
+            { src: "../reseau120bannere.jpg", link: "https://www.facebook.com/share/p/1CrPDJFjfo/" },
+            { src: "../publicite02.jpg", link: "https://www.facebook.com/share/1E9R3oiV4M/" },
+            { src: "../lesabre_et_le_goupillon.png", link: "https://www.leslettresmouchetees.com/product-page/le-sabre-et-le-goupillon" }
+        ];
+
+        let currentAd = 0;
+
+        setInterval(() => {
+            currentAd = (currentAd + 1) % adImages.length;
+            const img = document.getElementById("adImage");
+            const link = document.getElementById("adLink");
+
+            img.style.opacity = 0;
+            setTimeout(() => {
+                img.src = adImages[currentAd].src;
+                link.href = adImages[currentAd].link;
+                img.style.opacity = 1;
+            }, 300);
+        }, 5000);
+    </script>
+</body>
+</html>
