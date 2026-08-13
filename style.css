@@ -322,7 +322,7 @@ button:hover {
   display: none;
 }
 
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 749px) {
   .hero {
     height: 100dvh;
     min-height: 100dvh;
@@ -373,7 +373,7 @@ button:hover {
     align-items: flex-start;
     justify-content: center;
     gap: 18px;
-    padding: 18vh 20px 120px 18vw;
+    padding: 108vh 30px 120px 8vw;
     margin-top: 0;
     max-width: none;
   }
@@ -413,7 +413,15 @@ button:hover {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
     padding: 12px 8px calc(18px + env(safe-area-inset-bottom));
-    background: rgba(0, 0, 0, 0.14);
+    margin: 0;
+    border-top: 0;
+    box-shadow: none;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.06) 38%, rgba(0, 0, 0, 0.28) 100%);
+  }
+
+  .mobile-nav::before,
+  .mobile-nav::after {
+    content: none;
   }
 
   .mobile-nav a {
