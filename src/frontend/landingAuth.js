@@ -1,6 +1,7 @@
 import { initSupabase } from '../lib/supabaseClient.js';
 
 const pendingDestinationKey = 'cbq.pendingDestination';
+const pendingActionKey = 'cbq.pendingAction';
 const ctaButtons = [...document.querySelectorAll('[data-protected-destination]')];
 const modal = document.querySelector('[data-login-modal]');
 const backdrop = document.querySelector('[data-login-backdrop]');
@@ -8,13 +9,28 @@ const closeButton = document.querySelector('[data-login-close]');
 const skipLoginLink = document.querySelector('[data-login-skip]');
 const providerButtons = [...document.querySelectorAll('[data-login-provider]')];
 const statusMessage = document.querySelector('[data-login-status]');
+const modeModal = document.querySelector('[data-mode-modal]');
+const modeBackdrop = document.querySelector('[data-mode-backdrop]');
+const modeCloseButton = document.querySelector('[data-mode-close]');
+const modeButtons = [...document.querySelectorAll('[data-mode-slug]')];
 let pendingDestination = sessionStorage.getItem(pendingDestinationKey);
+let pendingAction = sessionStorage.getItem(pendingActionKey);
 let previouslyFocusedElement = null;
 let supabase = null;
 let supabaseInitialisation = null;
 
 function setStatus(message) {
   if (statusMessage) statusMessage.textContent = message;
+}
+
+function setPendingAction(action) {
+  pendingAction = action;
+  if (action) {
+    sessionStorage.setItem(pendingActionKey, action);
+    return;
+  }
+
+  sessionStorage.removeItem(pendingActionKey);
 }
 
 function setActiveCta(activeButton) {
@@ -25,8 +41,9 @@ function setActiveCta(activeButton) {
   });
 }
 
-function getFocusableElements() {
-  return [closeButton, ...providerButtons, ...modal.querySelectorAll('a[href]')].filter(Boolean);
+function getFocusableElements(targetModal) {
+  if (!targetModal) return [];
+  return [...targetModal.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')].filter((element) => !element.hasAttribute('hidden'));
 }
 
 function openLoginModal() {
@@ -39,18 +56,57 @@ function openLoginModal() {
 }
 
 function closeLoginModal() {
-  modal.hidden = true;
-  backdrop.hidden = true;
+  if (modal) {
+    modal.hidden = true;
+  }
+  if (backdrop) {
+    backdrop.hidden = true;
+  }
   document.body.classList.remove('login-modal-open');
   setStatus('');
   pendingDestination = null;
   sessionStorage.removeItem(pendingDestinationKey);
+  setPendingAction(null);
+  previouslyFocusedElement?.focus();
+  previouslyFocusedElement = null;
+}
+
+function openModeModal() {
+  if (!modeModal || !modeBackdrop) return;
+  previouslyFocusedElement = document.activeElement;
+  if (modal && !modal.hidden) {
+    modal.hidden = true;
+    backdrop.hidden = true;
+    document.body.classList.remove('login-modal-open');
+  }
+  modeModal.hidden = false;
+  modeBackdrop.hidden = false;
+  document.body.classList.add('mode-modal-open');
+  modeCloseButton?.focus();
+}
+
+function closeModeModal() {
+  if (modeModal) {
+    modeModal.hidden = true;
+  }
+  if (modeBackdrop) {
+    modeBackdrop.hidden = true;
+  }
+  document.body.classList.remove('mode-modal-open');
+  setPendingAction(null);
   previouslyFocusedElement?.focus();
   previouslyFocusedElement = null;
 }
 
 function continueWithoutAuthentication(event) {
   event.preventDefault();
+
+  if (pendingAction === 'openModeModal') {
+    closeLoginModal();
+    openModeModal();
+    return;
+  }
+
   const destination = pendingDestination;
   closeLoginModal();
   if (destination) window.location.href = destination;
@@ -65,6 +121,26 @@ async function getCurrentSession() {
 
 async function handleProtectedNavigation(destination, clickedButton) {
   setActiveCta(clickedButton);
+
+  if (clickedButton.dataset.modeAction === 'mode') {
+    try {
+      const session = await getCurrentSession();
+      if (session) {
+        openModeModal();
+        return;
+      }
+    } catch (error) {
+      console.error('Impossible de vérifier la session Supabase', error);
+    }
+
+    pendingDestination = null;
+    sessionStorage.removeItem(pendingDestinationKey);
+    setPendingAction('openModeModal');
+    setStatus(supabase ? '' : 'La connexion est momentanément indisponible.');
+    openLoginModal();
+    return;
+  }
+
   try {
     const session = await getCurrentSession();
     if (session) {
@@ -114,8 +190,14 @@ async function signInWithProvider(provider) {
 }
 
 function trapFocus(event) {
-  if (event.key !== 'Tab' || modal.hidden) return;
-  const focusableElements = getFocusableElements();
+  if (event.key !== 'Tab') return;
+
+  const activeModal = !modal || modal.hidden ? (modeModal && !modeModal.hidden ? modeModal : null) : modal;
+  if (!activeModal) return;
+
+  const focusableElements = getFocusableElements(activeModal);
+  if (focusableElements.length === 0) return;
+
   const firstElement = focusableElements[0];
   const lastElement = focusableElements[focusableElements.length - 1];
   if (event.shiftKey && document.activeElement === firstElement) {
@@ -127,11 +209,28 @@ function trapFocus(event) {
   }
 }
 
+function selectMode(event) {
+  const button = event.currentTarget;
+  const modeSlug = button.dataset.modeSlug;
+  if (!modeSlug) return;
+
+  sessionStorage.setItem('cbq.selectedMode', modeSlug);
+  closeModeModal();
+  window.location.href = 'pages/categorie.html';
+}
+
 async function initialise() {
   if (window.SUPABASE_URL && window.SUPABASE_ANON_KEY) {
     try {
       supabase = await initSupabase(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
       const session = await getCurrentSession();
+
+      if (session && pendingAction === 'openModeModal') {
+        setPendingAction(null);
+        openModeModal();
+        return;
+      }
+
       if (session && pendingDestination) {
         const destination = pendingDestination;
         sessionStorage.removeItem(pendingDestinationKey);
@@ -157,11 +256,29 @@ providerButtons.forEach((button) => {
   button.addEventListener('click', () => signInWithProvider(button.dataset.loginProvider));
 });
 
-closeButton.addEventListener('click', closeLoginModal);
-skipLoginLink.addEventListener('click', continueWithoutAuthentication);
-backdrop.addEventListener('click', closeLoginModal);
+modeButtons.forEach((button) => {
+  button.addEventListener('click', selectMode);
+});
+
+if (closeButton) {
+  closeButton.addEventListener('click', closeLoginModal);
+}
+if (skipLoginLink) {
+  skipLoginLink.addEventListener('click', continueWithoutAuthentication);
+}
+if (backdrop) {
+  backdrop.addEventListener('click', closeLoginModal);
+}
+if (modeCloseButton) {
+  modeCloseButton.addEventListener('click', closeModeModal);
+}
+if (modeBackdrop) {
+  modeBackdrop.addEventListener('click', closeModeModal);
+}
+
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && !modal.hidden) closeLoginModal();
+  if (event.key === 'Escape' && modal && !modal.hidden) closeLoginModal();
+  if (event.key === 'Escape' && modeModal && !modeModal.hidden) closeModeModal();
   trapFocus(event);
 });
 
