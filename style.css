@@ -449,6 +449,194 @@ button:hover {
 }
 
 /* ---------------------------------------------------------------- */
+/* Authentification de la landing                                   */
+/* ---------------------------------------------------------------- */
+
+.login-modal-open {
+  overflow: hidden;
+}
+
+.login-modal-backdrop,
+.login-modal {
+  position: fixed;
+  z-index: 10;
+}
+
+.login-modal-backdrop {
+  inset: 0;
+  background: rgba(0, 0, 0, 0.68);
+}
+
+.login-modal {
+  top: 50%;
+  left: 50%;
+  width: min(636px, calc(100vw - 40px));
+  padding: 42px 40px 30px;
+  transform: translate(-50%, -50%);
+  border: 0;
+  border-radius: 28px;
+  background: #ffffff;
+  color: #1a1a1a;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+  box-sizing: border-box;
+}
+
+.login-modal h2 {
+  margin: 0 0 12px;
+  font-size: 30px;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.login-modal > p {
+  margin: 0;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.login-modal-actions {
+  display: grid;
+  gap: 12px;
+  margin: 26px 0 22px;
+}
+
+.login-provider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 58px;
+  margin: 0;
+  padding: 10px 16px;
+  border: 1px solid #dedede;
+  border-radius: 17px;
+  background: #ffffff;
+  color: #1a1a1a;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+.login-provider-facebook {
+  border-color: #0758bd;
+  background: #0758bd;
+  color: #ffffff;
+}
+
+.login-provider:hover,
+.login-provider:focus-visible {
+  background: #f5f5f5;
+}
+
+.login-provider-facebook:hover,
+.login-provider-facebook:focus-visible {
+  background: #064da6;
+}
+
+.login-provider:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.login-modal-privacy {
+  color: #606060;
+  font-size: 13px;
+  line-height: 1.45 !important;
+}
+
+.login-modal-privacy a {
+  color: #1e6bd6;
+  font-weight: 700;
+}
+
+.login-modal-status {
+  min-height: 20px;
+  margin-top: 10px !important;
+  color: #a33a2b;
+  font-size: 13px;
+}
+
+.login-modal-close {
+  position: absolute;
+  top: -16px;
+  right: -18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 66px;
+  height: 66px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #333333;
+  font-size: 36px;
+  line-height: 1;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
+  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.login-modal-close:hover {
+  background: #333333;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 9px 22px rgba(0, 0, 0, 0.24);
+}
+
+.login-modal-close:focus,
+.login-modal-close:focus-visible,
+.login-modal-close:active {
+  border: 0;
+  outline: none;
+}
+
+.login-modal-close:active {
+  background: #333333;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+@media screen and (max-width: 749px) {
+  .login-modal {
+    top: max(16px, env(safe-area-inset-top));
+    bottom: max(16px, env(safe-area-inset-bottom));
+    width: calc(100vw - 32px);
+    max-height: calc(100dvh - 32px);
+    padding: 38px 22px 22px;
+    overflow-y: auto;
+    transform: translateX(-50%);
+  }
+
+  .login-modal h2 {
+    font-size: 26px;
+  }
+
+  .login-modal-actions {
+    margin: 22px 0 18px;
+  }
+
+  .login-provider {
+    min-height: 50px;
+    font-size: 14px;
+  }
+
+  .login-modal-close {
+    top: 10px;
+    right: 10px;
+    width: 44px;
+    height: 44px;
+    font-size: 28px;
+  }
+
+  .login-modal-privacy {
+    font-size: 12px;
+  }
+}
+
+/* ---------------------------------------------------------------- */
 /* Pages secondaires (categorie, mode, classement, contributions)    */
 /* ---------------------------------------------------------------- */
 

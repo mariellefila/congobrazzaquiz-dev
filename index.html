@@ -60,28 +60,30 @@
         <main class="hero-main">
             <img class="hero-logo" src="rebuild/LOGO%20CQB.svg" alt="Congo Brazza Quiz" />
             <div class="cta-group">
-                <a class="cta-btn is-active" href="pages/categorie.html" aria-pressed="true">Catégorie</a>
-                <a class="cta-btn" href="pages/mode.html" aria-pressed="false">Mode</a>
+                <a class="cta-btn is-active" href="pages/categorie.html" data-protected-destination="pages/categorie.html" aria-pressed="true">Catégorie</a>
+                <a class="cta-btn" href="pages/mode.html" data-protected-destination="pages/mode.html" aria-pressed="false">Mode</a>
             </div>
         </main>
     </div>
-    <script>
-        // Construit l'URL de l'embed avec l'origin exact : évite l'erreur YouTube 153
-        // (validation d'origine) quand le site est servi depuis un domaine dynamique (tunnel, preview...).
-        (function () {
-            var ctaButtons = document.querySelectorAll('.cta-btn');
-
-            ctaButtons.forEach(function (button) {
-                button.addEventListener('click', function () {
-                    ctaButtons.forEach(function (ctaButton) {
-                        var isActive = ctaButton === button;
-                        ctaButton.classList.toggle('is-active', isActive);
-                        ctaButton.setAttribute('aria-pressed', String(isActive));
-                    });
-                });
-            });
-
-        })();
-    </script>
+    <div class="login-modal-backdrop" data-login-backdrop hidden></div>
+    <section class="login-modal" data-login-modal role="dialog" aria-modal="true" aria-labelledby="login-modal-title" aria-describedby="login-modal-description" hidden>
+        <button class="login-modal-close" type="button" data-login-close aria-label="Fermer la fenêtre de connexion">&times;</button>
+        <h2 id="login-modal-title">Se connecter</h2>
+        <p id="login-modal-description">Tu peux jouer à Congo Brazzaville Quiz en te connectant avec ton compte Google ou Facebook.</p>
+        <div class="login-modal-actions">
+            <button class="login-provider login-provider-facebook" type="button" data-login-provider="facebook">
+                <img src="images/brand/facebook-icon.svg" alt="" width="20" height="20" />
+                <span>Se connecter avec Facebook</span>
+            </button>
+            <button class="login-provider login-provider-google" type="button" data-login-provider="google">
+                <img src="images/brand/google-icon.svg" alt="" width="20" height="20" />
+                <span>Se connecter avec Google</span>
+            </button>
+        </div>
+        <p class="login-modal-privacy">En te connectant, tu acceptes <a href="pages/politique-confidentialite.html">notre politique de confidentialité</a> et consens au traitement de tes données personnelles conformément au RGPD.</p>
+        <p class="login-modal-status" data-login-status role="status" aria-live="polite"></p>
+    </section>
+    <script src="supabase-config.js"></script>
+    <script type="module" src="src/frontend/landingAuth.js"></script>
 </body>
 </html>
