@@ -1,15 +1,17 @@
-import { getSupabase, initSupabase } from '../lib/supabaseClient.js';
+import { initSupabase } from '../lib/supabaseClient.js';
 
 const pendingDestinationKey = 'cbq.pendingDestination';
 const ctaButtons = [...document.querySelectorAll('[data-protected-destination]')];
 const modal = document.querySelector('[data-login-modal]');
 const backdrop = document.querySelector('[data-login-backdrop]');
 const closeButton = document.querySelector('[data-login-close]');
+const skipLoginLink = document.querySelector('[data-login-skip]');
 const providerButtons = [...document.querySelectorAll('[data-login-provider]')];
 const statusMessage = document.querySelector('[data-login-status]');
 let pendingDestination = sessionStorage.getItem(pendingDestinationKey);
 let previouslyFocusedElement = null;
 let supabase = null;
+let supabaseInitialisation = null;
 
 function setStatus(message) {
   if (statusMessage) statusMessage.textContent = message;
@@ -29,6 +31,7 @@ function getFocusableElements() {
 
 function openLoginModal() {
   previouslyFocusedElement = document.activeElement;
+  skipLoginLink.href = pendingDestination || '#';
   modal.hidden = false;
   backdrop.hidden = false;
   document.body.classList.add('login-modal-open');
@@ -44,6 +47,13 @@ function closeLoginModal() {
   sessionStorage.removeItem(pendingDestinationKey);
   previouslyFocusedElement?.focus();
   previouslyFocusedElement = null;
+}
+
+function continueWithoutAuthentication(event) {
+  event.preventDefault();
+  const destination = pendingDestination;
+  closeLoginModal();
+  if (destination) window.location.href = destination;
 }
 
 async function getCurrentSession() {
@@ -72,7 +82,10 @@ async function handleProtectedNavigation(destination, clickedButton) {
 }
 
 async function signInWithProvider(provider) {
+  await supabaseInitialisation;
+
   if (!supabase) {
+    console.error('Connexion OAuth indisponible : configuration Supabase manquante.');
     setStatus('La connexion est momentanément indisponible.');
     return;
   }
@@ -82,12 +95,16 @@ async function signInWithProvider(provider) {
   });
   setStatus('Redirection vers le service de connexion...');
 
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider,
-    options: { redirectTo: window.location.href.split('#')[0] },
-  });
+  try {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: { redirectTo: window.location.href.split('#')[0] },
+    });
 
-  if (error) {
+    if (error) {
+      throw error;
+    }
+  } catch (error) {
     providerButtons.forEach((button) => {
       button.disabled = false;
     });
@@ -122,8 +139,10 @@ async function initialise() {
         window.location.href = destination;
       }
     } catch (error) {
-      console.warn('Supabase n’est pas disponible sur la landing', error);
+      console.error('Supabase n’est pas disponible sur la landing', error);
     }
+  } else {
+    console.error('Supabase non initialisé : SUPABASE_URL ou SUPABASE_ANON_KEY manquant.');
   }
 }
 
@@ -139,10 +158,11 @@ providerButtons.forEach((button) => {
 });
 
 closeButton.addEventListener('click', closeLoginModal);
+skipLoginLink.addEventListener('click', continueWithoutAuthentication);
 backdrop.addEventListener('click', closeLoginModal);
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && !modal.hidden) closeLoginModal();
   trapFocus(event);
 });
 
-initialise();
+supabaseInitialisation = initialise();
