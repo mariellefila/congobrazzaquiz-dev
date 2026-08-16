@@ -744,8 +744,17 @@ button:hover {
   text-align: center;
 }
 
+.mode-modal .mode-card-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(2 * 1.2 * clamp(1.15rem, 1.7vw, 1.55rem));
+  text-align: center;
+}
+
 .mode-modal .mode-card h3 {
-  margin: 4px 0 5px;
+  margin: 0;
   font-size: clamp(1.15rem, 1.7vw, 1.55rem);
   font-weight: 900;
   letter-spacing: 0.02em;
@@ -800,8 +809,17 @@ button:hover {
 .mode-modal .mode-card--multi .mode-card-divider { color: rgba(227, 155, 0, 0.7); }
 .mode-modal .mode-card--room .mode-card-divider { color: rgba(214, 69, 69, 0.7); }
 
+.mode-modal .mode-card-description {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(3 * 13px * 1.35);
+  max-width: 240px;
+  text-align: center;
+}
+
 .mode-modal .mode-card p {
-  flex: 0 0 auto;
   margin: 0 0 10px;
   color: #35434c;
   font-size: 13px;
@@ -834,7 +852,7 @@ button:hover {
   width: fit-content;
   min-height: 32px;
   margin: 0 auto 10px;
-  padding: 5px 12px;
+  padding: 1px 12px;
   border-radius: 999px;
   font-weight: 800;
   font-size: 13px;
