@@ -3,6 +3,7 @@ import { initSupabase } from '../lib/supabaseClient.js';
 const pendingDestinationKey = 'cbq.pendingDestination';
 const pendingActionKey = 'cbq.pendingAction';
 const ctaButtons = [...document.querySelectorAll('[data-protected-destination]')];
+const loginOverlay = document.querySelector('[data-login-overlay]');
 const modal = document.querySelector('[data-login-modal]');
 const backdrop = document.querySelector('[data-login-backdrop]');
 const closeButton = document.querySelector('[data-login-close]');
@@ -49,6 +50,7 @@ function getFocusableElements(targetModal) {
 function openLoginModal() {
   previouslyFocusedElement = document.activeElement;
   skipLoginLink.href = pendingDestination || '#';
+  loginOverlay.hidden = false;
   modal.hidden = false;
   backdrop.hidden = false;
   document.body.classList.add('login-modal-open');
@@ -61,6 +63,9 @@ function closeLoginModal() {
   }
   if (backdrop) {
     backdrop.hidden = true;
+  }
+  if (loginOverlay) {
+    loginOverlay.hidden = true;
   }
   document.body.classList.remove('login-modal-open');
   setStatus('');

@@ -65,8 +65,9 @@
             </div>
         </main>
     </div>
-    <div class="login-modal-backdrop" data-login-backdrop hidden></div>
-    <section class="login-modal" data-login-modal role="dialog" aria-modal="true" aria-labelledby="login-modal-title" aria-describedby="login-modal-description" hidden>
+    <div class="login-modal-overlay" data-login-overlay hidden>
+        <div class="login-modal-backdrop" data-login-backdrop hidden></div>
+        <section class="login-modal" data-login-modal role="dialog" aria-modal="true" aria-labelledby="login-modal-title" aria-describedby="login-modal-description" hidden>
         <button class="login-modal-close" type="button" data-login-close aria-label="Fermer la fenêtre de connexion">&times;</button>
         <h2 id="login-modal-title">Se connecter</h2>
         <p id="login-modal-description">Tu peux jouer à Congo Brazzaville Quiz en te connectant avec ton compte Google ou Facebook.</p>
@@ -83,7 +84,8 @@
         <a class="login-modal-skip" data-login-skip href="#">Continuer sans se connecter</a>
         <p class="login-modal-privacy">En te connectant, tu acceptes <a href="pages/politique-confidentialite.html">notre politique de confidentialité</a> et consens au traitement de tes données personnelles conformément au RGPD.</p>
         <p class="login-modal-status" data-login-status role="status" aria-live="polite"></p>
-    </section>
+        </section>
+    </div>
 
     <div class="mode-modal-backdrop" data-mode-backdrop hidden></div>
     <section class="mode-modal" data-mode-modal role="dialog" aria-modal="true" aria-labelledby="mode-modal-title" hidden>
