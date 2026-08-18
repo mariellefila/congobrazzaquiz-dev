@@ -122,11 +122,38 @@ test.describe('Landing et authentification', () => {
 
     await page.setViewportSize({ width: 768, height: 900 });
     await expect(page.locator('#category-modal-title')).toBeVisible();
-
-    await page.setViewportSize({ width: 390, height: 844 });
-    await expect(page.locator('[data-category-modal]')).toBeVisible();
-    await expect(page.locator('.category-card')).toHaveCount(8);
     await expect(page.locator('.category-modal')).toHaveCSS('max-width', '1200px');
+
+    for (const viewport of [
+      { width: 320, height: 568 },
+      { width: 375, height: 667 },
+      { width: 390, height: 844 },
+      { width: 430, height: 932 },
+    ]) {
+      await page.setViewportSize(viewport);
+      const modal = page.locator('[data-category-modal]');
+      const scrollArea = page.locator('.category-modal__scroll');
+      const closeButton = page.getByRole('button', { name: 'Fermer la fenêtre des catégories' });
+
+      await expect(modal).toBeVisible();
+      await expect(page.locator('[data-category-modal] .category-card')).toHaveCount(8);
+      await expect(page.locator('body')).toHaveCSS('overflow', 'hidden');
+      await expect(scrollArea).toHaveCSS('overflow-y', 'auto');
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(viewport.width);
+
+      const modalBox = await modal.boundingBox();
+      const closeBox = await closeButton.boundingBox();
+      expect(modalBox?.y).toBeGreaterThanOrEqual(0);
+      expect((modalBox?.y ?? 0) + (modalBox?.height ?? 0)).toBeLessThanOrEqual(viewport.height);
+      expect(closeBox?.y).toBeGreaterThanOrEqual(modalBox?.y ?? 0);
+      expect((closeBox?.y ?? 0) + (closeBox?.height ?? 0)).toBeLessThanOrEqual((modalBox?.y ?? 0) + (modalBox?.height ?? 0));
+
+      const beforeScrollY = await page.evaluate(() => window.scrollY);
+      await scrollArea.evaluate((element) => { element.scrollTop = element.scrollHeight; });
+      await expect(page.locator('[data-category-slug="aleatoire"]')).toBeInViewport();
+      expect(await page.evaluate(() => window.scrollY)).toBe(beforeScrollY);
+    }
+
     await expect(page.locator('[data-category-overlay]')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0.6)');
   });
 
