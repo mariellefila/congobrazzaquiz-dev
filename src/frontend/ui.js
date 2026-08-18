@@ -7,6 +7,7 @@ const quizDiv = document.getElementById('quiz');
 const timerP = document.getElementById('timer');
 const scoreP = document.getElementById('score');
 const categoryTitle = document.getElementById('categoryTitle');
+const categoryModalClose = document.querySelector('.login-modal-close[aria-label="Fermer la fenêtre des catégories"]');
 const authStatus = document.getElementById('authStatus');
 const loginGoogleBtn = document.getElementById('loginGoogle');
 const loginFacebookBtn = document.getElementById('loginFacebook');
@@ -17,6 +18,14 @@ let timeLeft = quizApi.getTimeLimitSeconds();
 let currentQuestion = null;
 let currentCategory = null;
 let totalQuestions = 0;
+
+categoryModalClose?.addEventListener('click', () => {
+  if (window.history.length > 1) {
+    window.history.back();
+  } else {
+    window.location.href = 'index.html';
+  }
+});
 
 function getDisplayName(user) {
   if (!user) return '';
@@ -139,22 +148,59 @@ function renderMenu() {
   quizDiv.innerHTML = '';
   timerP.textContent = '';
   scoreP.textContent = '';
-  menuDiv.innerHTML = '<h2>Choisissez une catégorie :</h2>';
+  menuDiv.innerHTML = `
+    <header class="category-modal-header">
+      <h2 class="visually-hidden">Choisissez une catégorie :</h2>
+      <h3 id="category-modal-title">CHOISISSEZ VOTRE CATÉGORIE</h3>
+      <p>Explorez le Congo-Brazzaville à travers nos différentes catégories et testez vos connaissances sur les thèmes qui vous passionnent.</p>
+    </header>
+    <div class="category-grid" role="list"></div>`;
 
-  const categories = quizApi.getCategories();
-  categories.forEach((category) => {
+  const categoryOrder = [
+    { dataName: 'Géographie', label: 'Géographie' },
+    { dataName: 'Histoire', label: 'Histoire' },
+    { dataName: 'Gastronomie', label: 'Gastronomie' },
+    { dataName: 'Politique', label: 'Politique' },
+    { dataName: 'Littérature', label: 'Littérature' },
+    { dataName: 'Tourisme', label: 'Tourisme' },
+    { dataName: 'Droit et Société', label: 'Droit & société' },
+  ];
+  const availableCategories = quizApi.getCategories();
+  const categories = categoryOrder
+    .map(({ dataName, label }) => {
+      const category = availableCategories.find((item) => item.name === dataName);
+      return category ? { ...category, name: label } : null;
+    })
+    .filter(Boolean);
+  const grid = menuDiv.querySelector('.category-grid');
+  const categoryAssets = {
+    'Géographie': 'Géographie.svg',
+    Histoire: 'Histoire.svg',
+    Gastronomie: 'Gastronomie.svg',
+    Politique: 'Politique.svg',
+    'Littérature': 'Littérature.svg',
+    Tourisme: 'Tourisme.svg',
+    'Droit & société': 'Droit  & société.svg',
+    Aléatoire: 'Aléatoire.svg',
+  };
+
+  [...categories, { name: 'Aléatoire', slug: 'random' }].forEach((category) => {
     const btn = document.createElement('button');
+    btn.className = 'category-card';
+    btn.type = 'button';
     btn.textContent = category.name;
-    btn.style.margin = '5px';
     btn.addEventListener('click', () => startQuiz(category.slug));
-    menuDiv.appendChild(btn);
+    const asset = document.createElement('img');
+    asset.className = 'category-card__asset';
+    asset.src = `../rebuild/asette-catégorie/${encodeURIComponent(categoryAssets[category.name])}`;
+    asset.alt = '';
+    asset.setAttribute('aria-hidden', 'true');
+    const label = document.createElement('span');
+    label.className = 'category-card__label';
+    label.textContent = category.name;
+    btn.replaceChildren(asset, label);
+    grid.appendChild(btn);
   });
-
-  const btnRandom = document.createElement('button');
-  btnRandom.textContent = 'Aléatoire';
-  btnRandom.style.margin = '5px';
-  btnRandom.addEventListener('click', () => startQuiz('random'));
-  menuDiv.appendChild(btnRandom);
 }
 
 function startTimer() {
@@ -290,7 +336,8 @@ function startQuiz(categorySlug) {
   menuDiv.innerHTML = '';
   const result = quizApi.startQuiz(categorySlug, 10);
   currentCategory = result.category;
-  categoryTitle.textContent = `Quiz : ${result.category}`;
+  const displayCategory = result.category === 'Droit et Société' ? 'Droit & société' : result.category;
+  categoryTitle.textContent = `Quiz : ${displayCategory}`;
   totalQuestions = result.totalQuestions;
   showQuestion(result.currentQuestion);
 }

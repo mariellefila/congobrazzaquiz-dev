@@ -7,20 +7,20 @@
     <base href="/" />
     <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-    <div class="container">
+<body class="category-page">
+    <div class="category-page-background" aria-hidden="true"></div>
+    <main class="category-modal" role="dialog" aria-modal="true" aria-labelledby="category-modal-title">
         <p class="back-link"><a href="index.html">&larr; Retour</a></p>
-        <main>
-            <h1 id="categoryTitle"></h1>
-            <div id="menu"></div>
-            <div id="quiz"></div>
-            <p id="timer" class="timer"></p>
-            <p id="score" style="font-weight: bold"></p>
-        </main>
-    </div>
+        <button class="login-modal-close" type="button" aria-label="Fermer la fenêtre des catégories">&times;</button>
+        <h1 id="categoryTitle" class="category-page-title"></h1>
+        <div id="menu"></div>
+        <div id="quiz"></div>
+        <p id="timer" class="timer"></p>
+        <p id="score" style="font-weight: bold"></p>
+    </main>
     <script type="module">
         // Initialise Supabase si des variables sont définies (supabase-config.js)
-        import('./src/lib/supabaseClient.js').then(async ({ initSupabase }) => {
+        import('../src/lib/supabaseClient.js').then(async ({ initSupabase }) => {
             try {
                 if (window.SUPABASE_URL && window.SUPABASE_ANON_KEY) {
                     await initSupabase(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
@@ -30,11 +30,11 @@
                 console.warn('Échec de l\'initialisation Supabase', err);
             } finally {
                 // Démarre l'UI quand même (fallback local possible)
-                await import('./src/frontend/ui.js');
+                await import('../src/frontend/ui.js');
             }
         }).catch((e) => {
             console.error('Impossible de charger le client Supabase', e);
-            import('./src/frontend/ui.js');
+            import('../src/frontend/ui.js');
         });
     </script>
 </body>

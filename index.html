@@ -60,11 +60,67 @@
         <main class="hero-main">
             <img class="hero-logo" src="rebuild/LOGO%20CQB.svg" alt="Congo Brazza Quiz" />
             <div class="cta-group">
-                <a class="cta-btn is-active" href="pages/categorie.html" data-protected-destination="pages/categorie.html" data-mode-action="mode" aria-pressed="true">Jouer</a>
+                <a class="cta-btn is-active" href="#" data-open-mode-modal aria-pressed="true">Jouer</a>
                 <a class="cta-btn" href="pages/mode.html" data-protected-destination="pages/mode.html" aria-pressed="false">Rejoindre</a>
             </div>
         </main>
     </div>
+
+    <div class="category-modal-overlay" data-category-overlay hidden>
+        <section class="category-modal" data-category-modal role="dialog" aria-modal="true" aria-labelledby="category-modal-title" hidden>
+            <button class="login-modal-close" type="button" data-category-close aria-label="Fermer la fenêtre des catégories">&times;</button>
+
+            <div data-category-stage>
+            <header class="category-modal-header">
+                <h2 id="category-modal-title">CHOISISSEZ VOTRE CATÉGORIE</h2>
+                <p>Explorez le Congo-Brazzaville à travers nos différentes catégories et testez vos connaissances sur les thèmes qui vous passionnent.</p>
+            </header>
+
+            <div class="category-grid" role="list" aria-label="Catégories de quiz">
+                <button class="category-card" type="button" data-category-slug="geographie">
+                    <img class="category-card__asset" src="rebuild/asette-catégorie/Ge%CC%81ographie.svg" alt="" aria-hidden="true" />
+                    <span class="category-card__label">Géographie</span>
+                </button>
+                <button class="category-card" type="button" data-category-slug="histoire">
+                    <img class="category-card__asset" src="rebuild/asette-catégorie/Histoire.svg" alt="" aria-hidden="true" />
+                    <span class="category-card__label">Histoire</span>
+                </button>
+                <button class="category-card" type="button" data-category-slug="gastronomie">
+                    <img class="category-card__asset" src="rebuild/asette-catégorie/Gastronomie.svg" alt="" aria-hidden="true" />
+                    <span class="category-card__label">Gastronomie</span>
+                </button>
+                <button class="category-card" type="button" data-category-slug="politique">
+                    <img class="category-card__asset" src="rebuild/asette-catégorie/Politique.svg" alt="" aria-hidden="true" />
+                    <span class="category-card__label">Politique</span>
+                </button>
+                <button class="category-card" type="button" data-category-slug="litterature">
+                    <img class="category-card__asset" src="rebuild/asette-catégorie/Litte%CC%81rature.svg" alt="" aria-hidden="true" />
+                    <span class="category-card__label">Littérature</span>
+                </button>
+                <button class="category-card" type="button" data-category-slug="tourisme">
+                    <img class="category-card__asset" src="rebuild/asette-catégorie/Tourisme.svg" alt="" aria-hidden="true" />
+                    <span class="category-card__label">Tourisme</span>
+                </button>
+                <button class="category-card" type="button" data-category-slug="droit-societe">
+                    <img class="category-card__asset" src="rebuild/asette-catégorie/Droit%20%20%26%20socie%CC%81te%CC%81.svg" alt="" aria-hidden="true" />
+                    <span class="category-card__label">Droit &amp; société</span>
+                </button>
+                <button class="category-card" type="button" data-category-slug="aleatoire">
+                    <img class="category-card__asset" src="rebuild/asette-catégorie/Ale%CC%81atoire.svg" alt="" aria-hidden="true" />
+                    <span class="category-card__label">Aléatoire</span>
+                </button>
+            </div>
+            </div>
+
+            <div class="quiz-stage" data-quiz-stage hidden>
+                <h2 id="soloQuizTitle" class="quiz-stage-title"></h2>
+                <div id="soloQuiz"></div>
+                <p id="soloTimer" class="timer"></p>
+                <p id="soloScore" style="font-weight: bold"></p>
+            </div>
+        </section>
+    </div>
+
     <div class="login-modal-overlay" data-login-overlay hidden>
         <div class="login-modal-backdrop" data-login-backdrop hidden></div>
         <section class="login-modal" data-login-modal role="dialog" aria-modal="true" aria-labelledby="login-modal-title" aria-describedby="login-modal-description" hidden>
@@ -166,5 +222,7 @@
 
     <script src="supabase-config.js"></script>
     <script type="module" src="src/frontend/landingAuth.js"></script>
+</body>
+</html>
 </body>
 </html>

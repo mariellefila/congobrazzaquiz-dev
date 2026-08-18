@@ -1,8 +1,9 @@
 import { initSupabase } from '../lib/supabaseClient.js';
+import { startSoloQuiz, resetSoloQuizView } from './soloQuiz.js';
 
 const pendingDestinationKey = 'cbq.pendingDestination';
 const pendingActionKey = 'cbq.pendingAction';
-const ctaButtons = [...document.querySelectorAll('[data-protected-destination]')];
+const ctaButtons = [...document.querySelectorAll('[data-protected-destination], [data-open-mode-modal]')];
 const loginOverlay = document.querySelector('[data-login-overlay]');
 const modal = document.querySelector('[data-login-modal]');
 const backdrop = document.querySelector('[data-login-backdrop]');
@@ -16,6 +17,10 @@ const modeBackdrop = document.querySelector('[data-mode-backdrop]');
 const modeCloseButton = document.querySelector('[data-mode-close]');
 const modeButtons = [...document.querySelectorAll('[data-mode-slug]')];
 const modeCards = [...document.querySelectorAll('.mode-card')];
+const categoryOverlay = document.querySelector('[data-category-overlay]');
+const categoryModal = document.querySelector('[data-category-modal]');
+const categoryCloseButton = document.querySelector('[data-category-close]');
+const categoryButtons = [...document.querySelectorAll('[data-category-slug]')];
 let pendingDestination = sessionStorage.getItem(pendingDestinationKey);
 let pendingAction = sessionStorage.getItem(pendingActionKey);
 let previouslyFocusedElement = null;
@@ -93,6 +98,29 @@ function openModeModal() {
   modeBackdrop.hidden = false;
   document.body.classList.add('mode-modal-open');
   modeCloseButton?.focus();
+}
+
+function openCategoryModal() {
+  if (!categoryModal || !categoryOverlay) return;
+  resetSoloQuizView();
+  previouslyFocusedElement = document.activeElement;
+  categoryOverlay.hidden = false;
+  categoryModal.hidden = false;
+  document.body.classList.add('category-modal-open');
+  categoryCloseButton?.focus();
+}
+
+function closeCategoryModal() {
+  if (categoryOverlay) {
+    categoryOverlay.hidden = true;
+  }
+  if (categoryModal) {
+    categoryModal.hidden = true;
+  }
+  document.body.classList.remove('category-modal-open');
+  resetSoloQuizView();
+  previouslyFocusedElement?.focus();
+  previouslyFocusedElement = null;
 }
 
 function closeModeModal() {
@@ -229,7 +257,16 @@ function selectMode(event) {
 
   sessionStorage.setItem('cbq.selectedMode', modeSlug);
   closeModeModal();
-  window.location.href = 'pages/categorie.html';
+  openCategoryModal();
+}
+
+function selectCategory(event) {
+  const button = event.currentTarget;
+  const categorySlug = button.dataset.categorySlug;
+  if (!categorySlug) return;
+
+  sessionStorage.setItem('cbq.selectedCategory', categorySlug);
+  startSoloQuiz(categorySlug);
 }
 
 async function initialise() {
@@ -260,6 +297,12 @@ async function initialise() {
 
 ctaButtons.forEach((button) => {
   button.addEventListener('click', (event) => {
+    if (button.dataset.openModeModal !== undefined) {
+      event.preventDefault();
+      openModeModal();
+      return;
+    }
+
     event.preventDefault();
     handleProtectedNavigation(button.dataset.protectedDestination, button);
   });
@@ -276,6 +319,10 @@ providerButtons.forEach((button) => {
 
 modeButtons.forEach((button) => {
   button.addEventListener('click', selectMode);
+});
+
+categoryButtons.forEach((button) => {
+  button.addEventListener('click', selectCategory);
 });
 
 modeCards.forEach((card) => {
@@ -300,10 +347,14 @@ if (modeCloseButton) {
 if (modeBackdrop) {
   modeBackdrop.addEventListener('click', closeModeModal);
 }
+if (categoryCloseButton) {
+  categoryCloseButton.addEventListener('click', closeCategoryModal);
+}
 
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && modal && !modal.hidden) closeLoginModal();
   if (event.key === 'Escape' && modeModal && !modeModal.hidden) closeModeModal();
+  if (event.key === 'Escape' && categoryModal && !categoryModal.hidden) closeCategoryModal();
   trapFocus(event);
 });
 

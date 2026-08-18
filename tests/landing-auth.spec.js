@@ -26,11 +26,34 @@ test.describe('Landing et authentification', () => {
     });
   }
 
-  test('protège les destinations et ferme la modale sans naviguer', async ({ page }) => {
+  test('ouvre la modale mode puis la modale catégorie par-dessus la landing sans navigation', async ({ page }) => {
     await page.goto('/index.html');
 
-    const categoryButton = page.getByRole('link', { name: 'Jouer' });
-    await categoryButton.click();
+    await expect(page.locator('#heroVideo')).toBeVisible();
+    await page.getByRole('link', { name: 'Jouer' }).click();
+
+    await expect(page).toHaveURL(/\/index\.html$/);
+    await expect(page.locator('[data-mode-modal]')).toBeVisible();
+    await expect(page.getByRole('heading', { name: /MODE DE JEU/ })).toBeVisible();
+
+    await page.locator('[data-mode-slug="solo"]').click();
+
+    await expect(page).toHaveURL(/\/index\.html$/);
+    await expect(page.locator('[data-category-overlay]')).toBeVisible();
+    await expect(page.locator('[data-category-modal]')).toBeVisible();
+    await expect(page.locator('#category-modal-title')).toHaveText('CHOISISSEZ VOTRE CATÉGORIE');
+    await expect(page.locator('#heroVideo')).toBeVisible();
+
+    await page.getByRole('button', { name: 'Fermer la fenêtre des catégories' }).click();
+    await expect(page.locator('[data-category-overlay]')).toBeHidden();
+    await expect(page.locator('#heroVideo')).toBeVisible();
+  });
+
+  test('protège les destinations de Rejoindre et ferme la modale sans naviguer', async ({ page }) => {
+    await page.goto('/index.html');
+
+    const joinButton = page.getByRole('link', { name: 'Rejoindre' });
+    await joinButton.click();
 
     await expect(page).toHaveURL(/\/index\.html$/);
     await expect(page.getByRole('dialog')).toBeVisible();
@@ -86,73 +109,31 @@ test.describe('Landing et authentification', () => {
     await expect(page).toHaveURL(/\/pages\/mode\.html$/);
   });
 
-  test('affiche le contenu de la modale de mode sans le vider au clic ou au resize', async ({ page }) => {
-    await page.route('**/supabase-config.js', async (route) => {
-      await route.fulfill({
-        contentType: 'application/javascript',
-        body: `window.SUPABASE_URL = 'https://example.supabase.co'; window.SUPABASE_ANON_KEY = 'test-anon-key';`,
-      });
-    });
-
-    await page.route('https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm', async (route) => {
-      await route.fulfill({
-        contentType: 'application/javascript',
-        body: `export function createClient() {
-          return {
-            auth: {
-              async getSession() {
-                return {
-                  data: {
-                    session: {
-                      user: {
-                        id: 'user-1',
-                        email: 'user@example.com',
-                        user_metadata: { full_name: 'Test User' }
-                      }
-                    }
-                  },
-                  error: null
-                };
-              },
-              async signInWithOAuth({ provider, options }) {
-                window.__oauthCall = { provider, redirectTo: options.redirectTo };
-                return { data: { provider }, error: null };
-              },
-            },
-          };
-        }`,
-      });
-    });
-
+  test('affiche la modale catégorie par-dessus la landing sans vider la vidéo ni naviguer', async ({ page }) => {
     await page.goto('/index.html');
     await page.getByRole('link', { name: 'Jouer' }).click();
+    await page.locator('[data-mode-slug="solo"]').click();
 
-    await expect(page.getByRole('dialog')).toBeVisible();
-    await expect(page.getByText('CHOISISSEZ VOTRE')).toBeVisible();
-    await expect(page.getByText('MODE DE JEU')).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'JOUER SEUL' })).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'JOUER À PLUSIEURS' })).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'JOUER EN SALLE' })).toBeVisible();
+    await expect(page.locator('[data-category-overlay]')).toBeVisible();
+    await expect(page.locator('[data-category-modal]')).toBeVisible();
+    await expect(page.locator('#category-modal-title')).toHaveText('CHOISISSEZ VOTRE CATÉGORIE');
+    await expect(page.locator('#heroVideo')).toBeVisible();
+    await expect(page.locator('[data-category-modal] .category-card')).toHaveCount(8);
 
     await page.setViewportSize({ width: 768, height: 900 });
-    await expect(page.getByRole('heading', { name: 'JOUER SEUL' })).toBeVisible();
+    await expect(page.locator('#category-modal-title')).toBeVisible();
 
     await page.setViewportSize({ width: 390, height: 844 });
-    await expect(page.getByRole('heading', { name: 'JOUER EN SALLE' })).toBeVisible();
-    await expect(page.locator('.mode-card--solo')).toHaveCSS('min-height', '180px');
-    await expect(page.locator('.mode-card--solo .mode-card-divider')).toBeHidden();
-    await expect(page.locator('.mode-card--solo .mode-card-button')).toBeHidden();
-    await expect(page.locator('.mode-card--solo')).toHaveCSS('grid-template-columns', /105px .* 16px/);
-    await expect(page.locator('.mode-card--solo h3')).toHaveCSS('font-size', '20px');
-    await expect(page.locator('.mode-card--solo .mode-card-description p')).toHaveCSS('font-size', '16px');
-    await expect(page.locator('.mode-card--solo .mode-card-badge')).toHaveCSS('font-size', '14px');
-    await expect(page.getByText('À chacun son style. Choisissez comment vous voulez jouer.')).toBeVisible();
+    await expect(page.locator('[data-category-modal]')).toBeVisible();
+    await expect(page.locator('.category-card')).toHaveCount(8);
+    await expect(page.locator('.category-modal')).toHaveCSS('max-width', '1200px');
+    await expect(page.locator('[data-category-overlay]')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0.6)');
   });
 
   test('appelle le provider OAuth sélectionné avec la landing comme callback', async ({ page }) => {
     await mockSupabase(page);
     await page.goto('/index.html');
-    await page.getByRole('link', { name: 'Jouer' }).click();
+    await page.getByRole('link', { name: 'Rejoindre' }).click();
     await page.getByRole('button', { name: 'Se connecter avec Google' }).click();
 
     await expect.poll(() => page.evaluate(() => window.__oauthCall)).toEqual({
