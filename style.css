@@ -456,6 +456,10 @@ button:hover {
   overflow: hidden;
 }
 
+.login-modal-overlay[hidden] {
+  display: none;
+}
+
 .login-modal-overlay {
   position: fixed;
   z-index: 10;
@@ -619,6 +623,10 @@ button:hover {
 
 .mode-modal-open {
   overflow: hidden;
+}
+
+.mode-modal-overlay[hidden] {
+  display: none;
 }
 
 .mode-modal-backdrop,
@@ -970,40 +978,152 @@ button:hover {
     transform: none;
   }
 
+  .mode-modal-overlay {
+    position: fixed;
+    z-index: 11;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+
+  .mode-modal-backdrop {
+    z-index: -1;
+  }
+
   .mode-modal {
-    top: 18px;
-    left: 50%;
-    width: calc(100vw - 22px);
-    max-height: calc(100dvh - 24px);
-    padding: 24px 22px 36px;
-    transform: translateX(-50%);
-    border-radius: 24px;
+    position: relative;
+    top: auto;
+    left: auto;
+    width: calc(100% - 32px);
+    max-width: 560px;
+    max-height: calc(100dvh - 32px);
+    padding: 18px 16px 20px;
+    transform: none;
+    border-radius: 20px;
     overflow-y: auto;
+  }
+
+  .mode-modal-header {
+    margin-bottom: 16px;
+  }
+
+  .mode-modal .mode-modal-title-line {
+    font-size: 1.25rem;
+    line-height: 1.1;
+  }
+
+  .mode-modal .mode-modal-title-main {
+    font-size: 1.9rem;
+    line-height: 1;
+  }
+
+  .mode-modal-header h2 {
+    gap: 3px;
+  }
+
+  .mode-modal .mode-modal-header p {
+    max-width: 310px;
+    margin-top: 10px;
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    line-height: 1.35;
   }
 
   .mode-modal .mode-grid {
     grid-template-columns: 1fr;
-    gap: 34px;
+    gap: 16px;
   }
 
   .mode-modal .mode-card {
+    display: grid;
+    grid-template-columns: 102px minmax(0, 1fr) 16px;
+    align-items: center;
+    gap: 12px;
     height: auto;
-    min-height: 360px;
-    padding: 26px 18px 18px;
-    border-radius: 18px;
+    min-height: 180px;
+    padding: 16px;
+    border-radius: 16px;
+    cursor: pointer;
   }
 
-  .mode-modal .mode-modal-title-line {
-    font-size: 1.65rem;
+  .mode-modal .mode-card::after {
+    align-self: center;
+    color: currentColor;
+    content: ">";
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1;
   }
 
-  .mode-modal .mode-modal-title-main {
-    font-size: 3rem;
+  .mode-modal .mode-card--solo::after { color: #1e9d48; }
+  .mode-modal .mode-card--multi::after { color: #e39b00; }
+  .mode-modal .mode-card--room::after { color: #d64545; }
+
+  .mode-modal .mode-card-illustration {
+    width: 102px;
+    max-width: 100%;
+    margin: 0;
   }
 
-  .mode-modal .mode-modal-header p {
+  .mode-modal .mode-card-content {
+    display: block;
+    width: auto;
+    min-height: 0;
+    text-align: left;
+  }
+
+  .mode-modal .mode-card-title {
+    display: block;
+    height: auto;
+    text-align: left;
+  }
+
+  .mode-modal .mode-card h3 {
+    font-size: 20px;
+    line-height: 1.15;
+    text-align: left;
+  }
+
+  .mode-modal .mode-card-divider,
+  .mode-modal .mode-card-button {
+    display: none;
+  }
+
+  .mode-modal .mode-card-description {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: none;
+    margin-top: 7px;
+    text-align: left;
+  }
+
+  .mode-modal .mode-card p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.35;
+    text-align: left;
+  }
+
+  .mode-modal .mode-card-footer {
+    display: block;
+    width: auto;
+    margin-top: 9px;
+  }
+
+  .mode-modal .mode-card-badge {
+    min-height: 28px;
+    margin: 0;
+    padding: 1px 9px;
     font-size: 12px;
-    letter-spacing: 0.02em;
+  }
+
+  .mode-modal .mode-card-badge img {
+    width: 16px;
+    height: 16px;
   }
 
   .login-modal h2 {

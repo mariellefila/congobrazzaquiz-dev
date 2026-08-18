@@ -11,9 +11,11 @@ const skipLoginLink = document.querySelector('[data-login-skip]');
 const providerButtons = [...document.querySelectorAll('[data-login-provider]')];
 const statusMessage = document.querySelector('[data-login-status]');
 const modeModal = document.querySelector('[data-mode-modal]');
+const modeOverlay = document.querySelector('[data-mode-overlay]');
 const modeBackdrop = document.querySelector('[data-mode-backdrop]');
 const modeCloseButton = document.querySelector('[data-mode-close]');
 const modeButtons = [...document.querySelectorAll('[data-mode-slug]')];
+const modeCards = [...document.querySelectorAll('.mode-card')];
 let pendingDestination = sessionStorage.getItem(pendingDestinationKey);
 let pendingAction = sessionStorage.getItem(pendingActionKey);
 let previouslyFocusedElement = null;
@@ -84,6 +86,9 @@ function openModeModal() {
     backdrop.hidden = true;
     document.body.classList.remove('login-modal-open');
   }
+  if (modeOverlay) {
+    modeOverlay.hidden = false;
+  }
   modeModal.hidden = false;
   modeBackdrop.hidden = false;
   document.body.classList.add('mode-modal-open');
@@ -91,6 +96,9 @@ function openModeModal() {
 }
 
 function closeModeModal() {
+  if (modeOverlay) {
+    modeOverlay.hidden = true;
+  }
   if (modeModal) {
     modeModal.hidden = true;
   }
@@ -255,6 +263,11 @@ ctaButtons.forEach((button) => {
     event.preventDefault();
     handleProtectedNavigation(button.dataset.protectedDestination, button);
   });
+  button.addEventListener('keydown', (event) => {
+    if (event.key !== ' ' && event.key !== 'Spacebar') return;
+    event.preventDefault();
+    button.click();
+  });
 });
 
 providerButtons.forEach((button) => {
@@ -263,6 +276,13 @@ providerButtons.forEach((button) => {
 
 modeButtons.forEach((button) => {
   button.addEventListener('click', selectMode);
+});
+
+modeCards.forEach((card) => {
+  card.addEventListener('click', (event) => {
+    if (!window.matchMedia('(max-width: 749px)').matches || event.target.closest('button')) return;
+    card.querySelector('[data-mode-slug]')?.click();
+  });
 });
 
 if (closeButton) {

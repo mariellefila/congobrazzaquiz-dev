@@ -59,6 +59,25 @@ test.describe('Landing et authentification', () => {
     await expect(page).toHaveURL(/\/index\.html$/);
   });
 
+  test('active les CTA au clic et au clavier sur mobile et desktop', async ({ page }) => {
+    await page.goto('/index.html');
+    await page.getByRole('link', { name: 'Jouer' }).click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+    await page.keyboard.press('Escape');
+
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.getByRole('link', { name: 'Jouer' }).focus();
+    await page.keyboard.press('Enter');
+    await expect(page.getByRole('dialog')).toBeVisible();
+    await page.keyboard.press('Escape');
+
+    await page.setViewportSize({ width: 1280, height: 720 });
+    await page.getByRole('link', { name: 'Rejoindre' }).focus();
+    await page.keyboard.press('Space');
+    await expect(page.getByRole('dialog')).toBeVisible();
+    await page.keyboard.press('Escape');
+  });
+
   test('permet de continuer sans authentification vers la destination demandée', async ({ page }) => {
     await page.goto('/index.html');
     await page.getByRole('link', { name: 'Rejoindre' }).click();
@@ -120,6 +139,10 @@ test.describe('Landing et authentification', () => {
 
     await page.setViewportSize({ width: 390, height: 844 });
     await expect(page.getByRole('heading', { name: 'JOUER EN SALLE' })).toBeVisible();
+    await expect(page.locator('.mode-card--solo')).toHaveCSS('min-height', '180px');
+    await expect(page.locator('.mode-card--solo .mode-card-divider')).toBeHidden();
+    await expect(page.locator('.mode-card--solo .mode-card-button')).toBeHidden();
+    await expect(page.locator('.mode-card--solo')).toHaveCSS('grid-template-columns', /102px .* 16px/);
   });
 
   test('appelle le provider OAuth sélectionné avec la landing comme callback', async ({ page }) => {
