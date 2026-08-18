@@ -142,7 +142,11 @@ test.describe('Landing et authentification', () => {
     await expect(page.locator('.mode-card--solo')).toHaveCSS('min-height', '180px');
     await expect(page.locator('.mode-card--solo .mode-card-divider')).toBeHidden();
     await expect(page.locator('.mode-card--solo .mode-card-button')).toBeHidden();
-    await expect(page.locator('.mode-card--solo')).toHaveCSS('grid-template-columns', /102px .* 16px/);
+    await expect(page.locator('.mode-card--solo')).toHaveCSS('grid-template-columns', /105px .* 16px/);
+    await expect(page.locator('.mode-card--solo h3')).toHaveCSS('font-size', '20px');
+    await expect(page.locator('.mode-card--solo .mode-card-description p')).toHaveCSS('font-size', '16px');
+    await expect(page.locator('.mode-card--solo .mode-card-badge')).toHaveCSS('font-size', '14px');
+    await expect(page.getByText('À chacun son style. Choisissez comment vous voulez jouer.')).toBeVisible();
   });
 
   test('appelle le provider OAuth sélectionné avec la landing comme callback', async ({ page }) => {
