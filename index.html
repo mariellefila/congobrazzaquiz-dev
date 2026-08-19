@@ -115,10 +115,21 @@
             </div>
 
             <div class="quiz-stage" data-quiz-stage hidden>
-                <h2 id="soloQuizTitle" class="quiz-stage-title"></h2>
-                <div id="soloQuiz"></div>
-                <p id="soloTimer" class="timer"></p>
-                <p id="soloScore" style="font-weight: bold"></p>
+                <header class="solo-quiz-topbar">
+                    <a class="solo-quiz-back" href="#" data-solo-quiz-back>&larr; Retour</a>
+                    <div class="solo-quiz-progress" aria-live="polite">
+                        <strong id="soloQuizProgress">Questions 1/10</strong>
+                        <span class="solo-quiz-progress-track" aria-hidden="true"><i id="soloQuizProgressBar"></i></span>
+                    </div>
+                    <div class="solo-quiz-score" aria-live="polite"><span aria-hidden="true">🏆</span><strong id="soloQuizScore">0 pts</strong></div>
+                </header>
+                <section class="solo-quiz-card" aria-labelledby="soloQuizTitle">
+                    <h2 id="soloQuizTitle" class="quiz-stage-title visually-hidden"></h2>
+                    <div id="soloQuiz"></div>
+                    <p id="soloTimer" class="timer"></p>
+                    <p id="soloScore" class="visually-hidden"></p>
+                    <button class="solo-quiz-next" type="button" data-solo-quiz-next disabled>Prochaine question <span aria-hidden="true">&rarr;</span></button>
+                </section>
             </div>
         </section>
     </div>

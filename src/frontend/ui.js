@@ -18,6 +18,19 @@ let timeLeft = quizApi.getTimeLimitSeconds();
 let currentQuestion = null;
 let currentCategory = null;
 let totalQuestions = 0;
+let currentQuestionNumber = 0;
+let currentScore = 0;
+
+const categoryMetadata = {
+  'Géographie': { emoji: '🌍', asset: 'Géographie.svg' },
+  Histoire: { emoji: '🛕', asset: 'Histoire.svg' },
+  Gastronomie: { emoji: '🍲', asset: 'Gastronomie.svg' },
+  Politique: { emoji: '🏛️', asset: 'Politique.svg' },
+  'Littérature': { emoji: '📚', asset: 'Littérature.svg' },
+  Tourisme: { emoji: '✈️', asset: 'Tourisme.svg' },
+  'Droit & société': { emoji: '⚖️', asset: 'Droit  & société.svg' },
+  Aléatoire: { emoji: '🎲', asset: 'Aléatoire.svg' },
+};
 
 categoryModalClose?.addEventListener('click', () => {
   if (window.history.length > 1) {
@@ -144,10 +157,13 @@ async function wireAuth() {
 }
 
 function renderMenu() {
+  document.body.classList.remove('quiz-mode');
   categoryTitle.textContent = 'Quiz : Congo-Brazzaville';
   quizDiv.innerHTML = '';
+  quizDiv.className = '';
   timerP.textContent = '';
   scoreP.textContent = '';
+  document.querySelector('.category-modal')?.append(timerP, scoreP);
   menuDiv.innerHTML = `
     <header class="category-modal-header">
       <h2 class="visually-hidden">Choisissez une catégorie :</h2>
@@ -173,31 +189,27 @@ function renderMenu() {
     })
     .filter(Boolean);
   const grid = menuDiv.querySelector('.category-grid');
-  const categoryAssets = {
-    'Géographie': 'Géographie.svg',
-    Histoire: 'Histoire.svg',
-    Gastronomie: 'Gastronomie.svg',
-    Politique: 'Politique.svg',
-    'Littérature': 'Littérature.svg',
-    Tourisme: 'Tourisme.svg',
-    'Droit & société': 'Droit  & société.svg',
-    Aléatoire: 'Aléatoire.svg',
-  };
-
   [...categories, { name: 'Aléatoire', slug: 'random' }].forEach((category) => {
     const btn = document.createElement('button');
     btn.className = 'category-card';
     btn.type = 'button';
-    btn.textContent = category.name;
-    btn.addEventListener('click', () => startQuiz(category.slug));
+    const metadata = categoryMetadata[category.name];
+    btn.dataset.category = category.slug;
+    btn.setAttribute('aria-pressed', 'false');
+    btn.addEventListener('click', () => {
+      btn.classList.add('is-selected');
+      btn.setAttribute('aria-pressed', 'true');
+      startQuiz(category.slug);
+    });
     const asset = document.createElement('img');
     asset.className = 'category-card__asset';
-    asset.src = `../rebuild/asette-catégorie/${encodeURIComponent(categoryAssets[category.name])}`;
+    asset.src = `../rebuild/asette-catégorie/${encodeURIComponent(metadata.asset)}`;
     asset.alt = '';
     asset.setAttribute('aria-hidden', 'true');
     const label = document.createElement('span');
     label.className = 'category-card__label';
     label.textContent = category.name;
+    label.dataset.emoji = metadata.emoji;
     btn.replaceChildren(asset, label);
     grid.appendChild(btn);
   });
@@ -239,6 +251,7 @@ function revealCorrectAnswer(selectedBtn, correctOption) {
 
 function showQuestion(question) {
   quizDiv.innerHTML = '';
+  quizDiv.className = 'quiz-stage quiz-stage--active';
   if (!question) {
     showFinalScore();
     return;
@@ -246,9 +259,32 @@ function showQuestion(question) {
 
   currentQuestion = question;
 
+  const progress = document.createElement('div');
+  progress.className = 'quiz-progress';
+  progress.innerHTML = `
+    <div class="quiz-progress__topline">
+      <strong>Questions ${currentQuestionNumber}/${totalQuestions}</strong>
+      <span class="quiz-score">${currentScore.toLocaleString('fr-FR')} pts</span>
+    </div>
+    <div class="quiz-progress__track" aria-hidden="true">
+      <span style="width: ${(currentQuestionNumber / totalQuestions) * 100}%"></span>
+    </div>`;
+  quizDiv.appendChild(progress);
+
+  const categoryBadge = document.createElement('div');
+  categoryBadge.className = 'quiz-category-badge';
+  const categoryName = currentCategory === 'Droit et Société' ? 'Droit & société' : currentCategory;
+  const categoryDetails = categoryMetadata[categoryName];
+  categoryBadge.dataset.category = categoryName;
+  categoryBadge.innerHTML = `<span aria-hidden="true">${categoryDetails?.emoji || ''}</span><span>${categoryName}</span>`;
+  quizDiv.appendChild(categoryBadge);
+
   const title = document.createElement('h3');
+  title.className = 'quiz-question';
   title.textContent = question.question;
   quizDiv.appendChild(title);
+
+  quizDiv.appendChild(timerP);
 
   if (question.image) {
     const img = document.createElement('img');
@@ -257,6 +293,11 @@ function showQuestion(question) {
     img.className = 'quiz-image';
     quizDiv.appendChild(img);
   }
+
+  const answers = document.createElement('div');
+  answers.className = 'quiz-answers';
+  answers.setAttribute('role', 'group');
+  answers.setAttribute('aria-label', 'Réponses possibles');
 
   question.options.forEach((option, index) => {
     const btn = document.createElement('button');
@@ -274,8 +315,10 @@ function showQuestion(question) {
     btn.appendChild(letter);
     btn.appendChild(label);
     btn.addEventListener('click', () => handleAnswer(option, btn));
-    quizDiv.appendChild(btn);
+    answers.appendChild(btn);
   });
+
+  quizDiv.appendChild(answers);
 
   startTimer();
 }
@@ -283,6 +326,7 @@ function showQuestion(question) {
 function handleAnswer(option, clickedBtn) {
   clearInterval(timerInterval);
   const result = quizApi.validateAnswer(currentQuestion.id, option);
+  if (result.correct) currentScore += 100;
   const buttons = Array.from(quizDiv.querySelectorAll('button'));
   buttons.forEach((btn) => {
     btn.disabled = true;
@@ -300,6 +344,7 @@ function handleAnswer(option, clickedBtn) {
 function showNextOrFinish() {
   const nextQuestion = quizApi.getNextQuestion();
   if (nextQuestion) {
+    currentQuestionNumber += 1;
     showQuestion(nextQuestion);
   } else {
     showFinalScore();
@@ -308,6 +353,7 @@ function showNextOrFinish() {
 
 function showFinalScore() {
   quizDiv.innerHTML = '<h2>Quiz terminé !</h2>';
+  quizDiv.className = 'quiz-stage quiz-stage--finished';
   timerP.textContent = '';
   const result = quizApi.getResult();
   scoreP.textContent = `Score : ${result.score} / ${result.total}`;
@@ -333,9 +379,12 @@ function showFinalScore() {
 }
 
 function startQuiz(categorySlug) {
+  document.body.classList.add('quiz-mode');
   menuDiv.innerHTML = '';
   const result = quizApi.startQuiz(categorySlug, 10);
   currentCategory = result.category;
+  currentQuestionNumber = 1;
+  currentScore = 0;
   const displayCategory = result.category === 'Droit et Société' ? 'Droit & société' : result.category;
   categoryTitle.textContent = `Quiz : ${displayCategory}`;
   totalQuestions = result.totalQuestions;

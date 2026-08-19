@@ -6,6 +6,28 @@ const questionRepository = createQuestionRepository();
 let quizSession = null;
 let activeCategory = null;
 
+function resolveCategorySlug(category) {
+  if (category === 'random' || category === 'aleatoire') {
+    return null;
+  }
+
+  const categories = questionRepository.getCategories();
+  const normalizedCategory = String(category || '').toLowerCase();
+  const aliases = {
+    'droit-societe': 'droit-et-societe',
+    'droit_societe': 'droit-et-societe',
+    droit: 'droit-et-societe',
+    societe: 'droit-et-societe',
+  };
+  const candidateSlug = aliases[normalizedCategory] || category;
+  const matchingCategory = categories.find(({ slug, name }) => (
+    slug === candidateSlug
+    || name.toLowerCase() === normalizedCategory
+  ));
+
+  return matchingCategory?.slug || candidateSlug;
+}
+
 function sanitizeQuestion(question) {
   if (!question) {
     return null;
@@ -25,21 +47,22 @@ export function getCategories() {
 }
 
 export function getQuestions(category, limit = 10) {
-  const slug = category === 'random' ? null : category;
+  const slug = resolveCategorySlug(category);
   const rawQuestions = slug ? questionRepository.getQuestionsForCategory(slug) : questionRepository.getAllQuestions();
   const selected = shuffleArray(rawQuestions).slice(0, limit);
   return selected.map(sanitizeQuestion);
 }
 
 export function startQuiz(category, limit = 10) {
-  const rawQuestions = category === 'random'
+  const slug = resolveCategorySlug(category);
+  const rawQuestions = slug === null
     ? questionRepository.getAllQuestions()
-    : questionRepository.getQuestionsForCategory(category);
+    : questionRepository.getQuestionsForCategory(slug);
 
   const selectedQuestions = shuffleArray(rawQuestions).slice(0, limit);
   quizSession = new QuizSession({ questions: selectedQuestions });
   quizSession.start();
-  activeCategory = category === 'random' ? 'Aléatoire' : (questionRepository.getCategoryBySlug(category)?.name ?? category);
+  activeCategory = slug === null ? 'Aléatoire' : (questionRepository.getCategoryBySlug(slug)?.name ?? category);
 
   return {
     currentQuestion: sanitizeQuestion(quizSession.getCurrentQuestion()),
