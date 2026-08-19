@@ -2295,6 +2295,8 @@ body.solo-quiz-active [data-quiz-stage] {
 
 .solo-quiz-card {
   position: relative;
+  width: 118%;
+  margin-inline: -9%;
   min-height: 626px;
   padding: 28px 42px 34px;
   border: 1px solid #dedede;
@@ -2343,7 +2345,7 @@ body.solo-quiz-active [data-quiz-stage] {
   width: min(100%, 650px);
   margin: 0 auto 20px;
   color: #050505;
-  font-size: 39px;
+  font-size: 30px;
   line-height: 1.08;
   text-align: center;
 }
@@ -2476,6 +2478,8 @@ body.solo-quiz-active [data-quiz-stage] {
   }
 
   .solo-quiz-card {
+    width: 100%;
+    margin-inline: 0;
     min-height: calc(100vh - 142px);
     padding: 22px 16px 78px;
     border-radius: 22px;

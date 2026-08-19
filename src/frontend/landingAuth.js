@@ -163,7 +163,7 @@ async function getCurrentSession() {
 async function handleProtectedNavigation(destination, clickedButton) {
   setActiveCta(clickedButton);
 
-  if (clickedButton.dataset.modeAction === 'mode') {
+  if (clickedButton.dataset.modeAction === 'mode' || clickedButton.dataset.openModeModal !== undefined) {
     try {
       const session = await getCurrentSession();
       if (session) {
@@ -297,12 +297,6 @@ async function initialise() {
 
 ctaButtons.forEach((button) => {
   button.addEventListener('click', (event) => {
-    if (button.dataset.openModeModal !== undefined) {
-      event.preventDefault();
-      openModeModal();
-      return;
-    }
-
     event.preventDefault();
     handleProtectedNavigation(button.dataset.protectedDestination, button);
   });

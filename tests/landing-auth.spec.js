@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Landing et authentification', () => {
-  async function mockSupabase(page) {
+  async function mockSupabase(page, { session = null } = {}) {
     await page.route('**/supabase-config.js', async (route) => {
       await route.fulfill({
         contentType: 'application/javascript',
@@ -14,7 +14,7 @@ test.describe('Landing et authentification', () => {
         body: `export function createClient() {
           return {
             auth: {
-              async getSession() { return { data: { session: null }, error: null }; },
+              async getSession() { return { data: { session: ${JSON.stringify(session)} }, error: null }; },
               async signInWithOAuth({ provider, options }) {
                 window.__oauthCall = { provider, redirectTo: options.redirectTo };
                 return { data: { provider }, error: null };
@@ -26,13 +26,20 @@ test.describe('Landing et authentification', () => {
     });
   }
 
-  test('ouvre la modale mode puis la modale catégorie par-dessus la landing sans navigation', async ({ page }) => {
+  test('demande la connexion avant la modale mode puis enchaîne sur la modale catégorie', async ({ page }) => {
     await page.goto('/index.html');
 
     await expect(page.locator('#heroVideo')).toBeVisible();
     await page.getByRole('link', { name: 'Jouer' }).click();
 
     await expect(page).toHaveURL(/\/index\.html$/);
+    await expect(page.locator('[data-login-modal]')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Se connecter' })).toBeVisible();
+    await expect(page.locator('[data-mode-modal]')).toBeHidden();
+
+    await page.getByRole('link', { name: 'Continuer sans se connecter' }).click();
+
+    await expect(page.locator('[data-login-modal]')).toBeHidden();
     await expect(page.locator('[data-mode-modal]')).toBeVisible();
     await expect(page.getByRole('heading', { name: /MODE DE JEU/ })).toBeVisible();
 
@@ -47,6 +54,17 @@ test.describe('Landing et authentification', () => {
     await page.getByRole('button', { name: 'Fermer la fenêtre des catégories' }).click();
     await expect(page.locator('[data-category-overlay]')).toBeHidden();
     await expect(page.locator('#heroVideo')).toBeVisible();
+  });
+
+  test('ouvre directement la modale mode quand la session est déjà active', async ({ page }) => {
+    await mockSupabase(page, { session: { user: { id: 'user-1' } } });
+    await page.goto('/index.html');
+
+    await page.getByRole('link', { name: 'Jouer' }).click();
+
+    await expect(page.locator('[data-login-modal]')).toBeHidden();
+    await expect(page.locator('[data-mode-modal]')).toBeVisible();
+    await expect(page).toHaveURL(/\/index\.html$/);
   });
 
   test('protège les destinations de Rejoindre et ferme la modale sans naviguer', async ({ page }) => {
@@ -110,6 +128,7 @@ test.describe('Landing et authentification', () => {
   });
 
   test('affiche la modale catégorie par-dessus la landing sans vider la vidéo ni naviguer', async ({ page }) => {
+    await mockSupabase(page, { session: { user: { id: 'user-1' } } });
     await page.goto('/index.html');
     await page.getByRole('link', { name: 'Jouer' }).click();
     await page.locator('[data-mode-slug="solo"]').click();
