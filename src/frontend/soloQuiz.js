@@ -98,19 +98,23 @@ function showQuestion(question) {
   categoryBadge.innerHTML = `<span aria-hidden="true">${categoryMetadata[categoryName] || ''}</span><strong>${categoryName}</strong>`;
   quizEl.appendChild(categoryBadge);
 
+  // Groups title + timer + answers as a single block centered on the card
+  const content = document.createElement('div');
+  content.className = 'solo-quiz-content';
+
   const title = document.createElement('h3');
   title.className = 'solo-quiz-question';
   title.textContent = question.question;
-  quizEl.appendChild(title);
+  content.appendChild(title);
 
-  quizEl.appendChild(timerEl);
+  content.appendChild(timerEl);
 
   if (question.image) {
     const img = document.createElement('img');
     img.src = question.image;
     img.alt = 'illustration';
     img.className = 'quiz-image';
-    quizEl.appendChild(img);
+    content.appendChild(img);
   }
 
   const answers = document.createElement('div');
@@ -137,7 +141,8 @@ function showQuestion(question) {
     answers.appendChild(btn);
   });
 
-  quizEl.appendChild(answers);
+  content.appendChild(answers);
+  quizEl.appendChild(content);
 
   if (nextButton) {
     nextButton.hidden = false;

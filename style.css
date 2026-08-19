@@ -2308,7 +2308,13 @@ body.solo-quiz-active [data-quiz-stage] {
 
 .solo-quiz-card #soloQuiz {
   position: relative;
+  width: 100%;
   min-height: 555px;
+}
+
+.solo-quiz-content {
+  width: 100%;
+  margin: 0;
 }
 
 .solo-quiz-category {
@@ -2342,7 +2348,7 @@ body.solo-quiz-active [data-quiz-stage] {
 .solo-quiz-category[data-category='Aléatoire'] { --category-gradient: var(--gradient-aleatoire); }
 
 .solo-quiz-question {
-  width: min(100%, 650px);
+  width: min(74%, 600px);
   margin: 0 auto 20px;
   color: #050505;
   font-size: 30px;
@@ -2354,7 +2360,7 @@ body.solo-quiz-active [data-quiz-stage] {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin: 0 0 28px 10px;
+  margin: 0 0 28px;
   padding: 8px 14px;
   border-radius: 999px;
   background: #eeeeee;
@@ -2370,10 +2376,10 @@ body.solo-quiz-active [data-quiz-stage] {
 
 .solo-quiz-answers {
   display: flex;
-  width: min(100%, 540px);
+  width: min(74%, 600px);
   flex-direction: column;
   gap: 28px;
-  margin-left: 10px;
+  margin: 0;
 }
 
 .solo-quiz-answers .quiz-option-btn {
@@ -2492,6 +2498,10 @@ body.solo-quiz-active [data-quiz-stage] {
   .solo-quiz-category {
     min-height: 42px;
     font-size: 18px;
+  }
+
+  .solo-quiz-content {
+    width: 100%;
   }
 
   .solo-quiz-question {
