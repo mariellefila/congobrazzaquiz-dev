@@ -6,6 +6,7 @@ export class QuizSession {
     this.answers = [];
     this.started = false;
     this.finished = false;
+    this.startedAt = null;
   }
 
   start() {
@@ -14,6 +15,7 @@ export class QuizSession {
     this.answers = [];
     this.started = true;
     this.finished = this.questions.length === 0;
+    this.startedAt = Date.now();
   }
 
   getCurrentQuestion() {
@@ -23,7 +25,7 @@ export class QuizSession {
     return this.questions[this.currentIndex] || null;
   }
 
-  submitAnswer(questionId, selectedOption) {
+  submitAnswer(questionId, selectedOption, elapsedSeconds = null) {
     const question = this.getCurrentQuestion();
     if (!question || question.id !== questionId) {
       throw new Error('Invalid question or session state.');
@@ -35,6 +37,7 @@ export class QuizSession {
       selectedOption,
       correct,
       timedOut: selectedOption === null,
+      elapsedSeconds: Number.isFinite(elapsedSeconds) ? Math.max(0, elapsedSeconds) : null,
     });
 
     if (correct) {
@@ -68,5 +71,12 @@ export class QuizSession {
 
   getTotalQuestions() {
     return this.questions.length;
+  }
+
+  getAverageTimeSeconds() {
+    const timedAnswers = this.answers.filter(({ elapsedSeconds }) => Number.isFinite(elapsedSeconds));
+    if (!timedAnswers.length) return 0;
+    const totalTime = timedAnswers.reduce((sum, answer) => sum + answer.elapsedSeconds, 0);
+    return totalTime / timedAnswers.length;
   }
 }

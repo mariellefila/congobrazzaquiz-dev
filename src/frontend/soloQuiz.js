@@ -16,6 +16,7 @@ let timerInterval = null;
 let timeLeft = 0;
 let currentQuestion = null;
 let currentCategory = null;
+let currentCategorySlug = null;
 let currentQuestionNumber = 0;
 let totalQuestions = 0;
 let transitionPending = false;
@@ -178,33 +179,59 @@ function showNextOrFinish() {
 }
 
 function showFinalScore() {
-  quizEl.innerHTML = '<h2>Quiz termin\u00e9 !</h2>';
+  document.body.classList.add('solo-result-mode');
   timerEl.textContent = '';
   if (nextButton) nextButton.hidden = true;
   const result = quizApi.getResult();
-  scoreEl.textContent = `Score : ${result.score} / ${result.total}`;
+  const averageTime = result.averageTimeSeconds
+    ? result.averageTimeSeconds.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+    : '—';
+  const shareText = `J'ai obtenu ${result.score} points à Congo Brazza Quiz !`;
+  const shareUrl = window.location.origin;
 
-  const restartBtn = document.createElement('button');
-  restartBtn.textContent = 'Rejouer';
-  restartBtn.className = 'rejouer';
-  restartBtn.addEventListener('click', () => {
-    clearInterval(timerInterval);
-    if (quizStage) quizStage.hidden = true;
-    if (categoryStage) categoryStage.hidden = false;
-  });
-  quizEl.appendChild(restartBtn);
+  quizEl.innerHTML = `
+    <div class="solo-result-category quiz-category-badge" data-category="${currentCategory}">
+      <span aria-hidden="true">${categoryMetadata[currentCategory] || ''}</span>
+      <strong>${currentCategory}</strong>
+    </div>
+    <div class="solo-result-heading">
+      <span class="solo-result-laurel" aria-hidden="true">❮</span>
+      <div>
+        <h2 class="solo-result-title">Félicitation ! Vous avez terminé le quiz.</h2>
+        <p class="solo-result-score"><strong>${result.score}</strong><span>PTS</span></p>
+      </div>
+      <span class="solo-result-laurel solo-result-laurel-right" aria-hidden="true">❮</span>
+    </div>
+    <div class="solo-result-stats">
+      <article><span aria-hidden="true">✓</span><strong>${result.correctAnswers ?? result.score}/${result.total}</strong><small>Bonnes réponses</small></article>
+      <article><span aria-hidden="true">◷</span><strong>${averageTime}${averageTime === '—' ? '' : ' s'}</strong><small>Temps moyen<br />par question</small></article>
+      <article><span aria-hidden="true">★</span><strong>—</strong><small>Position au classement</small></article>
+    </div>
+    <a class="solo-result-primary" href="pages/leaderboard.html">▥ &nbsp; Voir le classement &nbsp; →</a>
+    <div class="solo-result-actions">
+      <button class="solo-result-secondary" type="button" data-result-replay>◷ &nbsp; Rejouer</button>
+      <button class="solo-result-secondary" type="button" data-result-category>▦ &nbsp; Changer de catégorie</button>
+    </div>
+    <p class="solo-result-share-label">Partager mon score</p>
+    <div class="solo-result-share" role="group" aria-label="Partager le score">
+      <button type="button" data-share-facebook aria-label="Partager sur Facebook"><img src="images/brand/facebook-icon.svg" alt="" /></button>
+      <button type="button" data-share-whatsapp aria-label="Partager sur WhatsApp">◉</button>
+      <button type="button" data-share-native aria-label="Partager"><span aria-hidden="true">⇧</span></button>
+    </div>`;
+  scoreEl.textContent = '';
 
-  const shareBtn = document.createElement('button');
-  shareBtn.textContent = 'Partager sur Facebook';
-  shareBtn.className = 'partager';
-  shareBtn.addEventListener('click', () => {
-    const url = encodeURIComponent('http://congobrazza-quiz.com/');
-    const label = currentCategory === 'random' ? 'en mode al\u00e9atoire' : `dans la cat\u00e9gorie "${currentCategory}"`;
-    const text = encodeURIComponent(`J'ai obtenu un score de ${result.score} / ${result.total} au quiz Congo-Brazzaville ${label} ! \ud83d\udd25 Teste-toi aussi sur http://congobrazza-quiz.com/`);
-    const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
-    window.open(fbUrl, '_blank');
+  quizEl.querySelector('[data-share-facebook]').addEventListener('click', () => {
+    const params = new URLSearchParams({ u: shareUrl, quote: shareText });
+    window.open(`https://www.facebook.com/sharer/sharer.php?${params}`, '_blank');
   });
-  quizEl.appendChild(shareBtn);
+  quizEl.querySelector('[data-share-whatsapp]').addEventListener('click', () => {
+    window.open(`https://wa.me/?text=${encodeURIComponent(`${shareText} ${shareUrl}`)}`, '_blank');
+  });
+  quizEl.querySelector('[data-share-native]').addEventListener('click', async () => {
+    if (navigator.share) await navigator.share({ title: 'Congo Brazza Quiz', text: shareText, url: shareUrl });
+  });
+  quizEl.querySelector('[data-result-replay]').addEventListener('click', () => startSoloQuiz(currentCategorySlug));
+  quizEl.querySelector('[data-result-category]').addEventListener('click', resetSoloQuizView);
 }
 
 // Efface l'état d'une partie en cours et réaffiche la grille de catégories.
@@ -217,14 +244,17 @@ export function resetSoloQuizView() {
   if (timerEl) timerEl.textContent = '';
   if (scoreEl) scoreEl.textContent = '';
   document.body.classList.remove('solo-quiz-active');
+  document.body.classList.remove('solo-result-mode');
 }
 
 export function startSoloQuiz(categorySlug) {
   if (!quizEl || !titleEl) return;
+  document.body.classList.remove('solo-result-mode');
   if (categoryStage) categoryStage.hidden = true;
   if (quizStage) quizStage.hidden = false;
   document.body.classList.add('solo-quiz-active');
   const result = quizApi.startQuiz(categorySlug, 10);
+  currentCategorySlug = categorySlug;
   currentCategory = result.category;
   currentQuestionNumber = 1;
   totalQuestions = result.totalQuestions;

@@ -75,12 +75,12 @@ export function getCurrentQuestion() {
   return quizSession ? sanitizeQuestion(quizSession.getCurrentQuestion()) : null;
 }
 
-export function validateAnswer(questionId, selectedOption) {
+export function validateAnswer(questionId, selectedOption, elapsedSeconds = null) {
   if (!quizSession) {
     throw new Error('Quiz session not started.');
   }
 
-  const result = quizSession.submitAnswer(questionId, selectedOption);
+  const result = quizSession.submitAnswer(questionId, selectedOption, elapsedSeconds);
   return {
     correct: result.correct,
     correctOption: result.question.answer,
@@ -108,6 +108,8 @@ export function getResult() {
   return {
     score: quizSession.getScore(),
     total: quizSession.getTotalQuestions(),
+    correctAnswers: quizSession.getScore(),
+    averageTimeSeconds: quizSession.getAverageTimeSeconds(),
     category: activeCategory,
   };
 }

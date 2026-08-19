@@ -196,4 +196,24 @@ test.describe('Landing et authentification', () => {
       redirectTo: 'http://127.0.0.1:4173/index.html',
     });
   });
+
+  test('affiche le nouvel écran de résultat en mode solo', async ({ page }) => {
+    await page.goto('/index.html');
+    await page.getByRole('link', { name: 'Jouer' }).click();
+    await page.getByRole('link', { name: 'Continuer sans se connecter' }).click();
+    await page.locator('[data-mode-slug="solo"]').click();
+    await page.getByRole('button', { name: 'Géographie' }).click();
+
+    for (let index = 0; index < 10; index += 1) {
+      await page.locator('.quiz-option-btn').first().click();
+    }
+
+    await expect(page.locator('.solo-result-title')).toBeVisible();
+    await expect(page.getByText('Quiz terminé', { exact: true })).toHaveCount(0);
+    await expect(page.locator('[data-solo-quiz-next]')).toBeHidden();
+    await expect(page.locator('.solo-result-score strong')).toHaveText(/\d+/);
+    await expect(page.getByRole('button', { name: 'Rejouer' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Changer de catégorie' })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Voir le classement/i })).toBeVisible();
+  });
 });

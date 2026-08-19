@@ -12,8 +12,8 @@ export function startQuiz(category, limit = 10) {
   return quizService.startQuiz(category, limit);
 }
 
-export function validateAnswer(questionId, selectedOption) {
-  return quizService.validateAnswer(questionId, selectedOption);
+export function validateAnswer(questionId, selectedOption, elapsedSeconds = null) {
+  return quizService.validateAnswer(questionId, selectedOption, elapsedSeconds);
 }
 
 export function getNextQuestion() {

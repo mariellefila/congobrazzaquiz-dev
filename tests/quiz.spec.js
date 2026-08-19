@@ -18,11 +18,30 @@ test.describe('Congo-Brazza Quizz', () => {
       }
     }
 
-    await expect(page.getByRole('heading', { name: /Quiz terminé !/ })).toBeVisible();
-    await expect(page.locator('#score')).toHaveText(/Score : \d+ \/ 10/);
+    await expect(page.locator('.solo-result-title')).toBeVisible();
+    await expect(page.locator('.solo-result-score strong')).toHaveText(/\d+/);
+    await expect(page.locator('.solo-result-stats article').first()).toContainText(/\d+\/10/);
+    await expect(page.getByRole('link', { name: /Voir le classement/i })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Rejouer' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Changer de catégorie' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Fermer la fenêtre des catégories' })).toBeVisible();
 
     await page.getByRole('button', { name: /Rejouer/i }).click();
-    await expect(page.getByRole('heading', { name: /Quiz : Congo-Brazzaville/i })).toBeVisible();
+    await expect(page.locator('.quiz-category-badge')).toContainText('Géographie');
+    await expect(page.locator('.quiz-option-btn')).toHaveCount(4);
+  });
+
+  test('le résultat permet de revenir au choix de catégorie', async ({ page }) => {
+    await page.goto('/pages/categorie.html');
+    await page.getByRole('button', { name: 'Géographie' }).click();
+
+    for (let index = 0; index < 10; index += 1) {
+      await page.locator('.quiz-option-btn').first().click();
+    }
+
+    await expect(page.locator('.solo-result-title')).toBeVisible();
+    await page.getByRole('button', { name: 'Changer de catégorie' }).click();
+    await expect(page.locator('#menu h3')).toHaveText('CHOISISSEZ VOTRE CATÉGORIE');
   });
 
   test('smoke: reads all categories and starts a quiz with questions', async ({ page }) => {
