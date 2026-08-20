@@ -260,10 +260,10 @@ function showFinalScore() {
     </a>
     <div class="solo-result-actions">
       <button class="solo-result-secondary" type="button" data-result-replay>
-        <img src="${resultAsset('Rejouer.svg')}" alt="" aria-hidden="true" /><span>Rejouer</span>
+        <span>Rejouer</span>
       </button>
       <button class="solo-result-secondary" type="button" data-result-category>
-        <img src="${resultAsset('Changer de catégorie.svg')}" alt="" aria-hidden="true" /><span>Changer de catégorie</span>
+        <span>Changer de catégorie</span>
       </button>
     </div>
     <p class="solo-result-share-label">Partager mon score</p>
