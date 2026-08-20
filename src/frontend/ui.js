@@ -243,14 +243,24 @@ function getElapsedQuestionSeconds() {
   return Math.min(quizApi.getTimeLimitSeconds(), (Date.now() - questionStartedAt) / 1000);
 }
 
+function markOption(btn, symbol, label) {
+  const mark = document.createElement('span');
+  mark.className = 'quiz-option-mark';
+  mark.textContent = symbol;
+  mark.setAttribute('aria-label', label);
+  btn.appendChild(mark);
+}
+
 function revealCorrectAnswer(selectedBtn, correctOption) {
   const allButtons = Array.from(quizDiv.querySelectorAll('button'));
   allButtons.forEach((btn) => {
     btn.disabled = true;
     if (btn.dataset.option === correctOption) {
       btn.classList.add('is-correct');
+      markOption(btn, '✓', 'Bonne réponse');
     } else if (btn === selectedBtn) {
       btn.classList.add('is-wrong');
+      markOption(btn, '✕', 'Mauvaise réponse');
     }
   });
   setTimeout(() => {
@@ -336,18 +346,7 @@ function handleAnswer(option, clickedBtn) {
   clearInterval(timerInterval);
   const result = quizApi.validateAnswer(currentQuestion.id, option, getElapsedQuestionSeconds());
   if (result.correct) currentScore += 100;
-  const buttons = Array.from(quizDiv.querySelectorAll('button'));
-  buttons.forEach((btn) => {
-    btn.disabled = true;
-    if (btn.dataset.option === result.correctOption) {
-      btn.classList.add('is-correct');
-    } else if (btn === clickedBtn) {
-      btn.classList.add('is-wrong');
-    }
-  });
-  setTimeout(() => {
-    showNextOrFinish();
-  }, 1500);
+  revealCorrectAnswer(clickedBtn, result.correctOption);
 }
 
 function showNextOrFinish() {

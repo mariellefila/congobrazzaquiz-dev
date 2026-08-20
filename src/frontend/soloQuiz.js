@@ -69,6 +69,14 @@ function handleTimeout() {
   revealCorrectAnswer(null, result.correctOption);
 }
 
+function markOption(btn, symbol, label) {
+  const mark = document.createElement('span');
+  mark.className = 'quiz-option-mark';
+  mark.textContent = symbol;
+  mark.setAttribute('aria-label', label);
+  btn.appendChild(mark);
+}
+
 function revealCorrectAnswer(selectedBtn, correctOption) {
   transitionPending = true;
   const allButtons = Array.from(quizEl.querySelectorAll('button'));
@@ -76,8 +84,10 @@ function revealCorrectAnswer(selectedBtn, correctOption) {
     btn.disabled = true;
     if (btn.dataset.option === correctOption) {
       btn.classList.add('is-correct');
+      markOption(btn, '✓', 'Bonne réponse');
     } else if (btn === selectedBtn) {
       btn.classList.add('is-wrong');
+      markOption(btn, '✕', 'Mauvaise réponse');
     }
   });
   if (nextButton) {
