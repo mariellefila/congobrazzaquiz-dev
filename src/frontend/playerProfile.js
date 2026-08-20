@@ -24,6 +24,21 @@ const badgeAssets = {
   contributeur: 'rebuild/dashboard%20Joeur/Badge%20Contributeur.svg',
 };
 
+const badgeCatalog = [
+  { id: 'serie-10', name: 'Série de 10', condition: "Obtenir 10 bonnes réponses d'affilée" },
+  { id: 'expert-brazzaville', name: 'Expert Brazzaville', condition: 'Atteindre 90% dans 4 parties' },
+  { id: 'contributeur', name: 'Contributeur', condition: 'Proposer une question et qu’elle soit approuvée' },
+];
+
+const categoryIcons = {
+  geographie: '🌍',
+  histoire: '🏛',
+  gastronomie: '🍲',
+  politique: '⚖',
+  litterature: '📖',
+  tourisme: '🗺',
+};
+
 const dateFormatter = new Intl.DateTimeFormat('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
 let callbacks = { onReplay: null, onLogout: null };
@@ -55,6 +70,12 @@ function renderGames(games) {
     const main = document.createElement('div');
     main.className = 'profile-game-main';
 
+    const icon = document.createElement('span');
+    icon.className = 'profile-game-icon';
+    icon.setAttribute('aria-hidden', 'true');
+    icon.textContent = categoryIcons[game.category_slug] || '✦';
+    item.appendChild(icon);
+
     const category = document.createElement('strong');
     category.className = 'profile-game-category';
     category.textContent = game.category_name || game.category_slug;
@@ -63,9 +84,16 @@ function renderGames(games) {
     const meta = document.createElement('p');
     meta.className = 'profile-game-meta';
     const total = game.total_questions || 0;
-    meta.innerHTML = `<span class="profile-game-score">${game.correct_answers ?? 0}/${total}</span>`
-      + `<span class="profile-game-xp">+${game.xp_earned ?? 0} XP</span>`
-      + `<span class="profile-game-date">${formatDate(game.played_at)}</span>`;
+    const score = document.createElement('span');
+    score.className = 'profile-game-score';
+    score.textContent = `${game.correct_answers ?? 0}/${total}`;
+    const xp = document.createElement('span');
+    xp.className = 'profile-game-xp';
+    xp.textContent = `+${game.xp_earned ?? 0} XP`;
+    const date = document.createElement('span');
+    date.className = 'profile-game-date';
+    date.textContent = formatDate(game.played_at);
+    meta.append(score, xp, date);
     main.appendChild(meta);
 
     const replay = document.createElement('button');
@@ -84,23 +112,36 @@ function renderGames(games) {
 function renderBadges(badges) {
   if (!badgesEl) return;
   badgesEl.innerHTML = '';
-  if (badgesEmptyEl) badgesEmptyEl.hidden = badges.length > 0;
+  if (badgesEmptyEl) badgesEmptyEl.hidden = true;
 
-  badges.forEach((badge) => {
+  const earnedBadges = new Map(badges.map((badge) => [badge.id, badge]));
+  badgeCatalog.forEach((catalogBadge) => {
+    const earnedBadge = earnedBadges.get(catalogBadge.id);
+    const badge = { ...catalogBadge, ...earnedBadge, earned: Boolean(earnedBadge) };
     const item = document.createElement('li');
-    item.className = 'profile-badge';
+    item.className = `profile-badge${badge.earned ? ' is-earned' : ' is-locked'}`;
 
     const icon = document.createElement('img');
     icon.className = 'profile-badge-icon';
-    icon.src = badge.iconUrl || badgeAssets[badge.id] || defaultAvatar;
+    icon.src = badgeAssets[badge.id];
     icon.alt = badge.name;
     icon.width = 72;
     icon.height = 72;
 
     const body = document.createElement('div');
-    body.innerHTML = `<strong class="profile-badge-name">${badge.name}</strong>`
-      + `<span class="profile-badge-condition">${badge.condition}</span>`
-      + `<span class="profile-badge-date">Obtenu le ${formatDate(badge.earnedAt)}</span>`;
+    const name = document.createElement('strong');
+    name.className = 'profile-badge-name';
+    name.textContent = badge.name;
+    const condition = document.createElement('span');
+    condition.className = 'profile-badge-condition';
+    condition.textContent = badge.condition;
+    body.append(name, condition);
+    if (badge.earned) {
+      const date = document.createElement('span');
+      date.className = 'profile-badge-date';
+      date.textContent = `Obtenu le ${formatDate(badge.earnedAt)}`;
+      body.appendChild(date);
+    }
 
     item.appendChild(icon);
     item.appendChild(body);

@@ -2672,12 +2672,12 @@ body.solo-quiz-active [data-quiz-stage] {
   top: 50%;
   left: 50%;
   z-index: 10;
-  width: min(1100px, calc(100vw - 40px));
+  width: min(1180px, calc(100vw - 56px));
   max-height: calc(100vh - 40px);
-  padding: 36px 36px 32px;
+  padding: 28px 28px 28px;
   transform: translate(-50%, -50%);
-  border-radius: 28px;
-  background: #ffffff url("rebuild/dashboard Joeur/watermark Congo Brazza Quiz.svg") no-repeat right -60px bottom -60px / 320px auto;
+  border-radius: 22px;
+  background: #ffffff;
   color: #1a1a1a;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
   box-sizing: border-box;
@@ -2687,24 +2687,26 @@ body.solo-quiz-active [data-quiz-stage] {
 .profile-layout {
   display: grid;
   grid-template-columns: 280px minmax(0, 1fr);
-  gap: 32px;
+  gap: 24px;
   align-items: start;
 }
 
 .profile-identity {
+  min-height: 560px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  padding: 24px 20px;
-  border-radius: 22px;
-  background: #f6faf7;
+  padding: 34px 20px 24px;
+  border: 1px solid #e1e4e2;
+  border-radius: 18px;
+  background: #ffffff;
   text-align: center;
 }
 
 .profile-avatar {
-  width: 120px;
-  height: 120px;
+  width: 136px;
+  height: 136px;
   border-radius: 50%;
   object-fit: cover;
   background: #ffffff;
@@ -2713,6 +2715,7 @@ body.solo-quiz-active [data-quiz-stage] {
 .profile-name {
   margin: 0;
   font-size: 24px;
+  color: #092033;
   font-weight: 700;
   word-break: break-word;
 }
@@ -2726,12 +2729,27 @@ body.solo-quiz-active [data-quiz-stage] {
 
 .profile-stat {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: flex-start;
   gap: 12px;
-  padding: 10px 14px;
-  border-radius: 14px;
+  min-height: 54px;
+  padding: 8px 14px;
+  border: 1px solid #dfe3e1;
+  border-radius: 13px;
   background: #ffffff;
+}
+
+.profile-stat-icon {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  object-fit: contain;
+}
+
+.profile-stat-copy {
+  display: grid;
+  gap: 1px;
+  text-align: left;
 }
 
 .profile-stat dt {
@@ -2741,7 +2759,7 @@ body.solo-quiz-active [data-quiz-stage] {
 
 .profile-stat dd {
   margin: 0;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
   color: #14a84d;
 }
@@ -2768,13 +2786,30 @@ body.solo-quiz-active [data-quiz-stage] {
 
 .profile-content {
   display: grid;
-  gap: 26px;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.9fr);
+  gap: 20px;
+  align-items: stretch;
+}
+
+.profile-panel {
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid #dfe3e1;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 12px 24px rgba(14, 35, 26, 0.06);
 }
 
 .profile-panel h3 {
-  margin: 0 0 14px;
+  margin: 0;
   font-size: 20px;
   font-weight: 700;
+}
+
+.profile-panel-rule {
+  height: 1px;
+  margin: 12px 0 24px;
+  background: #d5d8d6;
 }
 
 .profile-games,
@@ -2789,12 +2824,34 @@ body.solo-quiz-active [data-quiz-stage] {
 .profile-game {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 16px;
-  padding: 14px 18px;
-  border: 1px solid #eceff0;
-  border-radius: 16px;
+  padding: 10px 0;
+  border: 0;
+  border-bottom: 1px solid #edf0ee;
+  border-radius: 0;
   background: #ffffff;
+}
+
+.profile-game:last-child {
+  border-bottom: 0;
+}
+
+.profile-game-icon {
+  display: grid;
+  flex: 0 0 54px;
+  width: 54px;
+  height: 50px;
+  place-items: center;
+  border: 1px solid #e0e3e1;
+  border-radius: 10px;
+  background: #ffffff;
+  font-size: 27px;
+}
+
+.profile-game-main {
+  flex: 1;
+  min-width: 0;
 }
 
 .profile-game-category {
@@ -2807,8 +2864,8 @@ body.solo-quiz-active [data-quiz-stage] {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
-  margin: 4px 0 0;
-  font-size: 14px;
+  margin: 3px 0 0;
+  font-size: 11px;
   color: #5b6b60;
 }
 
@@ -2818,15 +2875,15 @@ body.solo-quiz-active [data-quiz-stage] {
 }
 
 .profile-game-replay {
-  flex: 0 0 auto;
-  min-height: 38px;
-  padding: 0 20px;
+  flex: 0 0 120px;
+  min-height: 34px;
+  padding: 0 14px;
   border: 0;
   border-radius: 999px;
   background: #14a84d;
   color: #ffffff;
   font-family: inherit;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: transform 0.18s ease-in-out, background-color 0.18s ease-in-out;
@@ -2839,17 +2896,17 @@ body.solo-quiz-active [data-quiz-stage] {
 }
 
 .profile-badges {
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: 1fr;
+  gap: 22px;
 }
 
 .profile-badge {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 14px 16px;
-  border: 1px solid #eceff0;
-  border-radius: 16px;
-  background: #ffffff;
+  padding: 0;
+  border: 0;
+  background: transparent;
 }
 
 .profile-badge-icon {
@@ -2857,6 +2914,14 @@ body.solo-quiz-active [data-quiz-stage] {
   height: 72px;
   flex: 0 0 auto;
   object-fit: contain;
+}
+
+.profile-badge.is-locked .profile-badge-icon {
+  opacity: 0.07;
+}
+
+.profile-badge.is-earned .profile-badge-icon {
+  opacity: 1;
 }
 
 .profile-badge-name {
@@ -2884,12 +2949,19 @@ body.solo-quiz-active [data-quiz-stage] {
     max-height: calc(100vh - 32px);
     padding: 28px 18px 22px;
     border-radius: 22px;
-    background-size: 200px auto;
   }
 
   .profile-layout {
     grid-template-columns: minmax(0, 1fr);
     gap: 22px;
+  }
+
+  .profile-identity {
+    min-height: auto;
+  }
+
+  .profile-content {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .profile-avatar {
@@ -2903,7 +2975,7 @@ body.solo-quiz-active [data-quiz-stage] {
   }
 
   .profile-game-replay {
-    width: 100%;
+    width: 120px;
   }
 
   .profile-badges {

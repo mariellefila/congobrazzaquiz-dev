@@ -21,8 +21,6 @@ const soloGames = [
 
 const playerBadges = [
   { badge_id: 'serie-10', earned_at: '2026-08-18T10:00:00Z', badges: { id: 'serie-10', name: 'Série de 10', condition_label: "10 bonnes réponses d'affilée", icon_url: null, sort_order: 1 } },
-  { badge_id: 'expert-brazzaville', earned_at: '2026-08-16T10:00:00Z', badges: { id: 'expert-brazzaville', name: 'Expert Brazzaville', condition_label: 'Atteindre 90 % dans 4 parties', icon_url: null, sort_order: 2 } },
-  { badge_id: 'contributeur', earned_at: '2026-08-12T10:00:00Z', badges: { id: 'contributeur', name: 'Contributeur', condition_label: 'Proposer une question approuvée', icon_url: null, sort_order: 3 } },
 ];
 
 async function mockSupabase(page, { session = null } = {}) {
@@ -116,6 +114,13 @@ test.describe('Profil joueur', () => {
     await expect(page.locator('.profile-badge')).toHaveCount(3);
     await expect(page.locator('.profile-badge-name').first()).toHaveText('Série de 10');
     await expect(page.locator('.profile-badge-condition').first()).toHaveText("10 bonnes réponses d'affilée");
+    await expect(page.locator('.profile-badge').first()).toHaveClass(/is-earned/);
+    await expect(page.locator('.profile-badge').first().locator('.profile-badge-icon')).toHaveCSS('opacity', '1');
+    await expect(page.locator('.profile-badge').first().locator('.profile-badge-date')).toHaveText('Obtenu le 18/08/2026');
+    await expect(page.locator('.profile-badge').nth(1)).toHaveClass(/is-locked/);
+    await expect(page.locator('.profile-badge').nth(1).locator('.profile-badge-icon')).toHaveCSS('opacity', '0.07');
+    await expect(page.locator('.profile-badge').nth(1).locator('.profile-badge-date')).toHaveCount(0);
+    await expect(page.locator('.profile-badge').nth(1).locator('.profile-badge-condition')).toHaveCSS('opacity', '1');
   });
 
   test('relance une partie dans la catégorie de la partie choisie', async ({ page }) => {

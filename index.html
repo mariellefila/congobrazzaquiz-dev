@@ -250,16 +250,25 @@
                     <h2 id="profile-modal-title" class="profile-name" data-profile-name>Joueur</h2>
                     <dl class="profile-stats">
                         <div class="profile-stat">
-                            <dt>Points</dt>
-                            <dd data-profile-points>—</dd>
+                            <img class="profile-stat-icon" src="rebuild/dashboard%20Joeur/POINTS.svg" alt="" width="38" height="38" />
+                            <div class="profile-stat-copy">
+                                <dt>Points</dt>
+                                <dd data-profile-points>—</dd>
+                            </div>
                         </div>
                         <div class="profile-stat">
-                            <dt>Classement</dt>
-                            <dd data-profile-rank>—</dd>
+                            <img class="profile-stat-icon" src="rebuild/dashboard%20Joeur/CLAMMENT.svg" alt="" width="38" height="38" />
+                            <div class="profile-stat-copy">
+                                <dt>Classement</dt>
+                                <dd data-profile-rank>—</dd>
+                            </div>
                         </div>
                         <div class="profile-stat">
-                            <dt>Série actuelle</dt>
-                            <dd data-profile-streak>—</dd>
+                            <img class="profile-stat-icon" src="rebuild/dashboard%20Joeur/Se%CC%81ries.svg" alt="" width="38" height="38" />
+                            <div class="profile-stat-copy">
+                                <dt>Série</dt>
+                                <dd data-profile-streak>—</dd>
+                            </div>
                         </div>
                     </dl>
                     <button class="profile-logout" type="button" data-profile-logout>Se déconnecter</button>
@@ -268,14 +277,15 @@
                 <div class="profile-content">
                     <section class="profile-panel" aria-labelledby="profile-games-title">
                         <h3 id="profile-games-title">Mes dernières parties</h3>
+                        <div class="profile-panel-rule" aria-hidden="true"></div>
                         <ul class="profile-games" data-profile-games></ul>
                         <p class="profile-empty" data-profile-games-empty hidden>Aucune partie enregistrée pour le moment.</p>
                     </section>
 
                     <section class="profile-panel" aria-labelledby="profile-badges-title">
                         <h3 id="profile-badges-title">Mes badges</h3>
+                        <div class="profile-panel-rule" aria-hidden="true"></div>
                         <ul class="profile-badges" data-profile-badges></ul>
-                        <p class="profile-empty" data-profile-badges-empty hidden>Aucun badge obtenu pour le moment.</p>
                     </section>
                 </div>
             </div>
