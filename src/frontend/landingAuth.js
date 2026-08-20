@@ -1,5 +1,7 @@
 import { initSupabase } from '../lib/supabaseClient.js';
 import { startSoloQuiz, resetSoloQuizView } from './soloQuiz.js';
+import { fetchPlayerProfile, formatPseudo, getAvatarUrl, getDisplayName } from '../api/playerProfile.js';
+import { configureProfile, openProfileModal, closeProfileModal } from './playerProfile.js';
 
 const pendingDestinationKey = 'cbq.pendingDestination';
 const pendingActionKey = 'cbq.pendingAction';
@@ -21,6 +23,11 @@ const categoryOverlay = document.querySelector('[data-category-overlay]');
 const categoryModal = document.querySelector('[data-category-modal]');
 const categoryCloseButton = document.querySelector('[data-category-close]');
 const categoryButtons = [...document.querySelectorAll('[data-category-slug]')];
+const authTrigger = document.querySelector('[data-auth-trigger]');
+const authLabel = document.querySelector('[data-auth-label]');
+const authAvatar = document.querySelector('[data-auth-avatar]');
+const defaultAvatar = 'rebuild/dashboard Joeur/Icône profil par défaut.svg';
+let currentUser = null;
 let pendingDestination = sessionStorage.getItem(pendingDestinationKey);
 let pendingAction = sessionStorage.getItem(pendingActionKey);
 let previouslyFocusedElement = null;
@@ -269,11 +276,71 @@ function selectCategory(event) {
   startSoloQuiz(categorySlug);
 }
 
+function updateAuthUi(user) {
+  currentUser = user || null;
+  if (!authTrigger || !authLabel) return;
+
+  if (currentUser) {
+    authTrigger.dataset.authState = 'signed-in';
+    authLabel.textContent = formatPseudo(getDisplayName(currentUser));
+    authTrigger.setAttribute('aria-label', 'Voir mon profil joueur');
+    if (authAvatar) {
+      authAvatar.src = getAvatarUrl(currentUser) || defaultAvatar;
+      authAvatar.hidden = false;
+    }
+    return;
+  }
+
+  authTrigger.dataset.authState = 'signed-out';
+  authLabel.textContent = 'Se connecter';
+  authTrigger.setAttribute('aria-label', 'Se connecter');
+  if (authAvatar) authAvatar.hidden = true;
+  closeProfileModal();
+}
+
+function replayCategory(categorySlug) {
+  if (!categorySlug) return;
+  closeProfileModal();
+  sessionStorage.setItem('cbq.selectedCategory', categorySlug);
+  openCategoryModal();
+  startSoloQuiz(categorySlug);
+}
+
+async function signOut() {
+  try {
+    await supabase?.auth?.signOut?.();
+  } catch (error) {
+    console.error('Déconnexion impossible', error);
+  }
+  closeProfileModal();
+  updateAuthUi(null);
+}
+
+configureProfile({ onReplay: replayCategory, onLogout: signOut });
+
+function handleAuthTriggerClick() {
+  if (currentUser) {
+    openProfileModal(() => fetchPlayerProfile(supabase, currentUser));
+    return;
+  }
+
+  pendingDestination = null;
+  sessionStorage.removeItem(pendingDestinationKey);
+  setPendingAction(null);
+  setStatus(supabase ? '' : 'La connexion est momentanément indisponible.');
+  openLoginModal();
+}
+
 async function initialise() {
   if (window.SUPABASE_URL && window.SUPABASE_ANON_KEY) {
     try {
       supabase = await initSupabase(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
       const session = await getCurrentSession();
+      updateAuthUi(session?.user);
+
+      supabase.auth.onAuthStateChange?.((_event, nextSession) => {
+        updateAuthUi(nextSession?.user);
+      });
 
       if (session && pendingAction === 'openModeModal') {
         setPendingAction(null);
@@ -343,6 +410,9 @@ if (modeBackdrop) {
 }
 if (categoryCloseButton) {
   categoryCloseButton.addEventListener('click', closeCategoryModal);
+}
+if (authTrigger) {
+  authTrigger.addEventListener('click', handleAuthTriggerClick);
 }
 
 document.addEventListener('keydown', (event) => {

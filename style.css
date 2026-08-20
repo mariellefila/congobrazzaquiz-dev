@@ -262,10 +262,49 @@ button:hover {
   text-decoration: underline;
 }
 
+.hero-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
 .hero-nav-facebook {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.hero-auth {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 4px;
+  border: 0;
+  background: none;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+
+.hero-auth:hover,
+.hero-auth:focus-visible {
+  /* neutralise le fond vert de la règle globale button:hover */
+  background-color: transparent;
+  color: #ffffff;
+  text-decoration: underline;
+  text-decoration-color: #ffffff;
+}
+
+.hero-auth-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .hero-main {
@@ -381,13 +420,22 @@ button:hover {
     display: none;
   }
 
-  .hero-nav-facebook {
+  .hero-nav-actions {
     position: absolute;
     top: 14px;
     right: 16px;
     z-index: 4;
+    gap: 12px;
+  }
+
+  .hero-nav-facebook {
     width: 30px;
     height: 30px;
+  }
+
+  .hero-auth {
+    font-size: 13px;
+    padding: 4px 0;
   }
 
   .hero-main {
@@ -2595,4 +2643,272 @@ body.solo-quiz-active [data-quiz-stage] {
   background: #fef1d6;
   padding: 2px 8px;
   border-radius: 999px;
+}
+
+/* ==========================================================================
+   Profil joueur
+   ========================================================================== */
+.profile-modal-open {
+  overflow: hidden;
+}
+
+.profile-modal-overlay[hidden] {
+  display: none;
+}
+
+.profile-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+}
+
+.profile-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.68);
+}
+
+.profile-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 10;
+  width: min(1100px, calc(100vw - 40px));
+  max-height: calc(100vh - 40px);
+  padding: 36px 36px 32px;
+  transform: translate(-50%, -50%);
+  border-radius: 28px;
+  background: #ffffff url("rebuild/dashboard Joeur/watermark Congo Brazza Quiz.svg") no-repeat right -60px bottom -60px / 320px auto;
+  color: #1a1a1a;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.profile-layout {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.profile-identity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 20px;
+  border-radius: 22px;
+  background: #f6faf7;
+  text-align: center;
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #ffffff;
+}
+
+.profile-name {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  word-break: break-word;
+}
+
+.profile-stats {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  margin: 0;
+}
+
+.profile-stat {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.profile-stat dt {
+  font-size: 14px;
+  color: #5b6b60;
+}
+
+.profile-stat dd {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #14a84d;
+}
+
+.profile-logout {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid #e0c3c3;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #cc4e4d;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.18s ease-in-out, color 0.18s ease-in-out;
+}
+
+.profile-logout:hover,
+.profile-logout:focus-visible {
+  background: #cc4e4d;
+  color: #ffffff;
+}
+
+.profile-content {
+  display: grid;
+  gap: 26px;
+}
+
+.profile-panel h3 {
+  margin: 0 0 14px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.profile-games,
+.profile-badges {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.profile-game {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 18px;
+  border: 1px solid #eceff0;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.profile-game-category {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.profile-game-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #5b6b60;
+}
+
+.profile-game-xp {
+  color: #14a84d;
+  font-weight: 500;
+}
+
+.profile-game-replay {
+  flex: 0 0 auto;
+  min-height: 38px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 999px;
+  background: #14a84d;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.18s ease-in-out, background-color 0.18s ease-in-out;
+}
+
+.profile-game-replay:hover,
+.profile-game-replay:focus-visible {
+  background: #0f8b3f;
+  transform: translateY(-1px);
+}
+
+.profile-badges {
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+.profile-badge {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid #eceff0;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.profile-badge-icon {
+  width: 72px;
+  height: 72px;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+.profile-badge-name {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.profile-badge-condition,
+.profile-badge-date {
+  display: block;
+  font-size: 13px;
+  color: #5b6b60;
+}
+
+.profile-empty {
+  margin: 0;
+  font-size: 14px;
+  color: #5b6b60;
+}
+
+@media screen and (max-width: 749px) {
+  .profile-modal {
+    width: calc(100vw - 32px);
+    max-height: calc(100vh - 32px);
+    padding: 28px 18px 22px;
+    border-radius: 22px;
+    background-size: 200px auto;
+  }
+
+  .profile-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+  }
+
+  .profile-avatar {
+    width: 96px;
+    height: 96px;
+  }
+
+  .profile-game {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .profile-game-replay {
+    width: 100%;
+  }
+
+  .profile-badges {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

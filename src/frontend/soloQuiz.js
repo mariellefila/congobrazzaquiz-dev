@@ -1,4 +1,6 @@
 import * as quizApi from '../api/quizApi.js';
+import { isSupabaseInitialized, getSupabase } from '../lib/supabaseClient.js';
+import { recordSoloGame } from '../api/playerProfile.js';
 
 const titleEl = document.getElementById('soloQuizTitle');
 const quizEl = document.getElementById('soloQuiz');
@@ -20,6 +22,7 @@ let currentCategorySlug = null;
 let currentQuestionNumber = 0;
 let totalQuestions = 0;
 let transitionPending = false;
+let answerResults = [];
 
 const categoryMetadata = {
   Histoire: '🛕',
@@ -62,6 +65,7 @@ function startTimer() {
 
 function handleTimeout() {
   const result = quizApi.validateAnswer(currentQuestion.id, null);
+  answerResults.push(false);
   revealCorrectAnswer(null, result.correctOption);
 }
 
@@ -158,6 +162,7 @@ function showQuestion(question) {
 function handleAnswer(option, clickedBtn) {
   clearInterval(timerInterval);
   const result = quizApi.validateAnswer(currentQuestion.id, option);
+  answerResults.push(Boolean(result.correct));
   updateScoreDisplay();
   revealCorrectAnswer(clickedBtn, result.correctOption);
 }
@@ -178,11 +183,30 @@ function showNextOrFinish() {
   }
 }
 
+// Persiste la partie terminée pour alimenter le profil joueur (XP, série, badges).
+async function persistSoloGame(result) {
+  if (answerResults.length === 0 || !isSupabaseInitialized()) return;
+  try {
+    const supabase = getSupabase();
+    const { data } = await supabase.auth.getSession();
+    if (!data?.session) return;
+    await recordSoloGame(supabase, {
+      categorySlug: currentCategorySlug,
+      categoryName: currentCategory,
+      score: result.score,
+      results: answerResults,
+    });
+  } catch (error) {
+    console.warn('Partie solo non enregistrée', error);
+  }
+}
+
 function showFinalScore() {
   document.body.classList.add('solo-result-mode');
   timerEl.textContent = '';
   if (nextButton) nextButton.hidden = true;
   const result = quizApi.getResult();
+  persistSoloGame(result);
   const averageTime = result.averageTimeSeconds
     ? result.averageTimeSeconds.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
     : '—';
@@ -258,6 +282,7 @@ export function startSoloQuiz(categorySlug) {
   currentCategory = result.category;
   currentQuestionNumber = 1;
   totalQuestions = result.totalQuestions;
+  answerResults = [];
   const displayCategory = result.category === 'Droit et Soci\u00e9t\u00e9' ? 'Droit & soci\u00e9t\u00e9' : result.category;
   titleEl.textContent = `Quiz : ${displayCategory}`;
   if (result.totalQuestions === 0 || result.currentQuestion === null) {

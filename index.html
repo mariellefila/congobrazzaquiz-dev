@@ -31,15 +31,21 @@
                 <a href="pages/proposer-question.html">Proposer une question</a>
                 <a href="pages/proposer-publicite.html">Proposer une pub</a>
             </nav>
-            <a
-                class="hero-nav-facebook"
-                href="https://www.facebook.com/profile.php?id=100063648157074"
-                target="_blank"
-                rel="noopener"
-                aria-label="Congo Brazza Quiz sur Facebook"
-            >
-                <img src="images/brand/facebook-icon.svg" alt="" width="20" height="20" />
-            </a>
+            <div class="hero-nav-actions">
+                <a
+                    class="hero-nav-facebook"
+                    href="https://www.facebook.com/profile.php?id=100063648157074"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Congo Brazza Quiz sur Facebook"
+                >
+                    <img src="images/brand/facebook-icon.svg" alt="" width="20" height="20" />
+                </a>
+                <button class="hero-auth" type="button" data-auth-trigger data-auth-state="signed-out">
+                    <img class="hero-auth-avatar" data-auth-avatar src="rebuild/dashboard Joeur/Icône profil par défaut.svg" alt="" width="24" height="24" hidden />
+                    <span class="hero-auth-label" data-auth-label>Se connecter</span>
+                </button>
+            </div>
         </header>
 
         <nav class="mobile-nav" aria-label="Navigation mobile">
@@ -231,6 +237,49 @@
             </article>
         </div>
     </section>
+    </div>
+
+    <div class="profile-modal-overlay" data-profile-overlay hidden>
+        <div class="profile-modal-backdrop" data-profile-backdrop hidden></div>
+        <section class="profile-modal" data-profile-modal role="dialog" aria-modal="true" aria-labelledby="profile-modal-title" hidden>
+            <button class="login-modal-close" type="button" data-profile-close aria-label="Fermer le profil joueur">&times;</button>
+
+            <div class="profile-layout">
+                <aside class="profile-identity">
+                    <img class="profile-avatar" data-profile-avatar src="rebuild/dashboard Joeur/Icône profil par défaut.svg" alt="" width="120" height="120" />
+                    <h2 id="profile-modal-title" class="profile-name" data-profile-name>Joueur</h2>
+                    <dl class="profile-stats">
+                        <div class="profile-stat">
+                            <dt>Points</dt>
+                            <dd data-profile-points>—</dd>
+                        </div>
+                        <div class="profile-stat">
+                            <dt>Classement</dt>
+                            <dd data-profile-rank>—</dd>
+                        </div>
+                        <div class="profile-stat">
+                            <dt>Série actuelle</dt>
+                            <dd data-profile-streak>—</dd>
+                        </div>
+                    </dl>
+                    <button class="profile-logout" type="button" data-profile-logout>Se déconnecter</button>
+                </aside>
+
+                <div class="profile-content">
+                    <section class="profile-panel" aria-labelledby="profile-games-title">
+                        <h3 id="profile-games-title">Mes dernières parties</h3>
+                        <ul class="profile-games" data-profile-games></ul>
+                        <p class="profile-empty" data-profile-games-empty hidden>Aucune partie enregistrée pour le moment.</p>
+                    </section>
+
+                    <section class="profile-panel" aria-labelledby="profile-badges-title">
+                        <h3 id="profile-badges-title">Mes badges</h3>
+                        <ul class="profile-badges" data-profile-badges></ul>
+                        <p class="profile-empty" data-profile-badges-empty hidden>Aucun badge obtenu pour le moment.</p>
+                    </section>
+                </div>
+            </div>
+        </section>
     </div>
 
     <script src="supabase-config.js"></script>
