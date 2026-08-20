@@ -2944,6 +2944,10 @@ body.solo-quiz-active [data-quiz-stage] {
 }
 
 @media screen and (min-width: 751px) {
+  .profile-layout {
+    align-items: stretch;
+  }
+
   .profile-badges {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 34px;
