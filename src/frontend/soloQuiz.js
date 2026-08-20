@@ -232,12 +232,12 @@ function showFinalScore() {
       <strong>${badgeCategory}</strong>
     </div>
     <div class="solo-result-heading">
-      <img class="solo-result-laurel" src="${resultAsset('lorié.svg')}" alt="" aria-hidden="true" />
+      <img class="solo-result-laurel" src="${resultAsset('laurier-gauche.svg')}" alt="" aria-hidden="true" />
       <div>
         <h2 class="solo-result-title">Félicitation ! Vous avez terminé le quiz.</h2>
         <p class="solo-result-score"><strong>${result.score}</strong><span>PTS</span></p>
       </div>
-      <img class="solo-result-laurel solo-result-laurel-right" src="${resultAsset('lorié.svg')}" alt="" aria-hidden="true" />
+      <img class="solo-result-laurel solo-result-laurel-right" src="${resultAsset('laurier-droite.svg')}" alt="" aria-hidden="true" />
     </div>
     <div class="solo-result-stats">
       <article>

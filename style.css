@@ -2725,12 +2725,13 @@ body.solo-result-mode .solo-result-category strong {
 body.solo-result-mode .solo-result-laurel {
   align-self: center;
   width: 76px;
-  height: auto;
+  height: 76px;
+  object-fit: contain;
   transform: none;
 }
 
 body.solo-result-mode .solo-result-laurel-right {
-  transform: scaleX(-1);
+  transform: none;
 }
 
 body.solo-result-mode .solo-result-score {
@@ -2891,6 +2892,7 @@ body.solo-result-mode .solo-result-share img {
 
   body.solo-result-mode .solo-result-laurel {
     width: 36px;
+    height: 36px;
   }
 
   body.solo-result-mode .solo-result-score {
