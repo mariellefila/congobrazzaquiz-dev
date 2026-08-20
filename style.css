@@ -2681,7 +2681,7 @@ body.solo-quiz-active [data-quiz-stage] {
   color: #1a1a1a;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
   box-sizing: border-box;
-  overflow-y: auto;
+  overflow: visible;
 }
 
 .profile-layout {
@@ -2949,6 +2949,7 @@ body.solo-quiz-active [data-quiz-stage] {
     max-height: calc(100vh - 32px);
     padding: 28px 18px 22px;
     border-radius: 22px;
+    overflow-y: auto;
   }
 
   .profile-layout {
