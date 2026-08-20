@@ -2943,6 +2943,55 @@ body.solo-quiz-active [data-quiz-stage] {
   color: #5b6b60;
 }
 
+@media screen and (min-width: 751px) {
+  .profile-badges {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 34px;
+    row-gap: 36px;
+    align-items: start;
+  }
+
+  .profile-badge {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    justify-items: start;
+    gap: 12px;
+  }
+
+  .profile-badge-icon {
+    width: 140px;
+    height: 116px;
+    object-fit: contain;
+  }
+
+  .profile-badge > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .profile-badge-name {
+    display: none;
+  }
+
+  .profile-badge-date {
+    order: 1;
+  }
+
+  .profile-badge-condition {
+    order: 2;
+  }
+
+  .profile-badge-condition,
+  .profile-badge-date {
+    color: #111111;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+}
+
 @media screen and (max-width: 749px) {
   .profile-modal {
     width: calc(100vw - 32px);
