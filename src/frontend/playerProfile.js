@@ -15,12 +15,13 @@ const gamesEmptyEl = document.querySelector('[data-profile-games-empty]');
 const badgesEl = document.querySelector('[data-profile-badges]');
 const badgesEmptyEl = document.querySelector('[data-profile-badges-empty]');
 
-const defaultAvatar = 'rebuild/dashboard Joeur/Icône profil par défaut.svg';
+const defaultAvatar = 'rebuild/dashboard%20Joeur/Ico%CC%82ne%20profil%20par%20de%CC%81faut.svg';
 
+// Noms de fichiers en Unicode décomposé (NFD) : garder les chemins pré-encodés.
 const badgeAssets = {
-  'serie-10': 'rebuild/dashboard Joeur/Badge 10 bonnes réponses d’affilée.svg',
-  'expert-brazzaville': 'rebuild/dashboard Joeur/Badge Expert Brazzaville.svg',
-  contributeur: 'rebuild/dashboard Joeur/Badge Contributeur.svg',
+  'serie-10': 'rebuild/dashboard%20Joeur/Badge%2010%20bonnes%20re%CC%81ponses%20d%E2%80%99affile%CC%81e.svg',
+  'expert-brazzaville': 'rebuild/dashboard%20Joeur/Badge%20Expert%20Brazzaville.svg',
+  contributeur: 'rebuild/dashboard%20Joeur/Badge%20Contributeur.svg',
 };
 
 const dateFormatter = new Intl.DateTimeFormat('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });

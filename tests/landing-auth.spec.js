@@ -176,25 +176,25 @@ test.describe('Landing et authentification', () => {
     await expect(page.locator('[data-category-overlay]')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0.6)');
   });
 
-  test('appelle le provider OAuth sélectionné avec la landing comme callback', async ({ page }) => {
-    await mockSupabase(page);
+  // La connexion réelle est temporairement simulée (MOCK AUTH) : le provider
+  // OAuth cliqué ouvre directement la session « AMELIA.B » sur la landing.
+  test('simule la connexion et affiche AMELIA.B sur la landing après login', async ({ page }) => {
     await page.goto('/index.html');
-    await page.getByRole('link', { name: 'Rejoindre' }).click();
+    await page.getByRole('button', { name: 'Se connecter' }).click();
     await page.getByRole('button', { name: 'Se connecter avec Google' }).click();
 
-    await expect.poll(() => page.evaluate(() => window.__oauthCall)).toEqual({
-      provider: 'google',
-      redirectTo: 'http://127.0.0.1:4173/index.html',
-    });
+    await expect(page).toHaveURL(/\/index\.html$/);
+    await expect(page.locator('[data-login-modal]')).toBeHidden();
+    await expect(page.locator('[data-auth-trigger]')).toHaveAttribute('data-auth-state', 'signed-in');
+    await expect(page.locator('[data-auth-label]')).toHaveText('AMELIA.B');
+    await expect(page.locator('[data-auth-avatar]')).toBeVisible();
 
     await page.reload();
-    await page.getByRole('link', { name: 'Rejoindre' }).click();
-    await page.getByRole('button', { name: 'Se connecter avec Facebook' }).click();
+    await expect(page.locator('[data-auth-label]')).toHaveText('AMELIA.B');
 
-    await expect.poll(() => page.evaluate(() => window.__oauthCall)).toEqual({
-      provider: 'facebook',
-      redirectTo: 'http://127.0.0.1:4173/index.html',
-    });
+    await page.locator('[data-auth-trigger]').click();
+    await expect(page.locator('[data-profile-modal]')).toBeVisible();
+    await expect(page.locator('[data-profile-name]')).toHaveText('Amelia B');
   });
 
   test('affiche le nouvel écran de résultat en mode solo', async ({ page }) => {

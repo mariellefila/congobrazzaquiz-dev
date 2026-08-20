@@ -66,9 +66,9 @@ CREATE POLICY "badges_admin_delete" ON public.badges
   FOR DELETE USING (FALSE);
 
 INSERT INTO public.badges (id, name, condition_label, icon_url, sort_order) VALUES
-  ('serie-10', 'Série de 10', '10 bonnes réponses d''affilée', 'rebuild/dashboard Joeur/Badge 10 bonnes réponses d''affilée.svg', 1),
-  ('expert-brazzaville', 'Expert Brazzaville', 'Atteindre 90 % dans 4 parties', 'rebuild/dashboard Joeur/Badge Expert Brazzaville.svg', 2),
-  ('contributeur', 'Contributeur', 'Proposer une question approuvée', 'rebuild/dashboard Joeur/Badge Contributeur.svg', 3)
+  ('serie-10', 'Série de 10', '10 bonnes réponses d''affilée', 'rebuild/dashboard%20Joeur/Badge%2010%20bonnes%20re%CC%81ponses%20d%E2%80%99affile%CC%81e.svg', 1),
+  ('expert-brazzaville', 'Expert Brazzaville', 'Atteindre 90 % dans 4 parties', 'rebuild/dashboard%20Joeur/Badge%20Expert%20Brazzaville.svg', 2),
+  ('contributeur', 'Contributeur', 'Proposer une question approuvée', 'rebuild/dashboard%20Joeur/Badge%20Contributeur.svg', 3)
 ON CONFLICT (id) DO UPDATE
   SET name = EXCLUDED.name,
       condition_label = EXCLUDED.condition_label,

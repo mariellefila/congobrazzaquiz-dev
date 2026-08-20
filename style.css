@@ -300,11 +300,9 @@ button:hover {
 }
 
 .hero-auth-avatar {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  object-fit: cover;
-  background: rgba(255, 255, 255, 0.2);
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
 }
 
 .hero-main {
