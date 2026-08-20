@@ -146,4 +146,10 @@ Effectue directement les modifications dans le repository.
 - fichiers modifiés ;
 - CSS modifié ;
 - éventuel HTML/JS modifié ;
-- confirmation que la logique du quiz n’a pas été changée.
+- confirmation que la logique du quiz n’a pas été changée.Corrige uniquement les bugs visuels des boutons de l’écran de résultat actuel.
+
+Ne modifie pas les dimensions de la modale ni la disposition générale.
+
+1. Bouton X de fermeture
+
+Le bouton X en haut à droite est actuellement coupé / masqué par le conteneur.

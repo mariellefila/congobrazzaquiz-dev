@@ -222,35 +222,55 @@ function showFinalScore() {
     : '—';
   const shareText = `J'ai obtenu ${result.score} points à Congo Brazza Quiz !`;
   const shareUrl = window.location.origin;
+  const badgeCategory = currentCategory === 'Droit et Société' ? 'Droit & société' : currentCategory;
+  // Certains fichiers de rebuild/résultat/ sont enregistrés sur disque avec des accents décomposés (NFD).
+  const resultAsset = (name) => `rebuild/résultat/${name.normalize('NFD')}`;
 
   quizEl.innerHTML = `
-    <div class="solo-result-category quiz-category-badge" data-category="${currentCategory}">
-      <span aria-hidden="true">${categoryMetadata[currentCategory] || ''}</span>
-      <strong>${currentCategory}</strong>
+    <div class="solo-result-category quiz-category-badge" data-category="${badgeCategory}">
+      <span aria-hidden="true">${categoryMetadata[badgeCategory] || ''}</span>
+      <strong>${badgeCategory}</strong>
     </div>
     <div class="solo-result-heading">
-      <span class="solo-result-laurel" aria-hidden="true">❮</span>
+      <img class="solo-result-laurel" src="${resultAsset('lorié.svg')}" alt="" aria-hidden="true" />
       <div>
         <h2 class="solo-result-title">Félicitation ! Vous avez terminé le quiz.</h2>
         <p class="solo-result-score"><strong>${result.score}</strong><span>PTS</span></p>
       </div>
-      <span class="solo-result-laurel solo-result-laurel-right" aria-hidden="true">❮</span>
+      <img class="solo-result-laurel solo-result-laurel-right" src="${resultAsset('lorié.svg')}" alt="" aria-hidden="true" />
     </div>
     <div class="solo-result-stats">
-      <article><span aria-hidden="true">✓</span><strong>${result.correctAnswers ?? result.score}/${result.total}</strong><small>Bonnes réponses</small></article>
-      <article><span aria-hidden="true">◷</span><strong>${averageTime}${averageTime === '—' ? '' : ' s'}</strong><small>Temps moyen<br />par question</small></article>
-      <article><span aria-hidden="true">★</span><strong>—</strong><small>Position au classement</small></article>
+      <article>
+        <img src="${resultAsset('Bonne réponse.svg')}" alt="" aria-hidden="true" />
+        <div><strong>${result.correctAnswers ?? result.score}/${result.total}</strong><small>Bonnes réponses</small></div>
+      </article>
+      <article>
+        <img src="${resultAsset('Temps moyen.svg')}" alt="" aria-hidden="true" />
+        <div><strong>${averageTime}${averageTime === '—' ? '' : ' s'}</strong><small>Temps moyen<br />par question</small></div>
+      </article>
+      <article>
+        <img src="${resultAsset('classement.svg')}" alt="" aria-hidden="true" />
+        <div><strong>—</strong><small>Positions gagnées<br />dans le classement</small></div>
+      </article>
     </div>
-    <a class="solo-result-primary" href="pages/leaderboard.html">▥ &nbsp; Voir le classement &nbsp; →</a>
+    <a class="solo-result-primary" href="pages/leaderboard.html">
+      <img src="rebuild/Classement.svg" alt="" aria-hidden="true" />
+      <span>Voir le classement</span>
+      <span aria-hidden="true">→</span>
+    </a>
     <div class="solo-result-actions">
-      <button class="solo-result-secondary" type="button" data-result-replay>◷ &nbsp; Rejouer</button>
-      <button class="solo-result-secondary" type="button" data-result-category>▦ &nbsp; Changer de catégorie</button>
+      <button class="solo-result-secondary" type="button" data-result-replay>
+        <img src="${resultAsset('Rejouer.svg')}" alt="" aria-hidden="true" /><span>Rejouer</span>
+      </button>
+      <button class="solo-result-secondary" type="button" data-result-category>
+        <img src="${resultAsset('Changer de catégorie.svg')}" alt="" aria-hidden="true" /><span>Changer de catégorie</span>
+      </button>
     </div>
     <p class="solo-result-share-label">Partager mon score</p>
     <div class="solo-result-share" role="group" aria-label="Partager le score">
-      <button type="button" data-share-facebook aria-label="Partager sur Facebook"><img src="images/brand/facebook-icon.svg" alt="" /></button>
-      <button type="button" data-share-whatsapp aria-label="Partager sur WhatsApp">◉</button>
-      <button type="button" data-share-native aria-label="Partager"><span aria-hidden="true">⇧</span></button>
+      <button type="button" data-share-facebook aria-label="Partager sur Facebook"><img src="${resultAsset('6.svg')}" alt="" /></button>
+      <button type="button" data-share-whatsapp aria-label="Partager sur WhatsApp"><img src="${resultAsset('whatapp.svg')}" alt="" /></button>
+      <button type="button" data-share-native aria-label="Partager"><img src="${resultAsset('7.svg')}" alt="" /></button>
     </div>`;
   scoreEl.textContent = '';
 
