@@ -4,6 +4,18 @@
 
 const RECENT_GAMES_LIMIT = 5;
 
+// --- MODE TEST TEMPORAIRE — zone "Mes badges" -----------------------------
+// À retirer une fois la vérification visuelle terminée. Ne touche à rien
+// d'autre que l'affichage des badges (aucune écriture Supabase).
+const PROFILE_BADGES_TEST_MODE = true;
+
+const TEST_BADGES = [
+  { id: 'serie-10', name: 'Série de 10', condition: "Obtenir 10 bonnes réponses d'affilée", iconUrl: null, earnedAt: '2026-08-20' },
+  // 'expert-brazzaville' volontairement absent : simule un badge non acquis.
+  { id: 'contributeur', name: 'Contributeur', condition: 'Proposer une question et qu’elle soit approuvée', iconUrl: null, earnedAt: '2026-08-18' },
+];
+// --- Fin mode test ----------------------------------------------------------
+
 export function getDisplayName(user) {
   if (!user) return '';
   const metadata = user.user_metadata || {};
@@ -84,6 +96,8 @@ async function fetchRecentGames(supabase, playerId) {
 }
 
 async function fetchBadges(supabase, playerId) {
+  if (PROFILE_BADGES_TEST_MODE) return TEST_BADGES; // mode test, voir constante ci-dessus
+
   const { data, error } = await supabase
     .from('player_badges')
     .select('badge_id, earned_at, badges(id, name, condition_label, icon_url, sort_order)')
@@ -111,7 +125,7 @@ export async function fetchPlayerProfile(supabase, user) {
       player: null,
       rank: null,
       games: [],
-      badges: [],
+      badges: PROFILE_BADGES_TEST_MODE ? TEST_BADGES : [],
       displayName: getDisplayName(user),
       avatarUrl: getAvatarUrl(user),
     };

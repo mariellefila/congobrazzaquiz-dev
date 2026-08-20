@@ -67,6 +67,45 @@ test.describe('Landing et authentification', () => {
     await expect(page).toHaveURL(/\/index\.html$/);
   });
 
+  test('JOUER connecté ouvre directement le choix du mode sans écran de connexion', async ({ page }) => {
+    await page.goto('/index.html');
+    await page.getByRole('button', { name: 'Se connecter' }).click();
+    await page.getByRole('button', { name: 'Se connecter avec Google' }).click();
+    await expect(page.locator('[data-auth-label]')).toHaveText('AMELIA.B');
+
+    await page.getByRole('link', { name: 'Jouer' }).click();
+
+    await expect(page.locator('[data-login-modal]')).toBeHidden();
+    await expect(page.locator('[data-mode-modal]')).toBeVisible();
+    await expect(page).toHaveURL(/\/index\.html$/);
+  });
+
+  test('JOUER non connecté redirige vers le choix du mode après connexion', async ({ page }) => {
+    await page.goto('/index.html');
+
+    await page.getByRole('link', { name: 'Jouer' }).click();
+    await expect(page.locator('[data-login-modal]')).toBeVisible();
+
+    await page.getByRole('button', { name: 'Se connecter avec Google' }).click();
+
+    await expect(page.locator('[data-login-modal]')).toBeHidden();
+    await expect(page.locator('[data-mode-modal]')).toBeVisible();
+    await expect(page.locator('[data-auth-label]')).toHaveText('AMELIA.B');
+    await expect(page).toHaveURL(/\/index\.html$/);
+    expect(await page.evaluate(() => sessionStorage.getItem('cbq.pendingAction'))).toBeNull();
+  });
+
+  test('SE CONNECTER ramène à la landing sans ouvrir le choix du mode', async ({ page }) => {
+    await page.goto('/index.html');
+
+    await page.getByRole('button', { name: 'Se connecter' }).click();
+    await page.getByRole('button', { name: 'Se connecter avec Google' }).click();
+
+    await expect(page).toHaveURL(/\/index\.html$/);
+    await expect(page.locator('[data-mode-modal]')).toBeHidden();
+    await expect(page.locator('[data-auth-label]')).toHaveText('AMELIA.B');
+  });
+
   test('protège les destinations de Rejoindre et ferme la modale sans naviguer', async ({ page }) => {
     await page.goto('/index.html');
 

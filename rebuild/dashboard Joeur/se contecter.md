@@ -437,4 +437,4 @@ Badge Expert Brazzaville.svg
 
 Puis utilise ces chemins directement dans le composant profil.
 
-Implémente ensuite directement les modifications et teste visuellement l’écran profil.
+Implémente ensuite directement les modifications et teste visuellement l’écran profil.!

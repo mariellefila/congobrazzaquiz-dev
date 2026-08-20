@@ -76,25 +76,27 @@ function renderGames(games) {
     icon.textContent = categoryIcons[game.category_slug] || '✦';
     item.appendChild(icon);
 
-    const category = document.createElement('strong');
-    category.className = 'profile-game-category';
-    category.textContent = game.category_name || game.category_slug;
-    main.appendChild(category);
-
-    const meta = document.createElement('p');
-    meta.className = 'profile-game-meta';
+    const top = document.createElement('p');
+    top.className = 'profile-game-top';
     const total = game.total_questions || 0;
     const score = document.createElement('span');
     score.className = 'profile-game-score';
     score.textContent = `${game.correct_answers ?? 0}/${total}`;
     const xp = document.createElement('span');
     xp.className = 'profile-game-xp';
-    xp.textContent = `+${game.xp_earned ?? 0} XP`;
+    xp.textContent = `+${game.xp_earned ?? 0}xp`;
+    top.append(score, xp);
+    main.appendChild(top);
+
+    const category = document.createElement('strong');
+    category.className = 'profile-game-category';
+    category.textContent = game.category_name || game.category_slug;
+    main.appendChild(category);
+
     const date = document.createElement('span');
     date.className = 'profile-game-date';
     date.textContent = formatDate(game.played_at);
-    meta.append(score, xp, date);
-    main.appendChild(meta);
+    main.appendChild(date);
 
     const replay = document.createElement('button');
     replay.className = 'profile-game-replay';

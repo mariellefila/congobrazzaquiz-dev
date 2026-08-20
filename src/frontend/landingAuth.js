@@ -195,18 +195,25 @@ async function getCurrentSession() {
   return data.session;
 }
 
+async function hasActiveSession() {
+  if (MOCK_AUTH_ENABLED && getMockUser()) return true; // MOCK AUTH
+  if (currentUser) return true;
+
+  try {
+    return Boolean(await getCurrentSession());
+  } catch (error) {
+    console.error('Impossible de vérifier la session Supabase', error);
+    return false;
+  }
+}
+
 async function handleProtectedNavigation(destination, clickedButton) {
   setActiveCta(clickedButton);
 
   if (clickedButton.dataset.modeAction === 'mode' || clickedButton.dataset.openModeModal !== undefined) {
-    try {
-      const session = await getCurrentSession();
-      if (session) {
-        openModeModal();
-        return;
-      }
-    } catch (error) {
-      console.error('Impossible de vérifier la session Supabase', error);
+    if (await hasActiveSession()) {
+      openModeModal();
+      return;
     }
 
     pendingDestination = null;
@@ -217,14 +224,9 @@ async function handleProtectedNavigation(destination, clickedButton) {
     return;
   }
 
-  try {
-    const session = await getCurrentSession();
-    if (session) {
-      window.location.href = destination;
-      return;
-    }
-  } catch (error) {
-    console.error('Impossible de vérifier la session Supabase', error);
+  if (await hasActiveSession()) {
+    window.location.href = destination;
+    return;
   }
 
   pendingDestination = destination;
@@ -236,9 +238,14 @@ async function handleProtectedNavigation(destination, clickedButton) {
 async function signInWithProvider(provider) {
   // MOCK AUTH : simule une connexion réussie sans passer par Supabase.
   if (MOCK_AUTH_ENABLED) {
+    const intendedAction = pendingAction;
     setMockUser(mockAuthUser);
     updateAuthUi(mockAuthUser);
     closeLoginModal();
+    if (intendedAction === 'openModeModal') {
+      openModeModal();
+      return;
+    }
     window.location.href = 'index.html';
     return;
   }
@@ -375,6 +382,10 @@ async function initialise() {
     const mockUser = getMockUser();
     if (mockUser) {
       updateAuthUi(mockUser);
+      if (pendingAction === 'openModeModal') {
+        setPendingAction(null);
+        openModeModal();
+      }
       return;
     }
   }
