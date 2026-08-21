@@ -33,7 +33,7 @@ function clearMockUser() {
   localStorage.removeItem(mockAuthStorageKey);
 }
 // --- FIN MOCK AUTH ---------------------------------------------------------
-const ctaButtons = [...document.querySelectorAll('[data-protected-destination], [data-open-mode-modal]')];
+const ctaButtons = [...document.querySelectorAll('[data-protected-destination], [data-open-mode-modal], [data-open-network-soon-modal]')];
 const loginOverlay = document.querySelector('[data-login-overlay]');
 const modal = document.querySelector('[data-login-modal]');
 const backdrop = document.querySelector('[data-login-backdrop]');
@@ -59,6 +59,10 @@ const roomSoonOverlay = document.querySelector('[data-room-soon-overlay]');
 const roomSoonModal = document.querySelector('[data-room-soon-modal]');
 const roomSoonBackdrop = document.querySelector('[data-room-soon-backdrop]');
 const roomSoonCloseButton = document.querySelector('[data-room-soon-close]');
+const networkSoonOverlay = document.querySelector('[data-network-soon-overlay]');
+const networkSoonModal = document.querySelector('[data-network-soon-modal]');
+const networkSoonBackdrop = document.querySelector('[data-network-soon-backdrop]');
+const networkSoonCloseButton = document.querySelector('[data-network-soon-close]');
 const authTrigger = document.querySelector('[data-auth-trigger]');
 const authLabel = document.querySelector('[data-auth-label]');
 const authAvatar = document.querySelector('[data-auth-avatar]');
@@ -228,6 +232,31 @@ function closeRoomSoonModal() {
   document.body.classList.remove('room-soon-modal-open');
 }
 
+function openNetworkSoonModal() {
+  if (!networkSoonModal || !networkSoonOverlay) return;
+  previouslyFocusedElement = document.activeElement;
+  networkSoonOverlay.hidden = false;
+  networkSoonBackdrop.hidden = false;
+  networkSoonModal.hidden = false;
+  document.body.classList.add('network-soon-modal-open');
+  networkSoonCloseButton?.focus();
+}
+
+function closeNetworkSoonModal() {
+  if (networkSoonOverlay) {
+    networkSoonOverlay.hidden = true;
+  }
+  if (networkSoonModal) {
+    networkSoonModal.hidden = true;
+  }
+  if (networkSoonBackdrop) {
+    networkSoonBackdrop.hidden = true;
+  }
+  document.body.classList.remove('network-soon-modal-open');
+  previouslyFocusedElement?.focus();
+  previouslyFocusedElement = null;
+}
+
 function continueWithoutAuthentication(event) {
   event.preventDefault();
 
@@ -263,6 +292,11 @@ async function hasActiveSession() {
 
 async function handleProtectedNavigation(destination, clickedButton) {
   setActiveCta(clickedButton);
+
+  if (clickedButton.dataset.openNetworkSoonModal !== undefined) {
+    openNetworkSoonModal();
+    return;
+  }
 
   if (clickedButton.dataset.modeAction === 'mode' || clickedButton.dataset.openModeModal !== undefined) {
     if (await hasActiveSession()) {
@@ -556,6 +590,12 @@ if (roomSoonBackdrop) {
     openModeModal();
   });
 }
+if (networkSoonCloseButton) {
+  networkSoonCloseButton.addEventListener('click', closeNetworkSoonModal);
+}
+if (networkSoonBackdrop) {
+  networkSoonBackdrop.addEventListener('click', closeNetworkSoonModal);
+}
 if (categoryCloseButton) {
   categoryCloseButton.addEventListener('click', closeCategoryModal);
 }
@@ -575,6 +615,7 @@ document.addEventListener('keydown', (event) => {
     closeRoomSoonModal();
     openModeModal();
   }
+  if (event.key === 'Escape' && networkSoonModal && !networkSoonModal.hidden) closeNetworkSoonModal();
   trapFocus(event);
 });
 

@@ -67,7 +67,7 @@
             <img class="hero-logo" src="rebuild/LOGO%20CQB.svg" alt="Congo Brazza Quiz" />
             <div class="cta-group">
                 <a class="cta-btn is-active" href="#" data-open-mode-modal aria-pressed="true">Jouer</a>
-                <a class="cta-btn" href="pages/mode.html" data-protected-destination="pages/mode.html" aria-pressed="false">Rejoindre</a>
+                <a class="cta-btn" href="#" data-open-network-soon-modal aria-pressed="false">Rejoindre</a>
             </div>
         </main>
     </div>
@@ -291,6 +291,36 @@
                 <path d="M9.5 18a2.5 2.5 0 0 0 5 0h-5Z" fill="#e63946"/>
             </svg>
             <div class="room-soon-notice-text">
+                <strong>Restez connecté</strong>
+                <span>de grandes nouveautés arrivent sur Congo Brazza Quiz.</span>
+            </div>
+        </div>
+    </section>
+    </div>
+    <div class="network-soon-modal-overlay" data-network-soon-overlay hidden>
+    <div class="network-soon-modal-backdrop" data-network-soon-backdrop hidden></div>
+    <section class="network-soon-modal" data-network-soon-modal role="dialog" aria-modal="true" aria-labelledby="network-soon-modal-title" hidden>
+        <button class="login-modal-close" type="button" data-network-soon-close aria-label="Fermer la fenêtre des modes en réseaux">&times;</button>
+
+        <div class="network-soon-icons" aria-hidden="true">
+            <img class="network-soon-icon network-soon-icon--multi" src="rebuild/assette-mode/mode-multi.svg" alt="" width="140" height="140" />
+            <img class="network-soon-icon network-soon-icon--room" src="rebuild/assette-mode/mode-room.svg" alt="" width="140" height="140" />
+        </div>
+
+        <header class="network-soon-header">
+            <p class="network-soon-kicker">LES MODES</p>
+            <h2 id="network-soon-modal-title">EN RÉSEAUX</h2>
+            <p class="network-soon-tagline"><span>ARRIVENT BIENTÔT !</span></p>
+        </header>
+
+        <p class="network-soon-description">Préparez-vous à défier vos amis, à jouer en équipe et à vivre des parties encore plus fun !</p>
+
+        <div class="network-soon-notice">
+            <svg class="network-soon-notice-icon" viewBox="0 0 24 24" width="22" height="22" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 2a6 6 0 0 0-6 6v3.09c0 .58-.2 1.14-.57 1.59L4 15h16l-1.43-2.32a2.5 2.5 0 0 1-.57-1.59V8a6 6 0 0 0-6-6Z" fill="#e8a325"/>
+                <path d="M9.5 18a2.5 2.5 0 0 0 5 0h-5Z" fill="#e8a325"/>
+            </svg>
+            <div class="network-soon-notice-text">
                 <strong>Restez connecté</strong>
                 <span>de grandes nouveautés arrivent sur Congo Brazza Quiz.</span>
             </div>

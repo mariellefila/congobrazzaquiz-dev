@@ -106,7 +106,7 @@ test.describe('Landing et authentification', () => {
     await expect(page.locator('[data-auth-label]')).toHaveText('AMELIA.B');
   });
 
-  test('protège les destinations de Rejoindre et ferme la modale sans naviguer', async ({ page }) => {
+  test('Rejoindre affiche directement la modale des modes en réseaux et ferme sans naviguer', async ({ page }) => {
     await page.goto('/index.html');
 
     const joinButton = page.getByRole('link', { name: 'Rejoindre' });
@@ -114,16 +114,16 @@ test.describe('Landing et authentification', () => {
 
     await expect(page).toHaveURL(/\/index\.html$/);
     await expect(page.getByRole('dialog')).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Se connecter' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Se connecter avec Facebook' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Se connecter avec Google' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'EN RÉSEAUX' })).toBeVisible();
+    await expect(page.getByText('ARRIVENT BIENTÔT !')).toBeVisible();
+    await expect(page.getByRole('dialog').getByText('Restez connecté')).toBeVisible();
 
-    await page.getByRole('button', { name: 'Fermer la fenêtre de connexion' }).click();
+    await page.getByRole('button', { name: 'Fermer la fenêtre des modes en réseaux' }).click();
     await expect(page.getByRole('dialog')).toBeHidden();
     await expect(page).toHaveURL(/\/index\.html$/);
   });
 
-  test('adapte la modale aux écrans de téléphone', async ({ page }) => {
+  test('adapte la modale Rejoindre aux écrans de téléphone', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
     await page.goto('/index.html');
     await page.getByRole('link', { name: 'Rejoindre' }).click();
@@ -156,14 +156,6 @@ test.describe('Landing et authentification', () => {
     await page.keyboard.press('Space');
     await expect(page.getByRole('dialog')).toBeVisible();
     await page.keyboard.press('Escape');
-  });
-
-  test('permet de continuer sans authentification vers la destination demandée', async ({ page }) => {
-    await page.goto('/index.html');
-    await page.getByRole('link', { name: 'Rejoindre' }).click();
-    await page.getByRole('link', { name: 'Continuer sans se connecter' }).click();
-
-    await expect(page).toHaveURL(/\/pages\/mode\.html$/);
   });
 
   test('affiche la modale catégorie par-dessus la landing sans vider la vidéo ni naviguer', async ({ page }) => {
