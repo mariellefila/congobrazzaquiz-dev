@@ -55,6 +55,10 @@ const multiSoonOverlay = document.querySelector('[data-multi-soon-overlay]');
 const multiSoonModal = document.querySelector('[data-multi-soon-modal]');
 const multiSoonBackdrop = document.querySelector('[data-multi-soon-backdrop]');
 const multiSoonCloseButton = document.querySelector('[data-multi-soon-close]');
+const roomSoonOverlay = document.querySelector('[data-room-soon-overlay]');
+const roomSoonModal = document.querySelector('[data-room-soon-modal]');
+const roomSoonBackdrop = document.querySelector('[data-room-soon-backdrop]');
+const roomSoonCloseButton = document.querySelector('[data-room-soon-close]');
 const authTrigger = document.querySelector('[data-auth-trigger]');
 const authLabel = document.querySelector('[data-auth-label]');
 const authAvatar = document.querySelector('[data-auth-avatar]');
@@ -201,6 +205,29 @@ function closeMultiSoonModal() {
   document.body.classList.remove('multi-soon-modal-open');
 }
 
+function openRoomSoonModal() {
+  if (!roomSoonModal || !roomSoonOverlay) return;
+  previouslyFocusedElement = document.activeElement;
+  roomSoonOverlay.hidden = false;
+  roomSoonBackdrop.hidden = false;
+  roomSoonModal.hidden = false;
+  document.body.classList.add('room-soon-modal-open');
+  roomSoonCloseButton?.focus();
+}
+
+function closeRoomSoonModal() {
+  if (roomSoonOverlay) {
+    roomSoonOverlay.hidden = true;
+  }
+  if (roomSoonModal) {
+    roomSoonModal.hidden = true;
+  }
+  if (roomSoonBackdrop) {
+    roomSoonBackdrop.hidden = true;
+  }
+  document.body.classList.remove('room-soon-modal-open');
+}
+
 function continueWithoutAuthentication(event) {
   event.preventDefault();
 
@@ -336,6 +363,12 @@ function selectMode(event) {
   if (modeSlug === 'multi') {
     closeModeModal();
     openMultiSoonModal();
+    return;
+  }
+
+  if (modeSlug === 'room') {
+    closeModeModal();
+    openRoomSoonModal();
     return;
   }
 
@@ -511,6 +544,18 @@ if (multiSoonBackdrop) {
     openModeModal();
   });
 }
+if (roomSoonCloseButton) {
+  roomSoonCloseButton.addEventListener('click', () => {
+    closeRoomSoonModal();
+    openModeModal();
+  });
+}
+if (roomSoonBackdrop) {
+  roomSoonBackdrop.addEventListener('click', () => {
+    closeRoomSoonModal();
+    openModeModal();
+  });
+}
 if (categoryCloseButton) {
   categoryCloseButton.addEventListener('click', closeCategoryModal);
 }
@@ -524,6 +569,10 @@ document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && categoryModal && !categoryModal.hidden) closeCategoryModal();
   if (event.key === 'Escape' && multiSoonModal && !multiSoonModal.hidden) {
     closeMultiSoonModal();
+    openModeModal();
+  }
+  if (event.key === 'Escape' && roomSoonModal && !roomSoonModal.hidden) {
+    closeRoomSoonModal();
     openModeModal();
   }
   trapFocus(event);
