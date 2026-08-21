@@ -51,6 +51,10 @@ const categoryOverlay = document.querySelector('[data-category-overlay]');
 const categoryModal = document.querySelector('[data-category-modal]');
 const categoryCloseButton = document.querySelector('[data-category-close]');
 const categoryButtons = [...document.querySelectorAll('[data-category-slug]')];
+const multiSoonOverlay = document.querySelector('[data-multi-soon-overlay]');
+const multiSoonModal = document.querySelector('[data-multi-soon-modal]');
+const multiSoonBackdrop = document.querySelector('[data-multi-soon-backdrop]');
+const multiSoonCloseButton = document.querySelector('[data-multi-soon-close]');
 const authTrigger = document.querySelector('[data-auth-trigger]');
 const authLabel = document.querySelector('[data-auth-label]');
 const authAvatar = document.querySelector('[data-auth-avatar]');
@@ -172,6 +176,29 @@ function closeModeModal() {
   setPendingAction(null);
   previouslyFocusedElement?.focus();
   previouslyFocusedElement = null;
+}
+
+function openMultiSoonModal() {
+  if (!multiSoonModal || !multiSoonOverlay) return;
+  previouslyFocusedElement = document.activeElement;
+  multiSoonOverlay.hidden = false;
+  multiSoonBackdrop.hidden = false;
+  multiSoonModal.hidden = false;
+  document.body.classList.add('multi-soon-modal-open');
+  multiSoonCloseButton?.focus();
+}
+
+function closeMultiSoonModal() {
+  if (multiSoonOverlay) {
+    multiSoonOverlay.hidden = true;
+  }
+  if (multiSoonModal) {
+    multiSoonModal.hidden = true;
+  }
+  if (multiSoonBackdrop) {
+    multiSoonBackdrop.hidden = true;
+  }
+  document.body.classList.remove('multi-soon-modal-open');
 }
 
 function continueWithoutAuthentication(event) {
@@ -305,6 +332,12 @@ function selectMode(event) {
   const button = event.currentTarget;
   const modeSlug = button.dataset.modeSlug;
   if (!modeSlug) return;
+
+  if (modeSlug === 'multi') {
+    closeModeModal();
+    openMultiSoonModal();
+    return;
+  }
 
   sessionStorage.setItem('cbq.selectedMode', modeSlug);
   closeModeModal();
@@ -466,6 +499,18 @@ if (modeCloseButton) {
 if (modeBackdrop) {
   modeBackdrop.addEventListener('click', closeModeModal);
 }
+if (multiSoonCloseButton) {
+  multiSoonCloseButton.addEventListener('click', () => {
+    closeMultiSoonModal();
+    openModeModal();
+  });
+}
+if (multiSoonBackdrop) {
+  multiSoonBackdrop.addEventListener('click', () => {
+    closeMultiSoonModal();
+    openModeModal();
+  });
+}
 if (categoryCloseButton) {
   categoryCloseButton.addEventListener('click', closeCategoryModal);
 }
@@ -477,6 +522,10 @@ document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && modal && !modal.hidden) closeLoginModal();
   if (event.key === 'Escape' && modeModal && !modeModal.hidden) closeModeModal();
   if (event.key === 'Escape' && categoryModal && !categoryModal.hidden) closeCategoryModal();
+  if (event.key === 'Escape' && multiSoonModal && !multiSoonModal.hidden) {
+    closeMultiSoonModal();
+    openModeModal();
+  }
   trapFocus(event);
 });
 
