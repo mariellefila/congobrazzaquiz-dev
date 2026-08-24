@@ -6,33 +6,6 @@ import { configureProfile, openProfileModal, closeProfileModal } from './playerP
 const pendingDestinationKey = 'cbq.pendingDestination';
 const pendingActionKey = 'cbq.pendingAction';
 
-// --- MOCK AUTH (temporaire) ---------------------------------------------
-// Simule une connexion réussie tant que l'authentification réelle n'est pas
-// branchée sur cette page. À supprimer intégralement (ce bloc + les appels
-// marqués « MOCK AUTH » plus bas) quand Supabase gèrera la session pour de vrai.
-const MOCK_AUTH_ENABLED = true;
-const mockAuthStorageKey = 'cbq.mockAuth.user';
-const mockAuthUser = {
-  id: 'mock-amelia-b',
-  user_metadata: { full_name: 'Amelia B' },
-};
-
-function getMockUser() {
-  try {
-    return JSON.parse(localStorage.getItem(mockAuthStorageKey));
-  } catch (error) {
-    return null;
-  }
-}
-
-function setMockUser(user) {
-  localStorage.setItem(mockAuthStorageKey, JSON.stringify(user));
-}
-
-function clearMockUser() {
-  localStorage.removeItem(mockAuthStorageKey);
-}
-// --- FIN MOCK AUTH ---------------------------------------------------------
 const ctaButtons = [...document.querySelectorAll('[data-protected-destination], [data-open-mode-modal], [data-open-network-soon-modal]')];
 const loginOverlay = document.querySelector('[data-login-overlay]');
 const modal = document.querySelector('[data-login-modal]');
@@ -279,7 +252,6 @@ async function getCurrentSession() {
 }
 
 async function hasActiveSession() {
-  if (MOCK_AUTH_ENABLED && getMockUser()) return true; // MOCK AUTH
   if (currentUser) return true;
 
   try {
@@ -324,20 +296,6 @@ async function handleProtectedNavigation(destination, clickedButton) {
 }
 
 async function signInWithProvider(provider) {
-  // MOCK AUTH : simule une connexion réussie sans passer par Supabase.
-  if (MOCK_AUTH_ENABLED) {
-    const intendedAction = pendingAction;
-    setMockUser(mockAuthUser);
-    updateAuthUi(mockAuthUser);
-    closeLoginModal();
-    if (intendedAction === 'openModeModal') {
-      openModeModal();
-      return;
-    }
-    window.location.href = 'index.html';
-    return;
-  }
-
   await supabaseInitialisation;
 
   if (!supabase) {
@@ -451,7 +409,6 @@ function replayCategory(categorySlug) {
 }
 
 async function signOut() {
-  clearMockUser(); // MOCK AUTH
   try {
     await supabase?.auth?.signOut?.();
   } catch (error) {
@@ -477,19 +434,6 @@ function handleAuthTriggerClick() {
 }
 
 async function initialise() {
-  // MOCK AUTH : restaure la session simulée persistée avant tout appel Supabase.
-  if (MOCK_AUTH_ENABLED) {
-    const mockUser = getMockUser();
-    if (mockUser) {
-      updateAuthUi(mockUser);
-      if (pendingAction === 'openModeModal') {
-        setPendingAction(null);
-        openModeModal();
-      }
-      return;
-    }
-  }
-
   if (window.SUPABASE_URL && window.SUPABASE_ANON_KEY) {
     try {
       supabase = await initSupabase(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
