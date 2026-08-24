@@ -5,5 +5,4 @@
 /.vs
 /node_modules/
 /test-results/
-/supabase-config.js
 /.env.local
