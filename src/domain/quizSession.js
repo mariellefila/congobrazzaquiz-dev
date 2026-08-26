@@ -73,6 +73,18 @@ export class QuizSession {
     return this.questions.length;
   }
 
+  // Détail ordonné des réponses de la partie (source de vérité pour la persistance).
+  getAnswers() {
+    return this.answers.map((answer, index) => ({
+      questionId: answer.questionId,
+      questionOrder: index + 1,
+      selectedOption: answer.selectedOption,
+      isCorrect: answer.correct,
+      timedOut: answer.timedOut,
+      elapsedSeconds: answer.elapsedSeconds,
+    }));
+  }
+
   getAverageTimeSeconds() {
     const timedAnswers = this.answers.filter(({ elapsedSeconds }) => Number.isFinite(elapsedSeconds));
     if (!timedAnswers.length) return 0;

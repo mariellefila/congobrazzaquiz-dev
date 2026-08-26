@@ -169,4 +169,75 @@ test.describe('Profil joueur', () => {
     expect(call?.params?.p_category_slug).toBe('geographie');
     expect(call?.params?.p_results).toHaveLength(10);
   });
+
+  test('transmet le détail ordonné des réponses (p_answers) au RPC', async ({ page }) => {
+    await mockSupabase(page, { session: { user: { id: 'user-1', user_metadata: { full_name: 'Michel Bakala' } } } });
+    await page.goto('/index.html');
+
+    await page.getByRole('link', { name: 'Jouer' }).click();
+    await page.locator('[data-mode-slug="solo"]').click();
+    await page.locator('[data-category-slug="geographie"]').click();
+
+    const selectedOptions = [];
+    for (let i = 0; i < 10; i += 1) {
+      const option = page.locator('.quiz-option-btn').first();
+      selectedOptions.push(await option.getAttribute('data-option'));
+      await option.click();
+      await page.waitForTimeout(1600);
+    }
+
+    await expect(page.locator('.solo-result-title')).toBeVisible();
+    const call = await page.evaluate(() => (window.__rpcCalls || []).find((entry) => entry.name === 'record_solo_game'));
+    const answers = call?.params?.p_answers;
+
+    expect(answers).toHaveLength(10);
+    answers.forEach((answer, index) => {
+      expect(answer.question_order).toBe(index + 1);
+      expect(typeof answer.question_id).toBe('string');
+      expect(answer.question_id.length).toBeGreaterThan(0);
+      expect(answer.selected_option).toBe(selectedOptions[index]);
+      expect(typeof answer.is_correct).toBe('boolean');
+      expect(typeof answer.elapsed_seconds).toBe('number');
+      expect(answer.elapsed_seconds).toBeGreaterThanOrEqual(0);
+      expect(answer.elapsed_seconds).toBeLessThanOrEqual(20);
+    });
+
+    // p_results reste l'agrégat dérivé du même détail : les deux doivent concorder.
+    expect(call.params.p_results).toEqual(answers.map((answer) => answer.is_correct));
+    expect(call.params.p_score).toBe(answers.filter((answer) => answer.is_correct).length);
+  });
+
+  test('transmet une réponse expirée avec son temps écoulé', async ({ page }) => {
+    // La première question expire réellement (timer de 20 s) : d'où le budget étendu.
+    test.setTimeout(120_000);
+    await mockSupabase(page, { session: { user: { id: 'user-1', user_metadata: { full_name: 'Michel Bakala' } } } });
+    await page.goto('/index.html');
+
+    await page.getByRole('link', { name: 'Jouer' }).click();
+    await page.locator('[data-mode-slug="solo"]').click();
+    await page.locator('[data-category-slug="geographie"]').click();
+
+    // Laisse le timer arriver à zéro sans cliquer, puis attend la transition.
+    await expect(page.locator('.quiz-option-btn').first()).toBeDisabled({ timeout: 30_000 });
+    await page.waitForTimeout(1600);
+
+    for (let i = 1; i < 10; i += 1) {
+      await page.locator('.quiz-option-btn').first().click();
+      await page.waitForTimeout(1600);
+    }
+
+    await expect(page.locator('.solo-result-title')).toBeVisible();
+    const call = await page.evaluate(() => (window.__rpcCalls || []).find((entry) => entry.name === 'record_solo_game'));
+    const answers = call?.params?.p_answers;
+
+    expect(answers).toHaveLength(10);
+    const timedOut = answers[0];
+    expect(timedOut.question_order).toBe(1);
+    expect(timedOut.selected_option).toBeNull();
+    expect(timedOut.is_correct).toBe(false);
+    expect(typeof timedOut.elapsed_seconds).toBe('number');
+    expect(timedOut.elapsed_seconds).toBeGreaterThanOrEqual(19);
+    expect(timedOut.elapsed_seconds).toBeLessThanOrEqual(20);
+    expect(call.params.p_results[0]).toBe(false);
+  });
 });

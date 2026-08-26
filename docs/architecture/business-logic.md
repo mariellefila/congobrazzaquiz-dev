@@ -24,6 +24,8 @@
   - `isComplete()` : indique si la session est terminée.
   - `getScore()` : retourne le score actuel.
   - `getTotalQuestions()` : retourne le nombre total de questions de la session.
+  - `getAnswers()` : retourne le détail ordonné des réponses (`questionOrder` 1..N, `selectedOption`, `isCorrect`, `timedOut`, `elapsedSeconds`).
+  - `getAverageTimeSeconds()` : moyenne des `elapsedSeconds` renseignés.
 
 - `questionRepository`
   - `getCategories()` : retourne toutes les catégories.
@@ -36,9 +38,9 @@
   - `getCategories()` : expose les catégories au frontend.
   - `getQuestions(category, limit)` : retourne des questions pour le frontend sans exposer les bonnes réponses.
   - `startQuiz(category, limit)` : démarre la session en sélectionnant et mélangeant les questions.
-  - `validateAnswer(questionId, selectedOption)` : valide la réponse via `QuizSession`.
+  - `validateAnswer(questionId, selectedOption, elapsedSeconds)` : valide la réponse via `QuizSession` et mémorise le temps de réponse.
   - `getNextQuestion()` : passe à la question suivante.
-  - `getResult()` : retourne le score final.
+  - `getResult()` : retourne le score final et le détail ordonné des réponses (`answers`).
   - `getTimeLimitSeconds()` : expose la durée du timer.
 
 ### Règles métier prises en charge

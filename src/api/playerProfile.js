@@ -149,15 +149,29 @@ export async function fetchPlayerProfile(supabase, user) {
 
 // Enregistre une partie solo terminée. `results` est la suite ordonnée des
 // réponses (true = bonne réponse) : le serveur en déduit XP, série et badges.
-export async function recordSoloGame(supabase, { categorySlug, categoryName, score, results }) {
+// `answers` (optionnel) est le détail ordonné des réponses, persisté dans la
+// même transaction que la partie (solo_games + solo_game_answers).
+export async function recordSoloGame(supabase, { categorySlug, categoryName, score, results, answers }) {
   if (!supabase || typeof supabase.rpc !== 'function') return null;
 
-  const { data, error } = await supabase.rpc('record_solo_game', {
+  const payload = {
     p_category_slug: categorySlug,
     p_category_name: categoryName,
     p_score: score,
     p_results: results,
-  });
+  };
+
+  if (Array.isArray(answers) && answers.length > 0) {
+    payload.p_answers = answers.map((answer, index) => ({
+      question_id: answer.questionId,
+      question_order: answer.questionOrder ?? index + 1,
+      selected_option: answer.selectedOption,
+      is_correct: Boolean(answer.isCorrect),
+      elapsed_seconds: Number.isFinite(answer.elapsedSeconds) ? answer.elapsedSeconds : null,
+    }));
+  }
+
+  const { data, error } = await supabase.rpc('record_solo_game', payload);
 
   if (error) {
     console.warn('Partie solo non enregistrée', error.message);

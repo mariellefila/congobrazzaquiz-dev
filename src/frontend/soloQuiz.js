@@ -22,7 +22,7 @@ let currentCategorySlug = null;
 let currentQuestionNumber = 0;
 let totalQuestions = 0;
 let transitionPending = false;
-let answerResults = [];
+let questionStartedAt = null;
 
 const categoryMetadata = {
   Histoire: '🛕',
@@ -49,8 +49,14 @@ function formatTime(seconds) {
   return `00:${String(Math.max(seconds, 0)).padStart(2, '0')} seconde`;
 }
 
+function getElapsedQuestionSeconds() {
+  if (!questionStartedAt) return null;
+  return Math.min(quizApi.getTimeLimitSeconds(), (Date.now() - questionStartedAt) / 1000);
+}
+
 function startTimer() {
   clearInterval(timerInterval);
+  questionStartedAt = Date.now();
   timeLeft = quizApi.getTimeLimitSeconds();
   timerEl.textContent = formatTime(timeLeft);
   timerInterval = setInterval(() => {
@@ -64,8 +70,7 @@ function startTimer() {
 }
 
 function handleTimeout() {
-  const result = quizApi.validateAnswer(currentQuestion.id, null);
-  answerResults.push(false);
+  const result = quizApi.validateAnswer(currentQuestion.id, null, getElapsedQuestionSeconds());
   revealCorrectAnswer(null, result.correctOption);
 }
 
@@ -171,8 +176,7 @@ function showQuestion(question) {
 
 function handleAnswer(option, clickedBtn) {
   clearInterval(timerInterval);
-  const result = quizApi.validateAnswer(currentQuestion.id, option);
-  answerResults.push(Boolean(result.correct));
+  const result = quizApi.validateAnswer(currentQuestion.id, option, getElapsedQuestionSeconds());
   updateScoreDisplay();
   revealCorrectAnswer(clickedBtn, result.correctOption);
 }
@@ -194,8 +198,11 @@ function showNextOrFinish() {
 }
 
 // Persiste la partie terminée pour alimenter le profil joueur (XP, série, badges).
+// Le détail des réponses (source unique : QuizSession.answers via result.answers)
+// est transmis au RPC qui enregistre partie + réponses dans une même transaction.
 async function persistSoloGame(result) {
-  if (answerResults.length === 0 || !isSupabaseInitialized()) return;
+  const answers = result.answers || [];
+  if (answers.length === 0 || !isSupabaseInitialized()) return;
   try {
     const supabase = getSupabase();
     const { data } = await supabase.auth.getSession();
@@ -204,7 +211,8 @@ async function persistSoloGame(result) {
       categorySlug: currentCategorySlug,
       categoryName: currentCategory,
       score: result.score,
-      results: answerResults,
+      results: answers.map((answer) => answer.isCorrect),
+      answers,
     });
   } catch (error) {
     console.warn('Partie solo non enregistrée', error);
@@ -312,7 +320,7 @@ export function startSoloQuiz(categorySlug) {
   currentCategory = result.category;
   currentQuestionNumber = 1;
   totalQuestions = result.totalQuestions;
-  answerResults = [];
+
   const displayCategory = result.category === 'Droit et Soci\u00e9t\u00e9' ? 'Droit & soci\u00e9t\u00e9' : result.category;
   titleEl.textContent = `Quiz : ${displayCategory}`;
   if (result.totalQuestions === 0 || result.currentQuestion === null) {

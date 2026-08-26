@@ -29,13 +29,15 @@ Pour la Phase 2, l’API est implémentée comme une frontière interne JavaScri
     - `currentQuestion`
     - `totalQuestions`
     - `category`
-- `validateAnswer(questionId, selectedOption)`
+- `validateAnswer(questionId, selectedOption, elapsedSeconds)`
   - valide une réponse pour la question courante
+  - `elapsedSeconds` (optionnel) est le temps de réponse mesuré par le frontend, borné par `getTimeLimitSeconds()` ; il est conservé dans `QuizSession`
   - retourne : `{ correct, correctOption }`
 - `getNextQuestion()`
   - passeà la question suivante et retourne la question suivante ou `null`
 - `getResult()`
-  - retourne le score final et le total des questions : `{ score, total, category }`
+  - retourne le score final, le total des questions et le détail des réponses : `{ score, total, correctAnswers, averageTimeSeconds, answers, category }`
+  - `answers` est la suite ordonnée `{ questionId, questionOrder, selectedOption, isCorrect, timedOut, elapsedSeconds }`, source unique pour la persistance
 - `getTimeLimitSeconds()`
   - retourne la durée du timer côté frontend (20 secondes)
 

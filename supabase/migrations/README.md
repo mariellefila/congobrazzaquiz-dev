@@ -31,6 +31,43 @@ Migration initiale qui crée :
 **Indexes :**
 - Index sur `category_id`, `player_id`, `game_id` pour les performances
 
+### `20260826_solo_game_answers.sql`
+
+Historique détaillé des parties solo.
+
+**Table `solo_game_answers`** — une ligne par réponse, reliée à `solo_games` :
+
+| Colonne | Type | Notes |
+| --- | --- | --- |
+| `id` | `UUID` | PK, `gen_random_uuid()` |
+| `solo_game_id` | `UUID` | FK `solo_games(id)` `ON DELETE CASCADE` |
+| `question_id` | `TEXT` | identifiant de la question jouée |
+| `question_order` | `INT` | rang de la question dans la partie (1..N) |
+| `selected_option` | `TEXT` | `NULL` si le temps est écoulé |
+| `is_correct` | `BOOLEAN` | |
+| `elapsed_seconds` | `NUMERIC(6,2)` | temps de réponse, borné par le timer (20 s) |
+| `answered_at` | `TIMESTAMPTZ` | `NOW()` |
+
+**Sécurité :**
+- RLS activée ; `solo_game_answers_owner_read` limite la lecture aux parties du joueur courant.
+- Aucune écriture directe : policy `INSERT WITH CHECK (FALSE)` et `REVOKE INSERT/UPDATE/DELETE/TRUNCATE` pour `anon` et `authenticated`. Seul `record_solo_game` (SECURITY DEFINER) écrit.
+
+**Indexes :**
+- `idx_solo_game_answers_game (solo_game_id, question_order)`
+- `idx_solo_game_answers_question (question_id)`
+
+**RPC `record_solo_game` (contrat mis à jour) :**
+
+```
+record_solo_game(p_category_slug TEXT, p_category_name TEXT, p_score INT,
+                 p_results BOOLEAN[], p_answers JSONB DEFAULT NULL)
+```
+
+- `p_answers` est un tableau JSONB ordonné : `{ question_id, question_order, selected_option, is_correct, elapsed_seconds }`.
+- Paramètre optionnel : les appels sans `p_answers` restent valides et n'enregistrent que l'agrégat dans `solo_games`.
+- La partie, le détail des réponses, l'XP, les séries et les badges sont écrits dans **la même transaction** : l'échec d'une réponse annule l'ensemble (aucune partie ni XP fantôme).
+- Les règles de score et d'XP sont inchangées par cette migration.
+
 ## Utilisation
 
 ### Appliquer les migrations

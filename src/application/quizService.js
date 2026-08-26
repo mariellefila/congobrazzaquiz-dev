@@ -110,6 +110,7 @@ export function getResult() {
     total: quizSession.getTotalQuestions(),
     correctAnswers: quizSession.getScore(),
     averageTimeSeconds: quizSession.getAverageTimeSeconds(),
+    answers: quizSession.getAnswers(),
     category: activeCategory,
   };
 }
