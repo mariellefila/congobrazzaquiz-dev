@@ -2855,6 +2855,10 @@ body.quiz-mode {
     background: rgba(255, 255, 255, 0.42);
   }
 
+  .category-card:not(:hover):not(:focus-visible):not(.is-selected):not(:active) .category-card__asset {
+    filter: grayscale(1);
+  }
+
   .category-card__label {
     min-height: 0;
     font-family: 'Product Sans', 'Segoe UI', sans-serif;
