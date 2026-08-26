@@ -1595,17 +1595,17 @@ button:hover {
 
   .mode-modal .mode-grid {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 8px;
   }
 
   .mode-modal .mode-card {
     display: grid;
     grid-template-columns: 105px minmax(0, 1fr) 16px;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     height: auto;
-    min-height: 160px;
-    padding: 14px;
+    min-height: 112px;
+    padding: 10px;
     border-radius: 20px;
     cursor: pointer;
   }
@@ -1624,7 +1624,7 @@ button:hover {
   .mode-modal .mode-card--room::after { color: #d64545; }
 
   .mode-modal .mode-card-illustration {
-    width: 90px;
+    width: 72px;
     max-width: 100%;
     margin: 0;
   }
@@ -1649,7 +1649,7 @@ button:hover {
 
   .mode-modal .mode-card h3 {
     font-family: 'Product Sans', 'Segoe UI', sans-serif;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     line-height: 1.15;
     letter-spacing: 0;
@@ -1666,14 +1666,14 @@ button:hover {
     width: auto;
     height: auto;
     max-width: none;
-    margin-top: 6px;
+    margin-top: 4px;
     text-align: left;
   }
 
   .mode-modal .mode-card p {
     margin: 0;
     font-family: 'Product Sans', 'Segoe UI', sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 400;
     line-height: 1.35;
     text-align: left;
@@ -1682,14 +1682,14 @@ button:hover {
   .mode-modal .mode-card-footer {
     display: block;
     width: auto;
-    margin-top: 8px;
+    margin-top: 5px;
   }
 
   .mode-modal .mode-card-badge {
-    min-height: 26px;
+    min-height: 22px;
     margin: 0;
     padding: 1px 9px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
   }
 
@@ -1830,12 +1830,13 @@ button:hover {
   }
 
   .mode-modal .mode-card {
-    min-height: 145px;
+    grid-template-columns: 68px minmax(0, 1fr) 16px;
+    min-height: 102px;
     padding: 10px;
   }
 
   .mode-modal .mode-card-illustration {
-    width: 72px;
+    width: 60px;
   }
 
   .mode-modal .mode-card h3 {
@@ -1888,7 +1889,8 @@ button:hover {
   }
 
   .mode-modal .mode-card {
-    min-height: 130px;
+    grid-template-columns: 68px minmax(0, 1fr) 16px;
+    min-height: 91px;
     padding: 8px;
   }
 
