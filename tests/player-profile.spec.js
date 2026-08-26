@@ -23,7 +23,7 @@ const playerBadges = [
   { badge_id: 'serie-10', earned_at: '2026-08-18T10:00:00Z', badges: { id: 'serie-10', name: 'Série de 10', condition_label: "10 bonnes réponses d'affilée", icon_url: null, sort_order: 1 } },
 ];
 
-async function mockSupabase(page, { session = null } = {}) {
+async function mockSupabase(page, { session = null, badges = playerBadges } = {}) {
   await page.route('**/supabase-config.js', async (route) => {
     await route.fulfill({
       contentType: 'application/javascript',
@@ -31,7 +31,7 @@ async function mockSupabase(page, { session = null } = {}) {
     });
   });
 
-  const tables = { players: player, solo_games: soloGames, player_badges: playerBadges };
+  const tables = { players: player, solo_games: soloGames, player_badges: badges };
 
   await page.route('https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm', async (route) => {
     await route.fulfill({
@@ -121,6 +121,36 @@ test.describe('Profil joueur', () => {
     await expect(page.locator('.profile-badge').nth(1).locator('.profile-badge-icon')).toHaveCSS('opacity', '0.07');
     await expect(page.locator('.profile-badge').nth(1).locator('.profile-badge-date')).toHaveCount(0);
     await expect(page.locator('.profile-badge').nth(1).locator('.profile-badge-condition')).toHaveCSS('opacity', '1');
+  });
+
+  test('n’affiche aucun badge acquis pour un joueur sans badge en base', async ({ page }) => {
+    await mockSupabase(page, {
+      session: { user: { id: 'user-1', user_metadata: { full_name: 'Michel Bakala' } } },
+      badges: [],
+    });
+    await page.goto('/index.html');
+    await page.locator('[data-auth-trigger]').click();
+
+    await expect(page.locator('.profile-badge')).toHaveCount(3);
+    await expect(page.locator('.profile-badge.is-earned')).toHaveCount(0);
+    await expect(page.locator('.profile-badge.is-locked')).toHaveCount(3);
+    await expect(page.locator('.profile-badge-date')).toHaveCount(0);
+    await expect(page.locator('.profile-badge-condition').nth(2))
+      .toHaveText('Proposer une question et qu’elle soit approuvée');
+  });
+
+  test('ne considère pas comme acquis un badge sans date d’obtention', async ({ page }) => {
+    await mockSupabase(page, {
+      session: { user: { id: 'user-1', user_metadata: { full_name: 'Michel Bakala' } } },
+      badges: [
+        { badge_id: 'contributeur', earned_at: null, badges: { id: 'contributeur', name: 'Contributeur', condition_label: 'Proposer une question approuvée', icon_url: null, sort_order: 3 } },
+      ],
+    });
+    await page.goto('/index.html');
+    await page.locator('[data-auth-trigger]').click();
+
+    await expect(page.locator('.profile-badge.is-earned')).toHaveCount(0);
+    await expect(page.locator('.profile-badge-date')).toHaveCount(0);
   });
 
   test('relance une partie dans la catégorie de la partie choisie', async ({ page }) => {

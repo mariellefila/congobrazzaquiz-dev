@@ -52,6 +52,11 @@ export function isProfileModalOpen() {
   return Boolean(modal) && !modal.hidden;
 }
 
+function isValidDate(value) {
+  if (!value) return false;
+  return !Number.isNaN(new Date(value).getTime());
+}
+
 function formatDate(value) {
   if (!value) return '—';
   const date = new Date(value);
@@ -116,10 +121,23 @@ function renderBadges(badges) {
   badgesEl.innerHTML = '';
   if (badgesEmptyEl) badgesEmptyEl.hidden = true;
 
-  const earnedBadges = new Map(badges.map((badge) => [badge.id, badge]));
+  // Un badge n'est obtenu que si le serveur a renvoyé une date d'obtention
+  // réelle : le catalogue ne sert qu'à afficher les badges non acquis.
+  const earnedBadges = new Map();
+  (Array.isArray(badges) ? badges : []).forEach((badge) => {
+    if (!badge?.id || !isValidDate(badge.earnedAt)) return;
+    earnedBadges.set(badge.id, badge);
+  });
+
   badgeCatalog.forEach((catalogBadge) => {
     const earnedBadge = earnedBadges.get(catalogBadge.id);
-    const badge = { ...catalogBadge, ...earnedBadge, earned: Boolean(earnedBadge) };
+    const badge = {
+      id: catalogBadge.id,
+      name: earnedBadge?.name || catalogBadge.name,
+      condition: earnedBadge?.condition || catalogBadge.condition,
+      earnedAt: earnedBadge?.earnedAt || null,
+      earned: Boolean(earnedBadge),
+    };
     const item = document.createElement('li');
     item.className = `profile-badge${badge.earned ? ' is-earned' : ' is-locked'}`;
 

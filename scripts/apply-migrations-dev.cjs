@@ -11,6 +11,8 @@ const MIGRATIONS = [
   '20260811_init_schema.sql',
   '20260811_fix_permissions_and_validate_answer.sql',
   '20260820_player_profile.sql',
+  '20260826_solo_game_answers.sql',
+  '20260827_badges_truth.sql',
 ];
 
 async function main() {

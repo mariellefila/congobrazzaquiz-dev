@@ -4,18 +4,6 @@
 
 const RECENT_GAMES_LIMIT = 5;
 
-// --- MODE TEST TEMPORAIRE — zone "Mes badges" -----------------------------
-// À retirer une fois la vérification visuelle terminée. Ne touche à rien
-// d'autre que l'affichage des badges (aucune écriture Supabase).
-const PROFILE_BADGES_TEST_MODE = true;
-
-const TEST_BADGES = [
-  { id: 'serie-10', name: 'Série de 10', condition: "Obtenir 10 bonnes réponses d'affilée", iconUrl: null, earnedAt: '2026-08-20' },
-  // 'expert-brazzaville' volontairement absent : simule un badge non acquis.
-  { id: 'contributeur', name: 'Contributeur', condition: 'Proposer une question et qu’elle soit approuvée', iconUrl: null, earnedAt: '2026-08-18' },
-];
-// --- Fin mode test ----------------------------------------------------------
-
 export function getDisplayName(user) {
   if (!user) return '';
   const metadata = user.user_metadata || {};
@@ -95,9 +83,10 @@ async function fetchRecentGames(supabase, playerId) {
   return data || [];
 }
 
+// Ne remonte que les badges réellement obtenus : une ligne player_badges est
+// écrite par le serveur uniquement lorsque la condition métier est satisfaite.
+// Une ligne sans date d'obtention est ignorée (donnée incomplète).
 async function fetchBadges(supabase, playerId) {
-  if (PROFILE_BADGES_TEST_MODE) return TEST_BADGES; // mode test, voir constante ci-dessus
-
   const { data, error } = await supabase
     .from('player_badges')
     .select('badge_id, earned_at, badges(id, name, condition_label, icon_url, sort_order)')
@@ -109,13 +98,15 @@ async function fetchBadges(supabase, playerId) {
     return [];
   }
 
-  return (data || []).map((row) => ({
-    id: row.badge_id,
-    name: row.badges?.name || row.badge_id,
-    condition: row.badges?.condition_label || '',
-    iconUrl: row.badges?.icon_url || null,
-    earnedAt: row.earned_at,
-  }));
+  return (data || [])
+    .filter((row) => row?.badge_id && row.earned_at)
+    .map((row) => ({
+      id: row.badge_id,
+      name: row.badges?.name || row.badge_id,
+      condition: row.badges?.condition_label || '',
+      iconUrl: row.badges?.icon_url || null,
+      earnedAt: row.earned_at,
+    }));
 }
 
 export async function fetchPlayerProfile(supabase, user) {
@@ -125,7 +116,7 @@ export async function fetchPlayerProfile(supabase, user) {
       player: null,
       rank: null,
       games: [],
-      badges: PROFILE_BADGES_TEST_MODE ? TEST_BADGES : [],
+      badges: [],
       displayName: getDisplayName(user),
       avatarUrl: getAvatarUrl(user),
     };
