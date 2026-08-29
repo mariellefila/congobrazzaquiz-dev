@@ -3281,7 +3281,7 @@ body.solo-quiz-active [data-quiz-stage] {
     width: 100%;
     margin-inline: 0;
     min-height: 0;
-    padding: 14px 14px 18px;
+    padding: 14px 14px 10px;
     border-radius: 22px;
   }
 
@@ -3291,7 +3291,7 @@ body.solo-quiz-active [data-quiz-stage] {
 
   .solo-quiz-category {
     min-height: 42px;
-    margin-bottom: 14px;
+    margin-bottom: 10px;
     font-size: 18px;
   }
 
@@ -3306,7 +3306,7 @@ body.solo-quiz-active [data-quiz-stage] {
   }
 
   .solo-quiz-card #soloTimer {
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     padding: 6px 12px;
     font-size: 14px;
   }
@@ -3334,8 +3334,11 @@ body.solo-quiz-active [data-quiz-stage] {
   }
 
   .solo-quiz-next {
-    right: 16px;
-    bottom: 20px;
+    position: static;
+    min-height: 34px;
+    margin: 4px 0 0;
+    padding: 0 13px;
+    font-size: 13px;
   }
 }
 

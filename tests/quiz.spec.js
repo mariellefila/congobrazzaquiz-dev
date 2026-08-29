@@ -17,6 +17,7 @@ for (const viewport of [
       modal.hidden = false;
       modal.classList.add('is-quiz-active');
       stage.hidden = false;
+      document.querySelector('[data-solo-quiz-next]').hidden = false;
       document.querySelector('#soloQuiz').innerHTML = `
         <div class="solo-quiz-category">Histoire</div>
         <div class="solo-quiz-content">
@@ -29,8 +30,16 @@ for (const viewport of [
     });
 
     const fourthAnswer = page.locator('.solo-quiz-answers .quiz-option-btn').nth(3);
+    const nextButton = page.getByRole('button', { name: /Prochaine question/i });
     await expect(fourthAnswer).toBeVisible();
-    expect((await fourthAnswer.boundingBox())?.y + (await fourthAnswer.boundingBox())?.height).toBeLessThanOrEqual(viewport.height);
+    await expect(nextButton).toBeVisible();
+    const answerWidths = await page.locator('.solo-quiz-answers .quiz-option-btn').evaluateAll((buttons) => buttons.map((button) => button.getBoundingClientRect().width));
+    expect(answerWidths.every((width) => width === answerWidths[0])).toBe(true);
+    const fourthAnswerBox = await fourthAnswer.boundingBox();
+    const nextButtonBox = await nextButton.boundingBox();
+    expect(fourthAnswerBox?.y + fourthAnswerBox?.height).toBeLessThanOrEqual(viewport.height);
+    expect(nextButtonBox?.y).toBeGreaterThanOrEqual(fourthAnswerBox?.y + fourthAnswerBox?.height);
+    expect(nextButtonBox?.y + nextButtonBox?.height).toBeLessThanOrEqual(viewport.height);
     expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(viewport.height);
   });
 }
