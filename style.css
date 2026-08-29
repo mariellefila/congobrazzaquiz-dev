@@ -3236,7 +3236,7 @@ body.solo-quiz-active [data-quiz-stage] {
   }
 
   body.solo-quiz-active .category-modal {
-    padding: 0 16px 24px;
+    padding: env(safe-area-inset-top) 12px max(12px, env(safe-area-inset-bottom));
   }
 
   body.solo-quiz-active [data-quiz-stage] {
@@ -3244,10 +3244,10 @@ body.solo-quiz-active [data-quiz-stage] {
   }
 
   .solo-quiz-topbar {
-    grid-template-columns: auto 1fr;
-    gap: 12px;
-    min-height: 118px;
-    padding-top: 18px;
+    grid-template-columns: auto 1fr auto;
+    gap: 8px;
+    min-height: 90px;
+    padding-top: 10px;
   }
 
   .solo-quiz-back {
@@ -3260,10 +3260,15 @@ body.solo-quiz-active [data-quiz-stage] {
     grid-column: 1 / -1;
     grid-row: 2;
     justify-self: center;
+    gap: 5px;
   }
 
   .solo-quiz-progress strong {
-    font-size: 23px;
+    font-size: 20px;
+  }
+
+  .solo-quiz-progress-track {
+    height: 6px;
   }
 
   .solo-quiz-score {
@@ -3275,17 +3280,18 @@ body.solo-quiz-active [data-quiz-stage] {
   .solo-quiz-card {
     width: 100%;
     margin-inline: 0;
-    min-height: calc(100vh - 142px);
-    padding: 22px 16px 78px;
+    min-height: 0;
+    padding: 14px 14px 18px;
     border-radius: 22px;
   }
 
   .solo-quiz-card #soloQuiz {
-    min-height: calc(100vh - 222px);
+    min-height: 0;
   }
 
   .solo-quiz-category {
     min-height: 42px;
+    margin-bottom: 14px;
     font-size: 18px;
   }
 
@@ -3294,12 +3300,37 @@ body.solo-quiz-active [data-quiz-stage] {
   }
 
   .solo-quiz-question {
-    font-size: 28px;
-    line-height: 1.14;
+    margin-bottom: 12px;
+    font-size: 24px;
+    line-height: 1.12;
+  }
+
+  .solo-quiz-card #soloTimer {
+    margin-bottom: 12px;
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  .solo-quiz-card #soloTimer::before {
+    font-size: 17px;
   }
 
   .solo-quiz-answers {
     width: 100%;
+    gap: 8px;
+  }
+
+  .solo-quiz-answers .quiz-option-btn {
+    min-height: 48px;
+    padding: 6px 14px 6px 10px;
+    font-size: 14px;
+  }
+
+  .solo-quiz-answers .quiz-option-index {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    font-size: 13px;
   }
 
   .solo-quiz-next {

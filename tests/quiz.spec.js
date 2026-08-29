@@ -1,5 +1,40 @@
 import { test, expect } from '@playwright/test';
 
+for (const viewport of [
+  { width: 390, height: 844 },
+  { width: 375, height: 667 },
+]) {
+  test(`le gamepad mobile affiche les quatre réponses sans défilement (${viewport.width}x${viewport.height})`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+
+    await page.evaluate(() => {
+      document.body.classList.add('solo-quiz-active');
+      const overlay = document.querySelector('[data-category-overlay]');
+      const modal = document.querySelector('[data-category-modal]');
+      const stage = document.querySelector('[data-quiz-stage]');
+      overlay.hidden = false;
+      modal.hidden = false;
+      modal.classList.add('is-quiz-active');
+      stage.hidden = false;
+      document.querySelector('#soloQuiz').innerHTML = `
+        <div class="solo-quiz-category">Histoire</div>
+        <div class="solo-quiz-content">
+          <h3 class="solo-quiz-question">En quelle année le Congo-Brazzaville a-t-il obtenu son indépendance ?</h3>
+          <p id="soloTimer">00:30 seconde</p>
+          <div class="solo-quiz-answers">
+            ${['A', 'B', 'C', 'D'].map((letter) => `<button class="quiz-option-btn"><span class="quiz-option-index">${letter}</span><span class="quiz-option-text">Réponse ${letter}</span></button>`).join('')}
+          </div>
+        </div>`;
+    });
+
+    const fourthAnswer = page.locator('.solo-quiz-answers .quiz-option-btn').nth(3);
+    await expect(fourthAnswer).toBeVisible();
+    expect((await fourthAnswer.boundingBox())?.y + (await fourthAnswer.boundingBox())?.height).toBeLessThanOrEqual(viewport.height);
+    expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(viewport.height);
+  });
+}
+
 test.describe('Congo-Brazza Quizz', () => {
   test('loads the menu and completes a quiz session', async ({ page }) => {
     await page.goto('/pages/categorie.html');
