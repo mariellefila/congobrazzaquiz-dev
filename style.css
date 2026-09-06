@@ -566,8 +566,8 @@ button:hover {
 
 @media screen and (max-width: 749px) {
   .landing-lower {
-    margin-top: -32px;
-    padding: 32px 16px 34px;
+    margin-top: 0;
+    padding: 24px 16px 34px;
     border-radius: 32px 32px 0 0;
   }
 
@@ -594,8 +594,8 @@ button:hover {
   }
 
   .hero {
-    height: 70dvh;
-    min-height: 70dvh;
+    height: auto;
+    min-height: 0;
     overflow: hidden;
   }
 
@@ -646,15 +646,16 @@ button:hover {
   }
 
   .hero-main {
-    position: absolute;
-    inset: 0;
+    position: relative;
+    inset: auto;
     display: flex;
     align-items: flex-start;
     justify-content: center;
     gap: 18px;
-    padding: 72dvh 30px 120px 8vw;
+    padding: 112px 30px 32px 8vw;
     margin-top: 0;
     max-width: none;
+    transform: none;
   }
 
   .hero-logo {
