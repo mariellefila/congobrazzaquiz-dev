@@ -376,7 +376,7 @@ function showFinalScore() {
     <div class="solo-result-heading">
       <span class="solo-result-laurel" aria-hidden="true">❮</span>
       <div>
-        <h2 class="solo-result-title">Félicitation ! Vous avez terminé le quiz.</h2>
+        <h2 class="solo-result-title">Félicitations ! Vous avez terminé le quiz.</h2>
         <p class="solo-result-score"><strong>${result.score}</strong><span>PTS</span></p>
       </div>
       <span class="solo-result-laurel solo-result-laurel-right" aria-hidden="true">❮</span>

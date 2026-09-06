@@ -35,7 +35,7 @@ La catégorie doit être dynamique.
 Centrer horizontalement :
 - branches de laurier dorées à gauche et à droite ;
 - texte :
-  "Félicitation ! Vous avez terminé le quiz."
+  "Félicitations ! Vous avez terminé le quiz."
 - score très grand en doré :
   "1840"
 - "PTS" plus petit à droite du score.
