@@ -5224,6 +5224,15 @@ body.solo-result-mode .solo-result-share img {
   font-weight: 700;
 }
 
+.bo-edit-form > .bo-correct-answer-field,
+.bo-inline-edit-form > .bo-correct-answer-field {
+  color: #18aa43;
+}
+
+.bo-correct-answer-field > span > span {
+  color: #18aa43;
+}
+
 .bo-edit-form input,
 .bo-edit-form textarea,
 .bo-edit-form select,
@@ -5240,6 +5249,13 @@ body.solo-result-mode .solo-result-share img {
   color: #15161b;
   font: inherit;
   font-weight: 400;
+}
+
+.bo-edit-form .bo-correct-answer-field input,
+.bo-inline-edit-form .bo-correct-answer-field input {
+  border-color: #18aa43;
+  background: #eaf4ed;
+  color: #15161b;
 }
 
 .bo-edit-form textarea,

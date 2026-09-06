@@ -36,7 +36,7 @@ export function questionEditFormMarkup(question, categories) {
     <form class="bo-inline-edit-form" data-inline-question-edit>
       <label>Question<textarea name="question" required rows="3">${escapeHtml(question.question)}</textarea></label>
       <label>Catégorie<select name="categoryId" required>${categoryOptions}</select></label>
-      <label>Bonne réponse<input name="correctAnswer" required value="${escapeHtml(question.correctAnswer)}" /></label>
+      <label class="bo-correct-answer-field"><span><span aria-hidden="true">✓</span> Bonne réponse</span><input name="correctAnswer" required value="${escapeHtml(question.correctAnswer)}" /></label>
       <fieldset>
         <legend>Mauvaises réponses</legend>
         <label>Réponse 1<input name="wrongAnswer1" value="${escapeHtml(question.wrongAnswers[0])}" /></label>
