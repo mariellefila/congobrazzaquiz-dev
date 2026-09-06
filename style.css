@@ -571,7 +571,7 @@ button:hover {
 @media screen and (max-width: 749px) {
   .landing-lower {
     margin-top: -32px;
-    padding: 32px 16px 34px;
+    padding: 52px 16px 34px;
     border-radius: 32px 32px 0 0;
   }
 
@@ -593,6 +593,16 @@ button:hover {
     padding: 22px 0 0;
     border-top: 1px solid rgba(255, 255, 255, 0.32);
     border-left: 0;
+  }
+
+  .mobile-nav {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    padding: 0;
+    margin: 24px 0 0;
+    background: none;
   }
 
   .hero {
@@ -682,22 +692,6 @@ button:hover {
     font-size: 16px;
     border-radius: 12px;
     letter-spacing: 0.01em;
-  }
-
-  .mobile-nav {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 3;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px;
-    padding: 12px 8px calc(18px + env(safe-area-inset-bottom));
-    margin: 0;
-    border-top: 0;
-    box-shadow: none;
-    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.06) 38%, rgba(0, 0, 0, 0.28) 100%);
   }
 
   .mobile-nav::before,
