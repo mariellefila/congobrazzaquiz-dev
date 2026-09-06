@@ -387,11 +387,25 @@ button:hover {
   }
 }
 
+@media screen and (min-width: 750px) {
+  .hero { overflow: visible; }
+
+  .hero > .ad-carousel {
+    position: absolute;
+    top: calc(100% - 52px);
+    left: 5vw;
+    z-index: 4;
+  }
+
+  .landing-lower { padding-top: 283px; }
+}
+
 .hero {
   position: relative;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow: visible;
+  z-index: 5;
 }
 
 .hero-video-wrapper {
@@ -571,11 +585,18 @@ button:hover {
 @media screen and (max-width: 749px) {
   .landing-lower {
     margin-top: -32px;
-    padding: 52px 16px 34px;
+    padding: 32px 16px 34px;
     border-radius: 32px 32px 0 0;
   }
 
-  .ad-carousel { width: 100%; }
+  .ad-carousel {
+    position: absolute;
+    top: clamp(460px, 66%, 580px);
+    left: 16px;
+    right: 16px;
+    width: auto;
+    z-index: 3;
+  }
 
   .ad-carousel__viewport { border-radius: 20px; }
 
@@ -596,12 +617,16 @@ button:hover {
   }
 
   .mobile-nav {
-    position: static;
+    position: absolute;
+    top: calc(clamp(460px, 66%, 580px) + 120px);
+    left: 16px;
+    right: 16px;
+    z-index: 3;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
     padding: 0;
-    margin: 24px 0 0;
+    margin: 0;
     background: none;
   }
 
