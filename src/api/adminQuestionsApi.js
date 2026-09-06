@@ -16,10 +16,35 @@ function unavailable(source, query) {
   return createError(source, query, new Error('Client Supabase indisponible'));
 }
 
+function normalizeOptions(options, correctAnswer) {
+  let values = options;
+  if (typeof values === 'string') {
+    try {
+      values = JSON.parse(values);
+    } catch {
+      values = [];
+    }
+  }
+
+  const answers = Array.isArray(values)
+    ? values.filter((value) => typeof value === 'string' && value.trim())
+    : [];
+  const normalizedCorrectAnswer = typeof correctAnswer === 'string' ? correctAnswer.trim() : '';
+  if (normalizedCorrectAnswer && !answers.includes(normalizedCorrectAnswer)) answers.unshift(normalizedCorrectAnswer);
+
+  return {
+    correctAnswer: normalizedCorrectAnswer,
+    wrongAnswers: answers.filter((answer) => answer !== normalizedCorrectAnswer),
+    answers,
+  };
+}
+
 function mapSubmission(row) {
+  const answers = normalizeOptions(row.options, row.answer);
   return {
     id: row.id,
     source: 'submission',
+    question: row.question,
     text: row.question,
     image: null,
     category: row.category_slug || 'Sans catégorie',
@@ -28,15 +53,16 @@ function mapSubmission(row) {
     status: row.status,
     createdAt: row.created_at,
     reviewedAt: row.reviewed_at || null,
-    options: row.options || [],
-    answer: row.answer || '',
+    ...answers,
   };
 }
 
 function mapPublishedQuestion(row) {
+  const answers = normalizeOptions(row.options, row.answer);
   return {
     id: row.id,
     source: 'published',
+    question: row.question,
     text: row.question,
     image: row.image || null,
     category: row.categories?.name || row.category_id || 'Sans catégorie',
@@ -45,8 +71,7 @@ function mapPublishedQuestion(row) {
     status: 'approved',
     createdAt: row.created_at,
     reviewedAt: null,
-    options: row.options || [],
-    answer: row.answer || '',
+    ...answers,
   };
 }
 
@@ -175,4 +200,35 @@ export async function fetchAdminQuestionDetail(supabase, source, id) {
 
   if (result.error) return { question: null, errors: [result.error] };
   return { question: result.questions.find((question) => question.id === id) || null, errors: [] };
+}
+
+export async function updateAdminQuestion(supabase, question) {
+  if (!hasQueryClient(supabase)) {
+    return { question: null, error: unavailable('questions', 'update question') };
+  }
+
+  const answers = [question.correctAnswer, ...(question.wrongAnswers || [])]
+    .map((answer) => String(answer || '').trim())
+    .filter(Boolean);
+  const uniqueAnswers = [...new Set(answers)];
+  const payload = question.source === 'submission'
+    ? {
+      question: question.question.trim(),
+      category_slug: question.categoryId || null,
+      options: uniqueAnswers,
+      answer: question.correctAnswer.trim(),
+    }
+    : {
+      question: question.question.trim(),
+      category_id: question.categoryId,
+      options: uniqueAnswers,
+      answer: question.correctAnswer.trim(),
+      image: question.image || null,
+      updated_at: new Date().toISOString(),
+    };
+  const table = question.source === 'submission' ? 'question_submissions' : 'questions';
+  const { error } = await supabase.from(table).update(payload).eq('id', question.id);
+  if (error) return { question: null, error: createError(table, `update ${table}`, error) };
+
+  return fetchAdminQuestionDetail(supabase, question.source, question.id);
 }

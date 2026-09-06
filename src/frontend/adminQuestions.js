@@ -99,12 +99,12 @@ function renderDetail(question) {
     return;
   }
 
-  const options = Array.isArray(question.options) ? question.options : [];
+  const answers = Array.isArray(question.answers) ? question.answers : [];
   const image = question.image
     ? `<img class="bo-question-detail-image" src="${escapeHtml(question.image)}" alt="" />`
     : '';
-  const answers = options.length
-    ? options.map((option) => `<li class="${option === question.answer ? 'is-correct' : ''}"><span aria-hidden="true">${option === question.answer ? '✓' : '○'}</span>${escapeHtml(option)}</li>`).join('')
+  const answerItems = answers.length
+    ? answers.map((answer) => `<li class="${answer === question.correctAnswer ? 'is-correct' : ''}"><span aria-hidden="true">${answer === question.correctAnswer ? '✓' : '○'}</span>${escapeHtml(answer)}</li>`).join('')
     : '<li>Aucune réponse disponible.</li>';
 
   detail.innerHTML = `
@@ -115,8 +115,8 @@ function renderDetail(question) {
       <div><dt>Auteur</dt><dd>${escapeHtml(question.author || 'Non renseigné')}</dd></div>
       <div><dt>Soumise le</dt><dd>${escapeHtml(formatDate(question.createdAt))}</dd></div>
     </dl>
-    <section><h3>Réponses proposées</h3><ul class="bo-detail-answers">${answers}</ul></section>
-    <section class="bo-detail-actions"><h3>Actions</h3><div><button type="button" disabled>Approuver</button><button type="button" disabled>Refuser</button><button type="button" disabled>Modifier</button></div></section>
+    <section><h3>Réponses proposées</h3><ul class="bo-detail-answers">${answerItems}</ul></section>
+    <section class="bo-detail-actions"><h3>Actions</h3><div><button type="button" disabled>Approuver</button><button type="button" disabled>Refuser</button><a href="pages/admin/question-edit.html?source=${encodeURIComponent(question.source)}&id=${encodeURIComponent(question.id)}">Modifier</a></div></section>
   `;
 }
 
@@ -211,6 +211,13 @@ async function initialise() {
     if (countsResult.counts) renderCounts(countsResult.counts);
 
     await loadQuestions();
+    const params = new URLSearchParams(window.location.search);
+    const source = params.get('source');
+    const id = params.get('id');
+    if (['published', 'submission'].includes(source) && id) {
+      await examineQuestion(source, id);
+      if (params.get('updated') === '1') setStatus('Question modifiée avec succès.');
+    }
   } catch (error) {
     console.error('Page Questions back-office indisponible', error);
     setAuthMessage(error.source === 'admin_users'

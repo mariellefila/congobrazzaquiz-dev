@@ -35,6 +35,12 @@ DROP POLICY IF EXISTS "questions_admin_read" ON public.questions;
 CREATE POLICY "questions_admin_read" ON public.questions
   FOR SELECT TO authenticated USING (public.is_admin());
 
+DROP POLICY IF EXISTS "questions_admin_update" ON public.questions;
+CREATE POLICY "questions_admin_update" ON public.questions
+  FOR UPDATE TO authenticated
+  USING (public.is_admin())
+  WITH CHECK (public.is_admin());
+
 DROP POLICY IF EXISTS "advertisements_admin_read" ON public.advertisements;
 CREATE POLICY "advertisements_admin_read" ON public.advertisements
   FOR SELECT TO authenticated USING (public.is_admin());
@@ -46,6 +52,12 @@ CREATE POLICY "solo_games_admin_read" ON public.solo_games
 DROP POLICY IF EXISTS "question_submissions_admin_read" ON public.question_submissions;
 CREATE POLICY "question_submissions_admin_read" ON public.question_submissions
   FOR SELECT TO authenticated USING (public.is_admin());
+
+DROP POLICY IF EXISTS "question_submissions_admin_update" ON public.question_submissions;
+CREATE POLICY "question_submissions_admin_update" ON public.question_submissions
+  FOR UPDATE TO authenticated
+  USING (public.is_admin())
+  WITH CHECK (public.is_admin());
 
 DROP POLICY IF EXISTS "answers_admin_read" ON public.answers;
 CREATE POLICY "answers_admin_read" ON public.answers

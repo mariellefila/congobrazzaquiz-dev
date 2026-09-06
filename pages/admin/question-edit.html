@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modifier une question — Congo Brazza Quiz</title>
+    <base href="/" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body class="back-office-body">
+    <div class="bo-shell" data-admin-shell hidden>
+        <aside class="bo-sidebar" aria-label="Navigation back-office">
+            <a class="bo-brand" href="pages/admin/dashboard.html" aria-label="Dashboard back-office Congo Brazza Quiz"><img src="images/brand/logo-cbq.svg" alt="Congo Brazza Quiz" /><span>BACK OFFICE</span></a>
+            <nav class="bo-nav">
+                <a class="bo-nav-link" href="pages/admin/dashboard.html"><span class="bo-nav-icon" aria-hidden="true">⌂</span><span>Dashboard</span></a>
+                <a class="bo-nav-link is-active" href="pages/admin/questions.html"><span class="bo-nav-icon" aria-hidden="true">?</span><span>Questions</span></a>
+                <a class="bo-nav-link" href="pages/admin/publicites.html"><span class="bo-nav-icon" aria-hidden="true">◔</span><span>Publicités</span></a>
+                <a class="bo-nav-link" href="pages/admin/utilisateurs.html"><span class="bo-nav-icon" aria-hidden="true">♙</span><span>Utilisateurs</span></a>
+            </nav>
+        </aside>
+
+        <main class="bo-main bo-edit-main">
+            <header class="bo-page-header">
+                <a class="bo-back-to-questions" href="pages/admin/questions.html">Retour aux questions</a>
+                <h1>Modifier une question</h1>
+                <p data-edit-source-label></p>
+            </header>
+            <p class="bo-status" data-edit-status role="status" aria-live="polite">Chargement de la question...</p>
+
+            <form class="bo-edit-form" data-question-edit-form hidden>
+                <label>Question<textarea name="question" required rows="3"></textarea></label>
+                <label>Catégorie<select name="categoryId" required data-edit-category></select></label>
+                <label>Bonne réponse<input name="correctAnswer" required /></label>
+                <fieldset>
+                    <legend>Mauvaises réponses</legend>
+                    <label>Réponse 1<input name="wrongAnswer1" /></label>
+                    <label>Réponse 2<input name="wrongAnswer2" /></label>
+                    <label>Réponse 3<input name="wrongAnswer3" /></label>
+                </fieldset>
+                <label data-edit-image-field>Image (URL ou chemin existant)<input name="image" /></label>
+                <div class="bo-edit-actions">
+                    <a href="pages/admin/questions.html">Annuler</a>
+                    <button type="submit">Enregistrer les modifications</button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <main class="bo-auth-state" data-admin-auth-state>
+        <img src="images/brand/logo-cbq.svg" alt="Congo Brazza Quiz" />
+        <h1>Back office</h1>
+        <p data-admin-auth-message>Vérification de votre accès administrateur...</p>
+        <a href="index.html">Retour à l'accueil</a>
+    </main>
+
+    <script src="supabase-config.js"></script>
+    <script type="module" src="src/frontend/adminQuestionEdit.js"></script>
+</body>
+</html>
