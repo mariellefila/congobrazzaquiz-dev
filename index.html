@@ -72,6 +72,51 @@
         </main>
     </div>
 
+    <section class="landing-lower" aria-label="Publicités et informations">
+        <div class="ad-carousel" data-ad-carousel aria-roledescription="carousel" aria-label="Publicités partenaires">
+            <div class="ad-carousel__viewport">
+                <div class="ad-carousel__track" data-ad-carousel-track></div>
+            </div>
+            <div class="ad-carousel__dots" data-ad-carousel-dots aria-label="Navigation des publicités"></div>
+        </div>
+
+        <footer class="site-footer">
+            <div class="site-footer__brand">
+                <img src="images/brand/logo-cbq.svg" alt="Congo Brazza Quiz" />
+                <p>&copy; 2026 Congo Brazza Quiz. Tous droits réservés.</p>
+            </div>
+
+            <section class="site-footer__group site-footer__group--game" aria-labelledby="footer-game-title">
+                <h2 id="footer-game-title">Le Jeu</h2>
+                <p>Règles du jeu</p>
+                <a href="pages/leaderboard.html">Classement</a>
+            </section>
+
+            <section class="site-footer__group site-footer__group--about" aria-labelledby="footer-about-title">
+                <h2 id="footer-about-title">À Propos</h2>
+                <p>FAQ</p>
+                <p>Notre histoire</p>
+                <a href="pages/politique-confidentialite.html">Nous contacter</a>
+            </section>
+
+            <section class="site-footer__group site-footer__group--resources" aria-labelledby="footer-resources-title">
+                <h2 id="footer-resources-title">Ressources</h2>
+                <a href="pages/proposer-question.html">Proposer une question</a>
+                <a href="pages/proposer-publicite.html">Proposer une pub</a>
+            </section>
+
+            <section class="site-footer__social" aria-labelledby="footer-social-title">
+                <h2 id="footer-social-title">Restez Informé</h2>
+                <p>Recevez nos nouveautés et défis du jour</p>
+                <div class="site-footer__social-links" aria-label="Réseaux sociaux">
+                    <a href="https://www.facebook.com/profile.php?id=100063648157074" target="_blank" rel="noopener noreferrer" aria-label="Congo Brazza Quiz sur Facebook">Facebook</a>
+                    <span aria-label="Instagram">Instagram</span>
+                    <span aria-label="YouTube">YouTube</span>
+                </div>
+            </section>
+        </footer>
+    </section>
+
     <div class="category-modal-overlay" data-category-overlay hidden>
         <section class="category-modal" data-category-modal role="dialog" aria-modal="true" aria-labelledby="category-modal-title" hidden>
             <button class="login-modal-close" type="button" data-category-close aria-label="Fermer la fenêtre des catégories">&times;</button>
@@ -382,6 +427,7 @@
 
     <script src="supabase-config.js"></script>
     <script type="module" src="src/frontend/landingAuth.js"></script>
+    <script type="module" src="src/frontend/adCarousel.js"></script>
 </body>
 </html>
 </body>

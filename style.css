@@ -210,6 +210,183 @@ button:hover {
   background: #000;
 }
 
+.landing-lower {
+  position: relative;
+  z-index: 4;
+  margin-top: -52px;
+  padding: 52px 24px 44px;
+  border-radius: 50px 50px 0 0;
+  background: #001426;
+  color: #ffffff;
+}
+
+.ad-carousel {
+  width: min(90vw, 950px);
+  margin: 0 auto;
+}
+
+.ad-carousel__viewport {
+  overflow: hidden;
+  border-radius: 30px;
+  aspect-ratio: 1190 / 256;
+}
+
+.ad-carousel__track {
+  display: flex;
+  height: 100%;
+  transition: transform 520ms ease;
+}
+
+.ad-carousel__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.ad-carousel__slide a,
+.ad-carousel__slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ad-carousel__slide a:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: -3px;
+}
+
+.ad-carousel__slide img { object-fit: cover; }
+
+.ad-carousel__dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.ad-carousel__dot {
+  display: block;
+  width: 7px;
+  min-width: 7px;
+  height: 7px;
+  min-height: 7px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+}
+
+.ad-carousel__dot.is-active { background: #ffffff; }
+
+.ad-carousel__dot:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 4px;
+}
+
+.site-footer {
+  display: grid;
+  grid-template-columns: minmax(190px, 1.7fr) repeat(3, minmax(120px, 1fr)) minmax(190px, 1.45fr);
+  gap: 28px;
+  width: min(90vw, 1180px);
+  margin: 58px auto 0;
+  padding-top: 22px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.site-footer__brand img {
+  display: block;
+  width: min(170px, 100%);
+  height: auto;
+}
+
+.site-footer p,
+.site-footer a,
+.site-footer span {
+  display: block;
+  margin: 0 0 7px;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 12px;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.site-footer h2 {
+  margin: 0 0 12px;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.site-footer__group--game h2 { color: #00a451; }
+.site-footer__group--about h2 { color: #f1c40f; }
+.site-footer__group--resources h2 { color: #e32120; }
+.site-footer__social h2 { color: #ffffff; }
+
+.site-footer__brand p {
+  margin-top: 13px;
+  font-size: 10px;
+}
+
+.site-footer__social {
+  padding-left: 28px;
+  border-left: 1px solid rgba(255, 255, 255, 0.32);
+}
+
+.site-footer__social p { max-width: 200px; }
+
+.site-footer__social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.site-footer__social-links a,
+.site-footer__social-links span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 31px;
+  min-height: 31px;
+  margin: 0;
+  padding: 0 8px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 700;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ad-carousel__track { transition: none; }
+}
+
+@media screen and (max-width: 1000px) {
+  .site-footer {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .site-footer__brand,
+  .site-footer__social { grid-column: 1 / -1; }
+
+  .site-footer__social {
+    padding: 22px 0 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.32);
+    border-left: 0;
+  }
+}
+
 .hero {
   position: relative;
   width: 100vw;
@@ -392,6 +569,32 @@ button:hover {
 }
 
 @media screen and (max-width: 749px) {
+  .landing-lower {
+    margin-top: -32px;
+    padding: 32px 16px 34px;
+    border-radius: 32px 32px 0 0;
+  }
+
+  .ad-carousel { width: 100%; }
+
+  .ad-carousel__viewport { border-radius: 20px; }
+
+  .site-footer {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 20px;
+    width: 100%;
+    margin-top: 42px;
+  }
+
+  .site-footer__brand,
+  .site-footer__social { grid-column: 1 / -1; }
+
+  .site-footer__social {
+    padding: 22px 0 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.32);
+    border-left: 0;
+  }
+
   .hero {
     height: 100dvh;
     min-height: 100dvh;
