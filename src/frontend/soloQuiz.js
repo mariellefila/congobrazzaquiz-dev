@@ -49,6 +49,19 @@ function formatTime(seconds) {
   return `00:${String(Math.max(seconds, 0)).padStart(2, '0')} seconde`;
 }
 
+function updateQuestionBackground(image) {
+  const questionModal = quizStage?.querySelector('.solo-quiz-card');
+  if (!questionModal) return;
+
+  const hasQuestionImage = typeof image === 'string' && image.trim() !== '';
+  questionModal.classList.toggle('has-question-image', hasQuestionImage);
+  if (hasQuestionImage) {
+    questionModal.style.setProperty('--question-background-image', `url(${JSON.stringify(image)})`);
+  } else {
+    questionModal.style.removeProperty('--question-background-image');
+  }
+}
+
 function getElapsedQuestionSeconds() {
   if (!questionStartedAt) return null;
   return Math.min(quizApi.getTimeLimitSeconds(), (Date.now() - questionStartedAt) / 1000);
@@ -110,6 +123,7 @@ function showQuestion(question) {
   }
 
   currentQuestion = question;
+  updateQuestionBackground(question.image);
 
   const categoryName = currentCategory === 'Droit et Société' ? 'Droit & société' : currentCategory;
   const categoryBadge = document.createElement('div');
@@ -128,14 +142,6 @@ function showQuestion(question) {
   content.appendChild(title);
 
   content.appendChild(timerEl);
-
-  if (question.image) {
-    const img = document.createElement('img');
-    img.src = question.image;
-    img.alt = 'illustration';
-    img.className = 'quiz-image';
-    content.appendChild(img);
-  }
 
   const answers = document.createElement('div');
   answers.className = 'solo-quiz-answers';
@@ -220,6 +226,7 @@ async function persistSoloGame(result) {
 }
 
 function showFinalScore() {
+  updateQuestionBackground(null);
   document.body.classList.add('solo-result-mode');
   timerEl.textContent = '';
   if (nextButton) nextButton.hidden = true;
@@ -300,6 +307,7 @@ function showFinalScore() {
 export function resetSoloQuizView() {
   clearInterval(timerInterval);
   transitionPending = false;
+  updateQuestionBackground(null);
   if (quizStage) quizStage.hidden = true;
   if (categoryStage) categoryStage.hidden = false;
   if (quizEl) quizEl.innerHTML = '';

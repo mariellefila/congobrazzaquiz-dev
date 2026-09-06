@@ -277,6 +277,13 @@ function showQuestion(question) {
   }
 
   currentQuestion = question;
+  const hasQuestionImage = typeof question.image === 'string' && question.image.trim() !== '';
+  quizDiv.classList.toggle('has-question-image', hasQuestionImage);
+  if (hasQuestionImage) {
+    quizDiv.style.setProperty('--question-background-image', `url(${JSON.stringify(question.image)})`);
+  } else {
+    quizDiv.style.removeProperty('--question-background-image');
+  }
 
   const progress = document.createElement('div');
   progress.className = 'quiz-progress';
@@ -304,14 +311,6 @@ function showQuestion(question) {
   quizDiv.appendChild(title);
 
   quizDiv.appendChild(timerP);
-
-  if (question.image) {
-    const img = document.createElement('img');
-    img.src = question.image;
-    img.alt = 'illustration';
-    img.className = 'quiz-image';
-    quizDiv.appendChild(img);
-  }
 
   const answers = document.createElement('div');
   answers.className = 'quiz-answers';

@@ -3146,6 +3146,36 @@ body.solo-quiz-active .category-modal {
   box-shadow: none;
 }
 
+body.solo-quiz-active .solo-quiz-card.has-question-image,
+.quiz-stage.has-question-image {
+  position: relative;
+  background-image: var(--question-background-image);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+body.solo-quiz-active .solo-quiz-card.has-question-image::before,
+.quiz-stage.has-question-image::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.48);
+  content: '';
+  pointer-events: none;
+}
+
+body.solo-quiz-active .solo-quiz-card.has-question-image > *,
+.quiz-stage.has-question-image > * {
+  position: relative;
+  z-index: 1;
+}
+
+body.solo-quiz-active .solo-quiz-card.has-question-image .solo-quiz-question,
+.quiz-stage.has-question-image .quiz-question {
+  color: #ffffff;
+}
+
 body.solo-quiz-active [data-category-close] {
   display: none;
 }
