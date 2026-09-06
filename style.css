@@ -567,7 +567,7 @@ button:hover {
 @media screen and (max-width: 749px) {
   .landing-lower {
     margin-top: 0;
-    padding: 24px 16px 34px;
+    padding: 24px 16px 20px;
     border-radius: 32px 32px 0 0;
   }
 
@@ -581,7 +581,7 @@ button:hover {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 28px 20px;
     width: 100%;
-    margin-top: 42px;
+    margin-top: 24px;
   }
 
   .site-footer__brand,
@@ -652,10 +652,10 @@ button:hover {
     align-items: flex-start;
     justify-content: center;
     gap: 18px;
-    padding: 112px 30px 32px 8vw;
+    padding: 112px 30px clamp(190px, 32vh, 330px) 8vw;
     margin-top: 0;
     max-width: none;
-    transform: none;
+    transform: translateY(8vh);
   }
 
   .hero-logo {
