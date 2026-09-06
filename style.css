@@ -5203,7 +5203,8 @@ body.solo-result-mode .solo-result-share img {
   text-decoration: none;
 }
 
-.bo-edit-form {
+.bo-edit-form,
+.bo-inline-edit-form {
   display: grid;
   gap: 18px;
   padding: 25px;
@@ -5213,7 +5214,9 @@ body.solo-result-mode .solo-result-share img {
 }
 
 .bo-edit-form > label,
-.bo-edit-form fieldset > label {
+.bo-edit-form fieldset > label,
+.bo-inline-edit-form > label,
+.bo-inline-edit-form fieldset > label {
   display: grid;
   gap: 7px;
   color: #292a33;
@@ -5223,7 +5226,10 @@ body.solo-result-mode .solo-result-share img {
 
 .bo-edit-form input,
 .bo-edit-form textarea,
-.bo-edit-form select {
+.bo-edit-form select,
+.bo-inline-edit-form input,
+.bo-inline-edit-form textarea,
+.bo-inline-edit-form select {
   width: 100%;
   min-height: 40px;
   padding: 9px 10px;
@@ -5236,11 +5242,13 @@ body.solo-result-mode .solo-result-share img {
   font-weight: 400;
 }
 
-.bo-edit-form textarea {
+.bo-edit-form textarea,
+.bo-inline-edit-form textarea {
   resize: vertical;
 }
 
-.bo-edit-form fieldset {
+.bo-edit-form fieldset,
+.bo-inline-edit-form fieldset {
   display: grid;
   gap: 12px;
   margin: 0;
@@ -5249,7 +5257,8 @@ body.solo-result-mode .solo-result-share img {
   border-radius: 8px;
 }
 
-.bo-edit-form legend {
+.bo-edit-form legend,
+.bo-inline-edit-form legend {
   padding: 0 6px;
   color: #292a33;
   font-size: 13px;
@@ -5286,6 +5295,22 @@ body.solo-result-mode .solo-result-share img {
   background: #239a4b;
   color: #ffffff;
   cursor: pointer;
+}
+
+.bo-inline-edit-status:empty {
+  display: none;
+}
+
+.bo-inline-edit-status {
+  margin: 0;
+  color: #555669;
+  font-size: 12px;
+}
+
+.bo-inline-edit-form .bo-edit-actions button:first-child {
+  border-color: #d7d7da;
+  background: #ffffff;
+  color: #292a33;
 }
 
 @media (max-width: 900px) {

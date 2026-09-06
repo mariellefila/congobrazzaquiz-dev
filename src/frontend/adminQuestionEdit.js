@@ -5,6 +5,7 @@ import {
   updateAdminQuestion,
 } from '../api/adminQuestionsApi.js';
 import { requireAdminAccess } from './adminAccess.js';
+import { buildQuestionUpdatePayload } from './adminQuestionForm.js';
 
 const params = new URLSearchParams(window.location.search);
 const source = params.get('source');
@@ -54,29 +55,6 @@ function populateForm(question, categories) {
   setStatus('');
 }
 
-function buildUpdatePayload() {
-  const formData = new FormData(form);
-  const correctAnswer = String(formData.get('correctAnswer') || '').trim();
-  const wrongAnswers = ['wrongAnswer1', 'wrongAnswer2', 'wrongAnswer3']
-    .map((field) => String(formData.get(field) || '').trim())
-    .filter(Boolean);
-  const answers = [correctAnswer, ...wrongAnswers];
-
-  if (new Set(answers).size !== answers.length) {
-    throw new Error('Chaque réponse doit être différente.');
-  }
-
-  return {
-    id: currentQuestion.id,
-    source: currentQuestion.source,
-    question: String(formData.get('question') || '').trim(),
-    categoryId: String(formData.get('categoryId') || ''),
-    correctAnswer,
-    wrongAnswers,
-    image: currentQuestion.source === 'published' ? String(formData.get('image') || '').trim() : null,
-  };
-}
-
 async function initialise() {
   if (!['published', 'submission'].includes(source) || !id) {
     setAuthMessage('Question non identifiée. Retournez à la liste des questions.');
@@ -123,7 +101,7 @@ async function initialise() {
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
   try {
-    const payload = buildUpdatePayload();
+    const payload = buildQuestionUpdatePayload(form, currentQuestion);
     if (!payload.question || !payload.categoryId || !payload.correctAnswer) {
       setStatus('Les champs question, catégorie et bonne réponse sont obligatoires.');
       return;

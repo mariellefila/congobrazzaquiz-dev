@@ -4,8 +4,10 @@ import {
   fetchQuestionCategories,
   fetchQuestionCounts,
   fetchQuestionsForAdmin,
+  updateAdminQuestion,
 } from '../api/adminQuestionsApi.js';
 import { requireAdminAccess } from './adminAccess.js';
+import { buildQuestionUpdatePayload, questionEditFormMarkup } from './adminQuestionForm.js';
 
 const PAGE_SIZE = 10;
 const shell = document.querySelector('[data-admin-shell]');
@@ -33,6 +35,7 @@ const state = {
   page: 0,
   total: 0,
   selected: null,
+  categories: [],
 };
 
 const statusLabels = {
@@ -116,8 +119,13 @@ function renderDetail(question) {
       <div><dt>Soumise le</dt><dd>${escapeHtml(formatDate(question.createdAt))}</dd></div>
     </dl>
     <section><h3>Réponses proposées</h3><ul class="bo-detail-answers">${answerItems}</ul></section>
-    <section class="bo-detail-actions"><h3>Actions</h3><div><button type="button" disabled>Approuver</button><button type="button" disabled>Refuser</button><a class="bo-detail-action-button" href="pages/admin/question-edit.html?source=${encodeURIComponent(question.source)}&id=${encodeURIComponent(question.id)}">Modifier</a></div></section>
+    <section class="bo-detail-actions"><h3>Actions</h3><div><button type="button" disabled>Approuver</button><button type="button" disabled>Refuser</button><button type="button" class="bo-detail-action-button" data-inline-edit-open>Modifier</button></div></section>
   `;
+}
+
+function renderEditForm() {
+  if (!state.selected) return;
+  detail.innerHTML = questionEditFormMarkup(state.selected, state.categories);
 }
 
 function renderPagination() {
@@ -200,6 +208,7 @@ async function initialise() {
     }
 
     if (categoriesResult.categories) {
+      state.categories = categoriesResult.categories;
       categoriesResult.categories.forEach((category) => {
         const option = document.createElement('option');
         option.value = category.id;
@@ -267,6 +276,52 @@ statusSelect.addEventListener('change', async () => {
 list.addEventListener('click', async (event) => {
   const button = event.target.closest('[data-examine-id]');
   if (button) await examineQuestion(button.dataset.examineSource, button.dataset.examineId);
+});
+
+detail.addEventListener('click', async (event) => {
+  if (event.target.closest('[data-inline-edit-open]')) {
+    renderEditForm();
+    return;
+  }
+
+  if (event.target.closest('[data-inline-edit-cancel]')) {
+    renderDetail(state.selected);
+  }
+});
+
+detail.addEventListener('submit', async (event) => {
+  const form = event.target.closest('[data-inline-question-edit]');
+  if (!form || !state.selected) return;
+  event.preventDefault();
+
+  const message = form.querySelector('[data-inline-edit-status]');
+  const saveButton = form.querySelector('[data-inline-edit-save]');
+  try {
+    const payload = buildQuestionUpdatePayload(form, state.selected);
+    if (!payload.question || !payload.categoryId || !payload.correctAnswer) {
+      message.textContent = 'Les champs question, catégorie et bonne réponse sont obligatoires.';
+      return;
+    }
+
+    message.textContent = 'Enregistrement des modifications...';
+    saveButton.disabled = true;
+    const result = await updateAdminQuestion(state.supabase, payload);
+    if (result.error || result.errors?.length || !result.question) {
+      console.error('Impossible d’enregistrer la question', result.error || result.errors);
+      message.textContent = 'Les modifications n’ont pas pu être enregistrées.';
+      saveButton.disabled = false;
+      return;
+    }
+
+    state.selected = result.question;
+    renderDetail(state.selected);
+    await loadQuestions();
+    setStatus('Question modifiée avec succès.');
+  } catch (error) {
+    console.error('Formulaire de question invalide', error);
+    message.textContent = error.message || 'Les modifications n’ont pas pu être enregistrées.';
+    saveButton.disabled = false;
+  }
 });
 
 previousButton.addEventListener('click', async () => {
