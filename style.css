@@ -631,9 +631,9 @@ button:hover {
   }
 
   .hero {
-    height: 100dvh;
-    min-height: 100dvh;
-    overflow: hidden;
+    height: 70dvh;
+    min-height: 70dvh;
+    overflow: visible;
   }
 
   .hero-video {
@@ -689,7 +689,7 @@ button:hover {
     align-items: flex-start;
     justify-content: center;
     gap: 18px;
-    padding: 108vh 30px 120px 8vw;
+    padding: 72dvh 30px 120px 8vw;
     margin-top: 0;
     max-width: none;
   }
