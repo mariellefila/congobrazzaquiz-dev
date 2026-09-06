@@ -13,6 +13,7 @@ const MIGRATIONS = [
   '20260820_player_profile.sql',
   '20260826_solo_game_answers.sql',
   '20260827_badges_truth.sql',
+  '20260906_back_office_admin_read.sql',
 ];
 
 async function main() {

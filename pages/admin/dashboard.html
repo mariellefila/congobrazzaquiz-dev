@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Back Office — Congo Brazza Quiz</title>
+    <base href="/" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body class="back-office-body">
+    <div class="bo-shell" data-admin-shell hidden>
+        <aside class="bo-sidebar" aria-label="Navigation back-office">
+            <a class="bo-brand" href="pages/admin/dashboard.html" aria-label="Dashboard back-office Congo Brazza Quiz">
+                <img src="images/brand/logo-cbq.svg" alt="Congo Brazza Quiz" />
+                <span>BACK OFFICE</span>
+            </a>
+            <nav class="bo-nav">
+                <a class="bo-nav-link is-active" href="pages/admin/dashboard.html" aria-current="page">
+                    <span class="bo-nav-icon" aria-hidden="true">⌂</span>
+                    <span>Dashboard</span>
+                </a>
+                <a class="bo-nav-link" href="pages/admin/questions.html">
+                    <span class="bo-nav-icon" aria-hidden="true">?</span>
+                    <span>Questions</span>
+                </a>
+                <a class="bo-nav-link" href="pages/admin/publicites.html">
+                    <span class="bo-nav-icon" aria-hidden="true">◔</span>
+                    <span>Publicités</span>
+                </a>
+                <a class="bo-nav-link" href="pages/admin/utilisateurs.html">
+                    <span class="bo-nav-icon" aria-hidden="true">♙</span>
+                    <span>Utilisateurs</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="bo-main">
+            <header class="bo-page-header">
+                <p class="bo-kicker">Back office</p>
+                <h1>Dashboard</h1>
+                <p>Vue d'ensemble de votre plateforme</p>
+            </header>
+
+            <p class="bo-status" data-admin-status role="status" aria-live="polite">Chargement du dashboard...</p>
+
+            <section class="bo-kpi-grid" aria-label="Statistiques de la plateforme">
+                <article class="bo-kpi-card bo-kpi-card--green">
+                    <span class="bo-kpi-icon" aria-hidden="true">👥</span>
+                    <div>
+                        <h2>Utilisateurs actifs</h2>
+                        <strong data-kpi="activeUsers">0</strong>
+                    </div>
+                </article>
+                <article class="bo-kpi-card bo-kpi-card--red">
+                    <span class="bo-kpi-icon" aria-hidden="true">🎮</span>
+                    <div>
+                        <h2>Parties jouées</h2>
+                        <strong data-kpi="gamesPlayed">0</strong>
+                    </div>
+                </article>
+                <article class="bo-kpi-card bo-kpi-card--orange">
+                    <span class="bo-kpi-icon" aria-hidden="true">?</span>
+                    <div>
+                        <h2>Questions validées</h2>
+                        <strong data-kpi="validatedQuestions">0</strong>
+                    </div>
+                </article>
+                <article class="bo-kpi-card bo-kpi-card--green">
+                    <span class="bo-kpi-icon" aria-hidden="true">👥</span>
+                    <div>
+                        <h2>Joueurs en ligne</h2>
+                        <strong data-kpi="onlinePlayers">0</strong>
+                        <small><i aria-hidden="true"></i> En temps réel</small>
+                    </div>
+                </article>
+                <article class="bo-kpi-card bo-kpi-card--red">
+                    <span class="bo-kpi-icon" aria-hidden="true">◔</span>
+                    <div>
+                        <h2>Publicités actives</h2>
+                        <strong data-kpi="activeAds">0</strong>
+                        <small><span data-kpi="scheduledAds">0</span> programmées</small>
+                    </div>
+                </article>
+            </section>
+
+            <a class="bo-create-question" href="pages/admin/questions.html">
+                <span aria-hidden="true">+</span>
+                <strong>Créer une question</strong>
+                <em>Ajoutez une nouvelle question avec photo et réponses.</em>
+            </a>
+
+            <section class="bo-preview-grid">
+                <article class="bo-preview-card">
+                    <header>
+                        <h2>Questions</h2>
+                        <a href="pages/admin/questions.html">Voir toutes</a>
+                    </header>
+                    <ul class="bo-list" data-recent-questions></ul>
+                    <p class="bo-empty" data-empty-questions hidden>Aucune question récente.</p>
+                </article>
+
+                <article class="bo-preview-card">
+                    <header>
+                        <h2>Pub</h2>
+                        <a href="pages/admin/publicites.html">Gérer toutes</a>
+                    </header>
+                    <ul class="bo-list" data-recent-ads></ul>
+                    <p class="bo-empty" data-empty-ads hidden>Aucune publicité disponible.</p>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <main class="bo-auth-state" data-admin-auth-state>
+        <img src="images/brand/logo-cbq.svg" alt="Congo Brazza Quiz" />
+        <h1>Back office</h1>
+        <p data-admin-auth-message>Vérification de votre accès administrateur...</p>
+        <a href="index.html">Retour à l'accueil</a>
+    </main>
+
+    <script src="supabase-config.js"></script>
+    <script type="module" src="src/frontend/adminDashboard.js"></script>
+</body>
+</html>

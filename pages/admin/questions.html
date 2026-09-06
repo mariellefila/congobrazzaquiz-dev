@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Questions Back Office — Congo Brazza Quiz</title>
+    <base href="/" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body class="back-office-body">
+    <div class="bo-shell" data-admin-shell hidden>
+        <aside class="bo-sidebar" aria-label="Navigation back-office">
+            <a class="bo-brand" href="pages/admin/dashboard.html" aria-label="Dashboard back-office Congo Brazza Quiz">
+                <img src="images/brand/logo-cbq.svg" alt="Congo Brazza Quiz" />
+                <span>BACK OFFICE</span>
+            </a>
+            <nav class="bo-nav">
+                <a class="bo-nav-link" href="pages/admin/dashboard.html"><span class="bo-nav-icon" aria-hidden="true">⌂</span><span>Dashboard</span></a>
+                <a class="bo-nav-link is-active" href="pages/admin/questions.html" aria-current="page"><span class="bo-nav-icon" aria-hidden="true">?</span><span>Questions</span></a>
+                <a class="bo-nav-link" href="pages/admin/publicites.html"><span class="bo-nav-icon" aria-hidden="true">◔</span><span>Publicités</span></a>
+                <a class="bo-nav-link" href="pages/admin/utilisateurs.html"><span class="bo-nav-icon" aria-hidden="true">♙</span><span>Utilisateurs</span></a>
+            </nav>
+        </aside>
+
+        <main class="bo-main bo-questions-main">
+            <header class="bo-page-header">
+                <p class="bo-kicker">Back office</p>
+                <h1>Questions</h1>
+                <p>Modérez les propositions et consultez les questions publiées.</p>
+            </header>
+
+            <p class="bo-status" data-questions-status role="status" aria-live="polite">Chargement des questions...</p>
+
+            <div class="bo-question-tabs" role="tablist" aria-label="Statut des questions">
+                <button type="button" class="is-active" data-question-tab="all" role="tab" aria-selected="true">Toutes <span data-question-count="all">0</span></button>
+                <button type="button" data-question-tab="pending" role="tab" aria-selected="false">En attente <span data-question-count="pending">0</span></button>
+                <button type="button" data-question-tab="approved" role="tab" aria-selected="false">Approuvées <span data-question-count="approved">0</span></button>
+                <button type="button" data-question-tab="rejected" role="tab" aria-selected="false">Refusées <span data-question-count="rejected">0</span></button>
+            </div>
+
+            <section class="bo-question-tools" aria-label="Filtres des questions">
+                <label>Rechercher <input type="search" data-question-search placeholder="Rechercher une question" /></label>
+                <label>Catégorie <select data-question-category><option value="">Toutes les catégories</option></select></label>
+                <label>Statut <select data-question-status-filter><option value="all">Tous les statuts</option><option value="pending">En attente</option><option value="approved">Approuvées</option><option value="rejected">Refusées</option></select></label>
+            </section>
+
+            <section class="bo-question-workspace">
+                <div class="bo-question-list-panel">
+                    <a class="bo-create-question bo-create-question--compact" href="pages/admin/questions.html" aria-label="Créer une question">
+                        <span aria-hidden="true">+</span>
+                        <strong>Créer une question</strong>
+                        <em>Ajoutez une nouvelle question avec photo et réponses.</em>
+                    </a>
+                    <div class="bo-question-list" data-question-list></div>
+                    <p class="bo-empty bo-question-empty" data-questions-empty hidden>Aucune question pour ce filtre.</p>
+                    <div class="bo-pagination" data-question-pagination hidden>
+                        <button type="button" data-page-previous aria-label="Page précédente">Précédent</button>
+                        <span data-page-indicator></span>
+                        <button type="button" data-page-next aria-label="Page suivante">Suivant</button>
+                    </div>
+                </div>
+
+                <aside class="bo-question-detail" data-question-detail aria-live="polite">
+                    <p class="bo-empty">Sélectionnez une question pour l'examiner.</p>
+                </aside>
+            </section>
+        </main>
+    </div>
+
+    <main class="bo-auth-state" data-admin-auth-state>
+        <img src="images/brand/logo-cbq.svg" alt="Congo Brazza Quiz" />
+        <h1>Back office</h1>
+        <p data-admin-auth-message>Vérification de votre accès administrateur...</p>
+        <a href="index.html">Retour à l'accueil</a>
+    </main>
+
+    <script src="supabase-config.js"></script>
+    <script type="module" src="src/frontend/adminQuestions.js"></script>
+</body>
+</html>
