@@ -5137,15 +5137,21 @@ body.solo-result-mode .solo-result-share img {
 }
 
 .bo-detail-actions div {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 9px;
 }
 
-.bo-detail-actions button {
-  flex: 1;
+.bo-detail-actions button,
+.bo-detail-action-button {
+  display: inline-flex;
+  width: 100%;
   min-height: 36px;
+  align-items: center;
+  justify-content: center;
   margin: 0;
   padding: 0 8px;
+  box-sizing: border-box;
   border: 1px solid #dadade;
   border-radius: 7px;
   background: #ffffff;
@@ -5153,6 +5159,8 @@ body.solo-result-mode .solo-result-share img {
   font: inherit;
   font-size: 12px;
   font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
 }
 
 .bo-detail-actions button:first-child {
@@ -5171,24 +5179,12 @@ body.solo-result-mode .solo-result-share img {
   opacity: 0.62;
 }
 
-.bo-detail-actions a {
-  display: inline-flex;
-  flex: 1;
-  min-height: 36px;
-  align-items: center;
-  justify-content: center;
-  padding: 0 8px;
-  border: 1px solid #dadade;
-  border-radius: 7px;
-  background: #ffffff;
-  color: #1c1d24;
-  font-size: 12px;
-  font-weight: 700;
-  text-decoration: none;
+.bo-detail-action-button {
+  cursor: pointer;
 }
 
-.bo-detail-actions a:hover,
-.bo-detail-actions a:focus-visible {
+.bo-detail-action-button:hover,
+.bo-detail-action-button:focus-visible {
   border-color: #179447;
   background: #edf7f0;
   color: #135f31;

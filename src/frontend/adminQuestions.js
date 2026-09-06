@@ -116,7 +116,7 @@ function renderDetail(question) {
       <div><dt>Soumise le</dt><dd>${escapeHtml(formatDate(question.createdAt))}</dd></div>
     </dl>
     <section><h3>Réponses proposées</h3><ul class="bo-detail-answers">${answerItems}</ul></section>
-    <section class="bo-detail-actions"><h3>Actions</h3><div><button type="button" disabled>Approuver</button><button type="button" disabled>Refuser</button><a href="pages/admin/question-edit.html?source=${encodeURIComponent(question.source)}&id=${encodeURIComponent(question.id)}">Modifier</a></div></section>
+    <section class="bo-detail-actions"><h3>Actions</h3><div><button type="button" disabled>Approuver</button><button type="button" disabled>Refuser</button><a class="bo-detail-action-button" href="pages/admin/question-edit.html?source=${encodeURIComponent(question.source)}&id=${encodeURIComponent(question.id)}">Modifier</a></div></section>
   `;
 }
 
