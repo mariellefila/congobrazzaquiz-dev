@@ -202,6 +202,31 @@ export async function fetchAdminQuestionDetail(supabase, source, id) {
   return { question: result.questions.find((question) => question.id === id) || null, errors: [] };
 }
 
+// Approbation/refus : passent uniquement par les RPC atomiques SECURITY DEFINER
+// (approve_question_submission / reject_question_submission). Aucune écriture
+// directe sur la table n'est tentée ici afin de préserver l'atomicité et
+// d'empêcher un double traitement (la RPC verrouille la ligne et vérifie le
+// statut 'pending' avant toute transition).
+export async function approveQuestionSubmission(supabase, submissionId) {
+  if (!supabase || typeof supabase.rpc !== 'function') {
+    return { outcome: null, error: unavailable('rpc', 'approve_question_submission') };
+  }
+
+  const { data, error } = await supabase.rpc('approve_question_submission', { p_submission_id: submissionId });
+  if (error) return { outcome: null, error: createError('approve_question_submission', 'rpc approve_question_submission', error) };
+  return { outcome: Array.isArray(data) ? data[0] ?? null : data, error: null };
+}
+
+export async function rejectQuestionSubmission(supabase, submissionId, rejectionReason = '') {
+  if (!supabase || typeof supabase.rpc !== 'function') {
+    return { outcome: null, error: unavailable('rpc', 'reject_question_submission') };
+  }
+
+  const { data, error } = await supabase.rpc('reject_question_submission', { p_submission_id: submissionId, p_rejection_reason: rejectionReason });
+  if (error) return { outcome: null, error: createError('reject_question_submission', 'rpc reject_question_submission', error) };
+  return { outcome: Array.isArray(data) ? data[0] ?? null : data, error: null };
+}
+
 export async function updateAdminQuestion(supabase, question) {
   if (!hasQueryClient(supabase)) {
     return { question: null, error: unavailable('questions', 'update question') };

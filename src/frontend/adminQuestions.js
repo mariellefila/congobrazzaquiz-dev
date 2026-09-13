@@ -1,9 +1,11 @@
 import { initSupabase } from '../lib/supabaseClient.js';
 import {
+  approveQuestionSubmission,
   fetchAdminQuestionDetail,
   fetchQuestionCategories,
   fetchQuestionCounts,
   fetchQuestionsForAdmin,
+  rejectQuestionSubmission,
   updateAdminQuestion,
 } from '../api/adminQuestionsApi.js';
 import { requireAdminAccess } from './adminAccess.js';
@@ -66,7 +68,8 @@ function setStatus(stateName) {
   if (!statusMessage) return;
   if (stateName === 'loading') statusMessage.textContent = 'Chargement des questions...';
   else if (stateName === 'error') statusMessage.textContent = 'Certaines questions n\'ont pas pu être chargées.';
-  else statusMessage.textContent = '';
+  else if (stateName === 'success') statusMessage.textContent = '';
+  else statusMessage.textContent = stateName || '';
 }
 
 function renderCounts(counts) {
@@ -110,6 +113,7 @@ function renderDetail(question) {
     ? answers.map((answer) => `<li class="${answer === question.correctAnswer ? 'is-correct' : ''}"><span aria-hidden="true">${answer === question.correctAnswer ? '✓' : '○'}</span>${escapeHtml(answer)}</li>`).join('')
     : '<li>Aucune réponse disponible.</li>';
 
+  const canModerate = question.source === 'submission' && question.status === 'pending';
   detail.innerHTML = `
     <div class="bo-detail-badges"><span class="bo-badge bo-badge--${escapeHtml(question.status)}">${statusLabels[question.status]}</span><span class="bo-detail-category">${escapeHtml(question.category)}</span></div>
     ${image}
@@ -119,7 +123,11 @@ function renderDetail(question) {
       <div><dt>Soumise le</dt><dd>${escapeHtml(formatDate(question.createdAt))}</dd></div>
     </dl>
     <section><h3>Réponses proposées</h3><ul class="bo-detail-answers">${answerItems}</ul></section>
-    <section class="bo-detail-actions"><h3>Actions</h3><div><button type="button" disabled>Approuver</button><button type="button" disabled>Refuser</button><button type="button" class="bo-detail-action-button" data-inline-edit-open>Modifier</button></div></section>
+    <section class="bo-detail-actions"><h3>Actions</h3><div>
+      <button type="button" data-approve-question ${canModerate ? '' : 'disabled'}>Approuver</button>
+      <button type="button" data-reject-question ${canModerate ? '' : 'disabled'}>Refuser</button>
+      <button type="button" class="bo-detail-action-button" data-inline-edit-open>Modifier</button>
+    </div></section>
   `;
 }
 
@@ -279,6 +287,41 @@ list.addEventListener('click', async (event) => {
 });
 
 detail.addEventListener('click', async (event) => {
+  const approveButton = event.target.closest('[data-approve-question]');
+  const rejectButton = event.target.closest('[data-reject-question]');
+
+  if (approveButton && state.selected && state.selected.source === 'submission') {
+    approveButton.disabled = true;
+    const result = await approveQuestionSubmission(state.supabase, state.selected.id);
+    if (result.error || !result.outcome) {
+      console.error('Impossible d’approuver la proposition', result.error);
+      setStatus('La proposition n’a pas pu être approuvée.');
+      approveButton.disabled = false;
+      return;
+    }
+    state.selected = { ...state.selected, status: 'approved' };
+    await loadQuestions();
+    await examineQuestion('submission', state.selected.id);
+    setStatus('Question approuvée et publiée.');
+    return;
+  }
+
+  if (rejectButton && state.selected && state.selected.source === 'submission') {
+    rejectButton.disabled = true;
+    const result = await rejectQuestionSubmission(state.supabase, state.selected.id, 'Refusée par le modérateur.');
+    if (result.error || !result.outcome) {
+      console.error('Impossible de refuser la proposition', result.error);
+      setStatus('La proposition n’a pas pu être refusée.');
+      rejectButton.disabled = false;
+      return;
+    }
+    state.selected = { ...state.selected, status: 'rejected' };
+    await loadQuestions();
+    await examineQuestion('submission', state.selected.id);
+    setStatus('Question refusée.');
+    return;
+  }
+
   if (event.target.closest('[data-inline-edit-open]')) {
     renderEditForm();
     return;

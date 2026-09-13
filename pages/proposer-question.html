@@ -6,17 +6,71 @@
     <title>Proposer une question — Congo-Brazza Quizz</title>
     <link rel="stylesheet" href="../style.css" />
 </head>
-<body>
-    <div class="container">
+<body class="proposal-page">
+    <div class="container proposal-container">
         <p class="back-link"><a href="../index.html">&larr; Retour</a></p>
         <main>
             <h1>Proposer une question</h1>
-            <p>
+            <p class="proposal-intro">
                 Vous connaissez une anecdote ou une question sur le Congo-Brazzaville ?
-                Envoyez-la nous directement sur notre page
-                <a href="https://www.facebook.com/profile.php?id=100063648157074" target="_blank" rel="noopener">Facebook</a>.
+                Partagez-la pour aider la communauté à enrichir le quiz.
             </p>
+
+            <div class="proposal-status-box" data-question-submission-auth-state hidden>
+                <p>Connectez-vous pour proposer une question.</p>
+                <a href="../index.html" class="proposal-link">Retour à l’accueil</a>
+            </div>
+
+            <form class="proposal-form" data-question-submission-form hidden>
+                <div class="proposal-field">
+                    <label for="categorySlug">Catégorie</label>
+                    <select id="categorySlug" name="categorySlug" required>
+                        <option value="">Choisir une catégorie</option>
+                    </select>
+                </div>
+
+                <div class="proposal-field">
+                    <label for="question">Question</label>
+                    <textarea id="question" name="question" rows="4" placeholder="Ex. : Quelle est la capitale du Congo-Brazzaville ?" required></textarea>
+                </div>
+
+                <div class="proposal-field">
+                    <label for="image">Image (facultative)</label>
+                    <input id="image" name="image" type="url" placeholder="https://..." />
+                </div>
+
+                <div class="proposal-field">
+                    <label for="correctAnswer">Bonne réponse</label>
+                    <input id="correctAnswer" name="correctAnswer" type="text" placeholder="Entrez la bonne réponse" required />
+                </div>
+
+                <div class="proposal-grid">
+                    <div class="proposal-field">
+                        <label for="wrongAnswer1">Réponse fausse 1</label>
+                        <input id="wrongAnswer1" name="wrongAnswer1" type="text" placeholder="Fausse réponse" required />
+                    </div>
+                    <div class="proposal-field">
+                        <label for="wrongAnswer2">Réponse fausse 2</label>
+                        <input id="wrongAnswer2" name="wrongAnswer2" type="text" placeholder="Fausse réponse" required />
+                    </div>
+                    <div class="proposal-field">
+                        <label for="wrongAnswer3">Réponse fausse 3</label>
+                        <input id="wrongAnswer3" name="wrongAnswer3" type="text" placeholder="Fausse réponse" required />
+                    </div>
+                </div>
+
+                <button type="submit" class="proposal-submit">Soumettre la question</button>
+                <p class="submission-status" data-submission-status aria-live="polite"></p>
+            </form>
+
+            <section class="proposal-history" data-my-submissions hidden>
+                <h2>Mes propositions</h2>
+                <ul class="proposal-history-list" data-my-submissions-list></ul>
+            </section>
         </main>
     </div>
+
+    <script src="../supabase-config.js"></script>
+    <script type="module" src="../src/frontend/questionSubmission.js"></script>
 </body>
 </html>
