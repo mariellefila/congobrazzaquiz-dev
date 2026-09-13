@@ -529,6 +529,15 @@ button:hover {
   background: #006d3b;
 }
 
+.proposal-submit:disabled,
+.proposal-submit:disabled:hover {
+  background: #b8c1bc;
+  color: #ffffff;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 1;
+}
+
 .submission-status {
   min-height: 20px;
   margin: 0;
