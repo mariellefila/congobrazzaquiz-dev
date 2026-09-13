@@ -228,6 +228,40 @@ button:hover {
   margin-bottom: 7px;
 }
 
+.proposal-disclaimer {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border: 1px solid #d9e4a8;
+  border-radius: 10px;
+  background: #fbfce9;
+  color: #52601b;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.proposal-disclaimer p {
+  margin: 0;
+}
+
+.proposal-disclaimer strong {
+  color: #3e4d0d;
+}
+
+.proposal-disclaimer-icon {
+  display: grid;
+  flex: 0 0 22px;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #e5efb8;
+  color: #596a14;
+  font-size: 13px;
+  font-weight: 900;
+}
+
 .proposal-step,
 .proposal-history-mark {
   color: #007f40;
@@ -442,6 +476,24 @@ button:hover {
   flex-direction: column;
   gap: 14px;
   align-items: stretch;
+}
+
+.proposal-consent {
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+  color: #405047;
+  font-size: 12px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.proposal-consent input {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin: 1px 0 0;
+  accent-color: #008548;
 }
 
 .proposal-review-note {

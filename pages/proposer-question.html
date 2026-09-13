@@ -57,7 +57,7 @@
             <a href="../index.html" class="proposal-link">Retour à l’accueil</a>
         </div>
 
-        <form class="proposal-card proposal-form" data-question-submission-form hidden>
+        <form class="proposal-card proposal-form" data-question-submission-form hidden novalidate>
             <div class="proposal-form-header">
                 <div>
                     <p class="proposal-card-kicker">Nouvelle proposition</p>
@@ -65,6 +65,11 @@
                 </div>
                 <span class="proposal-step">01 / 01</span>
             </div>
+
+            <aside class="proposal-disclaimer" aria-label="Règles de contribution">
+                <span class="proposal-disclaimer-icon" aria-hidden="true">i</span>
+                <p><strong>Avant de proposer ta question</strong> — Assure-toi que les informations sont exactes et vérifiables. N’utilise aucun contenu offensant, discriminatoire, confidentiel ou protégé sans autorisation. Ta proposition pourra être corrigée, refusée ou adaptée par Congo Brazza Quiz avant sa publication.</p>
+            </aside>
 
             <div class="proposal-field">
                 <label for="categorySlug">Catégorie</label>
@@ -127,6 +132,10 @@
             </div>
 
             <div class="proposal-form-footer">
+                <label class="proposal-consent">
+                    <input type="checkbox" name="publicationConsent" required />
+                    <span>Je confirme être autorisé à partager cette question et son image éventuelle, et j’accepte leur modification et leur publication par Congo Brazza Quiz.</span>
+                </label>
                 <p class="proposal-review-note"><span aria-hidden="true">●</span> Ta question sera vérifiée avant publication.</p>
                 <button type="submit" class="proposal-submit">Soumettre la question <span aria-hidden="true">&rarr;</span></button>
                 <p class="submission-status" data-submission-status aria-live="polite"></p>

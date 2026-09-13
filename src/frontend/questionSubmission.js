@@ -23,6 +23,7 @@ const imageError = document.querySelector('[data-image-error]');
 const imageModeButtons = [...document.querySelectorAll('[data-image-mode]')];
 const imagePanels = [...document.querySelectorAll('[data-image-panel]')];
 const imageRemoveButton = document.querySelector('[data-image-remove]');
+const consentCheckbox = form?.querySelector('[name="publicationConsent"]');
 
 const statusLabels = {
   pending: 'En attente',
@@ -322,6 +323,10 @@ if (form) {
     try {
       const values = collectFormValues();
       validateValues(values);
+      if (!consentCheckbox?.checked) {
+        consentCheckbox?.focus();
+        throw new Error('Coche la confirmation avant de soumettre ta question.');
+      }
       if (state.imageMode === 'url') {
         const urlError = validateExternalImageUrl(values.image);
         if (urlError) throw new Error(urlError);

@@ -123,6 +123,7 @@ test.describe('Soumission de questions', () => {
     await page.locator('[name="wrongAnswer1"]').fill('Pointe-Noire');
     await page.locator('[name="wrongAnswer2"]').fill('Kinshasa');
     await page.locator('[name="wrongAnswer3"]').fill('Poto-Poto');
+    await page.locator('[name="publicationConsent"]').check();
 
     await page.getByRole('button', { name: 'Soumettre la question' }).click();
 
@@ -136,6 +137,7 @@ test.describe('Soumission de questions', () => {
     await expect(page.locator('[data-my-submissions]')).toBeVisible();
     await expect(page.locator('[data-my-submissions-list] .proposal-history-item')).toHaveCount(1);
     await expect(page.locator('[data-my-submissions-list] .proposal-history-status')).toHaveText('En attente');
+    await expect(page.locator('[name="publicationConsent"]')).not.toBeChecked();
   });
 
   test('valide, prévisualise, téléverse et supprime une image', async ({ page }) => {
@@ -156,6 +158,7 @@ test.describe('Soumission de questions', () => {
     await page.locator('[name="wrongAnswer1"]').fill('Pointe-Noire');
     await page.locator('[name="wrongAnswer2"]').fill('Kinshasa');
     await page.locator('[name="wrongAnswer3"]').fill('Poto-Poto');
+    await page.locator('[name="publicationConsent"]').check();
     await page.getByRole('button', { name: /soumettre/i }).click();
 
     await expect(page.locator('[data-submission-status]')).toHaveText(/soumise/i);
@@ -198,11 +201,32 @@ test.describe('Soumission de questions', () => {
     await page.locator('[name="wrongAnswer1"]').fill('Pointe-Noire');
     await page.locator('[name="wrongAnswer2"]').fill('Kinshasa');
     await page.locator('[name="wrongAnswer3"]').fill('Poto-Poto');
+    await page.locator('[name="publicationConsent"]').check();
     await page.getByRole('button', { name: /soumettre/i }).click();
 
     await expect(page.locator('[data-submission-status]')).toHaveText(/insertion refusée/i);
     const removed = await page.evaluate(() => window.__storageRemove);
     expect(removed).toEqual([expect.stringMatching(/^user-123\/.*\.jpg$/)]);
+  });
+
+  test('bloque la soumission sans consentement et réinitialise la case après succès', async ({ page }) => {
+    await mockSupabase(page);
+    await page.goto('/pages/proposer-question.html');
+    await page.locator('[name="categorySlug"]').selectOption('geographie');
+    await page.locator('[name="question"]').fill('Quelle est la capitale du Congo-Brazzaville ?');
+    await page.locator('[name="correctAnswer"]').fill('Brazzaville');
+    await page.locator('[name="wrongAnswer1"]').fill('Pointe-Noire');
+    await page.locator('[name="wrongAnswer2"]').fill('Kinshasa');
+    await page.locator('[name="wrongAnswer3"]').fill('Poto-Poto');
+
+    await page.getByRole('button', { name: /soumettre/i }).click();
+    await expect(page.locator('[data-submission-status]')).toHaveText(/confirmation/i);
+    expect(await page.evaluate(() => window.__questionSubmission)).toBeUndefined();
+
+    await page.locator('[name="publicationConsent"]').check();
+    await page.getByRole('button', { name: /soumettre/i }).click();
+    await expect(page.locator('[data-submission-status]')).toHaveText(/question soumise/i);
+    await expect(page.locator('[name="publicationConsent"]')).not.toBeChecked();
   });
 
   test('affiche uniquement les propositions du joueur connecté avec leur statut', async ({ page }) => {
