@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Landing et authentification', () => {
-  async function mockSupabase(page, { session = null } = {}) {
+  async function mockSupabase(page, { session = null, isAdmin = false } = {}) {
     await page.route('**/supabase-config.js', async (route) => {
       await route.fulfill({
         contentType: 'application/javascript',
@@ -19,6 +19,33 @@ test.describe('Landing et authentification', () => {
                 window.__oauthCall = { provider, redirectTo: options.redirectTo };
                 return { data: { provider }, error: null };
               },
+            },
+            from(table) {
+              return {
+                select() {
+                  return {
+                    eq(fieldName, value) {
+                      return {
+                        eq(secondFieldName, secondValue) {
+                          return {
+                            maybeSingle() {
+                              if (table !== 'admin_users') {
+                                return { data: null, error: null };
+                              }
+                              const userId = session && session.user ? session.user.id : null;
+                              const matches = userId && fieldName === 'user_id' && value === userId && secondFieldName === 'active' && secondValue === true;
+                              return {
+                                data: matches && ${isAdmin} ? { user_id: userId, role: 'admin', active: true } : null,
+                                error: null,
+                              };
+                            },
+                          };
+                        },
+                      };
+                    },
+                  };
+                },
+              };
             },
           };
         }`,
@@ -54,6 +81,20 @@ test.describe('Landing et authentification', () => {
     await page.getByRole('button', { name: 'Fermer la fenêtre des catégories' }).click();
     await expect(page.locator('[data-category-overlay]')).toBeHidden();
     await expect(page.locator('#heroVideo')).toBeVisible();
+  });
+
+  test('masque le bouton dashboard quand l’utilisateur n’est pas admin', async ({ page }) => {
+    await page.goto('/index.html');
+
+    await expect(page.locator('[data-admin-dashboard-link]')).toBeHidden();
+  });
+
+  test('affiche le bouton dashboard quand l’utilisateur connecté est admin', async ({ page }) => {
+    await mockSupabase(page, { session: { user: { id: 'admin-1' } }, isAdmin: true });
+    await page.goto('/index.html');
+
+    await expect(page.locator('[data-admin-dashboard-link]')).toBeVisible();
+    await expect(page.locator('[data-admin-dashboard-link]')).toHaveAttribute('href', 'pages/admin/dashboard.html');
   });
 
   test('ouvre directement la modale mode quand la session est déjà active', async ({ page }) => {

@@ -39,6 +39,7 @@ const networkSoonCloseButton = document.querySelector('[data-network-soon-close]
 const authTrigger = document.querySelector('[data-auth-trigger]');
 const authLabel = document.querySelector('[data-auth-label]');
 const authAvatar = document.querySelector('[data-auth-avatar]');
+const adminDashboardLink = document.querySelector('[data-admin-dashboard-link]');
 const defaultAvatar = 'rebuild/dashboard%20Joeur/profil%20perosnne.svg';
 let currentUser = null;
 let pendingDestination = sessionStorage.getItem(pendingDestinationKey);
@@ -378,6 +379,41 @@ function selectCategory(event) {
   startSoloQuiz(categorySlug);
 }
 
+async function updateAdminDashboardVisibility(user) {
+  if (!adminDashboardLink) return;
+
+  const setDashboardVisibility = (isVisible) => {
+    adminDashboardLink.hidden = !isVisible;
+    adminDashboardLink.classList.toggle('is-hidden', !isVisible);
+    adminDashboardLink.setAttribute('aria-hidden', String(!isVisible));
+  };
+
+  if (!supabase || !user) {
+    setDashboardVisibility(false);
+    return;
+  }
+
+  try {
+    const { data: admin, error } = await supabase
+      .from('admin_users')
+      .select('user_id, role, active')
+      .eq('user_id', user.id)
+      .eq('active', true)
+      .maybeSingle();
+
+    if (error) {
+      console.error('Impossible de vérifier les droits administrateurs', error);
+      setDashboardVisibility(false);
+      return;
+    }
+
+    setDashboardVisibility(Boolean(admin));
+  } catch (error) {
+    console.error('Erreur de validation admin', error);
+    setDashboardVisibility(false);
+  }
+}
+
 function updateAuthUi(user) {
   currentUser = user || null;
   if (!authTrigger || !authLabel) return;
@@ -390,6 +426,7 @@ function updateAuthUi(user) {
       authAvatar.src = getAvatarUrl(currentUser) || defaultAvatar;
       authAvatar.hidden = false;
     }
+    updateAdminDashboardVisibility(currentUser);
     return;
   }
 
@@ -397,6 +434,11 @@ function updateAuthUi(user) {
   authLabel.textContent = 'Se connecter';
   authTrigger.setAttribute('aria-label', 'Se connecter');
   if (authAvatar) authAvatar.hidden = true;
+  if (adminDashboardLink) {
+    adminDashboardLink.hidden = true;
+    adminDashboardLink.classList.add('is-hidden');
+    adminDashboardLink.setAttribute('aria-hidden', 'true');
+  }
   closeProfileModal();
 }
 

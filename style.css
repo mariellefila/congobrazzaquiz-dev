@@ -453,10 +453,31 @@ button:hover {
   gap: 18px;
 }
 
+.hero-nav-admin,
 .hero-nav-facebook {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  color: #ffffff;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.hero-nav-admin.is-hidden,
+.hero-nav-admin[hidden] {
+  display: none !important;
+}
+
+.hero-nav-admin:hover,
+.hero-nav-admin:focus-visible,
+.hero-nav-facebook:hover,
+.hero-nav-facebook:focus-visible {
+  transform: translateY(-1px);
+}
+
+.hero-nav-admin svg {
+  width: 20px;
+  height: 20px;
+  display: block;
 }
 
 .hero-auth {
