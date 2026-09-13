@@ -73,6 +73,15 @@ test.describe('Soumission de questions', () => {
     });
   }
 
+  test('le CTA du header ouvre le formulaire de proposition', async ({ page }) => {
+    await page.goto('/index.html');
+
+    await page.locator('header.hero-nav').getByRole('link', { name: 'Proposer une question' }).click();
+
+    await expect(page).toHaveURL(/\/pages\/proposer-question\.html$/);
+    await expect(page.getByRole('heading', { name: 'Proposer une question' })).toBeVisible();
+  });
+
   test('affiche le formulaire de soumission et enregistre la proposition', async ({ page }) => {
     await mockSupabase(page);
     await page.goto('/pages/proposer-question.html');
