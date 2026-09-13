@@ -115,68 +115,21 @@ button:hover {
   color: #17231c;
 }
 
-.proposal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 28px;
-  min-height: 78px;
-  padding: 16px clamp(20px, 5vw, 72px);
-  box-sizing: border-box;
+.proposal-page > .hero-nav {
   background: #101f19;
   box-shadow: 0 3px 16px rgba(16, 31, 25, 0.16);
 }
 
-.proposal-brand img {
+.proposal-hero-brand {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.proposal-hero-brand img {
   display: block;
   width: 142px;
   height: auto;
-}
-
-.proposal-nav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(16px, 3vw, 34px);
-  flex: 1;
-}
-
-.proposal-nav a,
-.proposal-nav-back {
-  color: rgba(255, 255, 255, 0.72);
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.03em;
-  text-decoration: none;
-  text-transform: uppercase;
-}
-
-.proposal-nav a:hover,
-.proposal-nav a:focus-visible,
-.proposal-nav a.is-current,
-.proposal-nav-back:hover,
-.proposal-nav-back:focus-visible {
-  color: #ffffff;
-}
-
-.proposal-nav a.is-current {
-  position: relative;
-}
-
-.proposal-nav a.is-current::after {
-  position: absolute;
-  right: 0;
-  bottom: -9px;
-  left: 0;
-  height: 3px;
-  border-radius: 3px;
-  background: #f1c40f;
-  content: '';
-}
-
-.proposal-nav-back {
-  min-width: 66px;
-  text-align: right;
 }
 
 .proposal-main {
@@ -552,22 +505,8 @@ button:hover {
 }
 
 @media screen and (max-width: 680px) {
-  .proposal-header {
-    min-height: 66px;
-    padding: 14px 16px;
-  }
-
-  .proposal-brand img {
+  .proposal-hero-brand img {
     width: 118px;
-  }
-
-  .proposal-nav {
-    display: none;
-  }
-
-  .proposal-nav-back {
-    min-width: auto;
-    font-size: 11px;
   }
 
   .proposal-main {
@@ -5356,6 +5295,31 @@ body.solo-result-mode .solo-result-share img {
     grid-column: 2;
     justify-self: start;
     font-size: 13px;
+  }
+}
+
+/* Secondary pages keep the landing header geometry without the hero positioning. */
+.proposal-page > .hero-nav {
+  position: relative;
+  inset: auto;
+  min-height: 78px;
+  padding: 20px 32px;
+}
+
+@media screen and (max-width: 749px) {
+  .proposal-page > .hero-nav {
+    position: relative;
+    inset: auto;
+    min-height: 66px;
+    padding: 14px 16px;
+  }
+
+  .proposal-page > .hero-nav nav {
+    display: none;
+  }
+
+  .proposal-page > .hero-nav .hero-nav-actions {
+    position: static;
   }
 }
 
