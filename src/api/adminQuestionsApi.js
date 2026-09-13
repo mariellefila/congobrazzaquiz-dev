@@ -1,3 +1,5 @@
+import { resolveQuestionImage } from './playerQuestionsApi.js';
+
 function hasQueryClient(supabase) {
   return Boolean(supabase) && typeof supabase.from === 'function';
 }
@@ -46,7 +48,8 @@ function mapSubmission(row) {
     source: 'submission',
     question: row.question,
     text: row.question,
-    image: null,
+    image: row.image || null,
+    imagePath: row.image || null,
     category: row.category_slug || 'Sans catégorie',
     categoryId: row.category_slug || '',
     author: row.players?.display_name || '',
@@ -65,6 +68,7 @@ function mapPublishedQuestion(row) {
     question: row.question,
     text: row.question,
     image: row.image || null,
+    imagePath: row.image || null,
     category: row.categories?.name || row.category_id || 'Sans catégorie',
     categoryId: row.category_id,
     author: '',
@@ -86,7 +90,7 @@ async function fetchSubmissions(supabase, { status = null, limit = null } = {}) 
 
   let query = supabase
     .from('question_submissions')
-    .select('id, question, category_slug, options, answer, status, created_at, reviewed_at, players(display_name)')
+    .select('id, question, category_slug, options, answer, status, created_at, reviewed_at, image, players(display_name)')
     .order('created_at', { ascending: false });
 
   if (status) query = query.eq('status', status);
@@ -94,7 +98,11 @@ async function fetchSubmissions(supabase, { status = null, limit = null } = {}) 
 
   const { data, error } = await query;
   if (error) return { questions: null, error: createError('question_submissions', 'select question_submissions', error) };
-  return { questions: (data || []).map(mapSubmission), error: null };
+  const questions = await Promise.all((data || []).map(async (row) => ({
+    ...mapSubmission(row),
+    image: await resolveQuestionImage(supabase, row.image),
+  })));
+  return { questions, error: null };
 }
 
 async function fetchPublishedQuestions(supabase, { limit = null } = {}) {
@@ -111,7 +119,11 @@ async function fetchPublishedQuestions(supabase, { limit = null } = {}) {
 
   const { data, error } = await query;
   if (error) return { questions: null, error: createError('questions', 'select questions', error) };
-  return { questions: (data || []).map(mapPublishedQuestion), error: null };
+  const questions = await Promise.all((data || []).map(async (row) => ({
+    ...mapPublishedQuestion(row),
+    image: await resolveQuestionImage(supabase, row.image),
+  })));
+  return { questions, error: null };
 }
 
 export async function fetchQuestionCategories(supabase) {
@@ -248,7 +260,7 @@ export async function updateAdminQuestion(supabase, question) {
       category_id: question.categoryId,
       options: uniqueAnswers,
       answer: question.correctAnswer.trim(),
-      image: question.image || null,
+      image: question.imagePath || question.image || null,
       updated_at: new Date().toISOString(),
     };
   const table = question.source === 'submission' ? 'question_submissions' : 'questions';

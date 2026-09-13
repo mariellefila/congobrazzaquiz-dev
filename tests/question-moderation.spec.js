@@ -48,6 +48,11 @@ test.describe('Modération des propositions de questions (back-office)', () => {
             auth: {
               async getSession() { return { data: { session: { user: { id: 'admin-1' } } }, error: null }; },
             },
+            storage: {
+              from() {
+                return { async createSignedUrl(path) { return { data: { signedUrl: 'https://signed.example/' + path }, error: null }; } };
+              },
+            },
             from(table) {
               return {
                 select(fields, opts) {
@@ -88,9 +93,13 @@ test.describe('Modération des propositions de questions (back-office)', () => {
   }
 
   test('approuve une proposition en attente et publie exactement une question', async ({ page }) => {
+    await page.route('https://signed.example/**', (route) => route.fulfill({
+      contentType: 'image/png',
+      body: Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=', 'base64'),
+    }));
     await mockSupabase(page, {
       submissions: [
-        { id: 'sub-1', player_id: 'player-1', category_slug: 'geographie', question: 'Quelle est la capitale ?', options: ['Brazzaville', 'A', 'B', 'C'], answer: 'Brazzaville', status: 'pending', created_at: new Date().toISOString(), players: { display_name: 'Joueur Un' } },
+        { id: 'sub-1', player_id: 'player-1', category_slug: 'geographie', question: 'Quelle est la capitale ?', options: ['Brazzaville', 'A', 'B', 'C'], answer: 'Brazzaville', image: 'user-1/submission.png', status: 'pending', created_at: new Date().toISOString(), players: { display_name: 'Joueur Un' } },
       ],
     });
 
@@ -110,6 +119,7 @@ test.describe('Modération des propositions de questions (back-office)', () => {
 
     await expect(page.locator('[data-approve-question]')).toBeDisabled();
     await expect(page.locator('[data-reject-question]')).toBeDisabled();
+    await expect(page.locator('.bo-question-detail-image')).toHaveAttribute('src', 'https://signed.example/user-1/submission.png');
   });
 
   test('refuse une proposition en attente et enregistre le motif', async ({ page }) => {

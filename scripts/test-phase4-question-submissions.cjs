@@ -51,6 +51,20 @@ async function main() {
       ON CONFLICT (user_id) DO UPDATE SET role = 'admin', active = true`;
 
     console.log('\n=== TEST 0 : sécurité des fonctions de modération ===');
+    const [bucket] = await sql`
+      SELECT public, file_size_limit, allowed_mime_types
+      FROM storage.buckets WHERE id = 'question-submissions'`;
+    check('bucket Storage privé configuré', bucket?.public === false);
+    check('bucket limité à 5 Mo', Number(bucket?.file_size_limit) === 5242880);
+    check('bucket accepte JPEG PNG WebP', JSON.stringify(bucket?.allowed_mime_types?.sort()) === JSON.stringify(['image/jpeg', 'image/png', 'image/webp']));
+    const storagePolicies = await sql`
+      SELECT policyname, cmd, roles, qual, with_check
+      FROM pg_policies
+      WHERE schemaname = 'storage' AND tablename = 'objects'
+        AND policyname LIKE 'question_submission_images_owner_%'`;
+    check('policy Storage INSERT vérifie le premier dossier auth.uid', storagePolicies.some((policy) => policy.cmd === 'INSERT' && policy.with_check?.includes('storage.foldername')));
+    check('policy Storage SELECT autorise owner/admin', storagePolicies.some((policy) => policy.cmd === 'SELECT' && policy.qual?.includes('is_admin')));
+    check('policy Storage DELETE vérifie le premier dossier auth.uid', storagePolicies.some((policy) => policy.cmd === 'DELETE' && policy.qual?.includes('storage.foldername')));
     const securityRows = await sql`
       SELECT p.proname, p.prosecdef,
         COALESCE(array_to_string(p.proconfig, ','), '') AS config,

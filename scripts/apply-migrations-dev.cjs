@@ -16,6 +16,7 @@ const MIGRATIONS = [
   '20260906_back_office_admin_read.sql',
   '20260913_question_submission_moderation.sql',
   '20260913_question_submission_security.sql',
+  '20260913_question_submission_storage.sql',
 ];
 
 const TRACKING_TABLE = 'public.dev_migration_history';
@@ -56,6 +57,19 @@ async function hasSchemaMarker(sql, file) {
           AND routine_name IN ('approve_question_submission', 'reject_question_submission')
           AND grantee IN ('anon', 'PUBLIC')
           AND privilege_type = 'EXECUTE'
+      ) AS applied`,
+    '20260913_question_submission_storage.sql': `
+      SELECT EXISTS (
+        SELECT 1 FROM storage.buckets
+        WHERE id = 'question-submissions'
+          AND public = false
+          AND file_size_limit = 5242880
+      )
+      AND EXISTS (
+        SELECT 1 FROM pg_policies
+        WHERE schemaname = 'storage'
+          AND tablename = 'objects'
+          AND policyname = 'question_submission_images_owner_insert'
       ) AS applied`,
   };
   if (!markers[file]) return false;

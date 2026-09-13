@@ -79,18 +79,6 @@
                 <span class="proposal-field-hint">Une question claire, courte et liée au Congo.</span>
             </div>
 
-            <div class="proposal-image-field proposal-field">
-                <label for="image">Illustration <span>(facultative)</span></label>
-                <div class="proposal-image-box">
-                    <span class="proposal-image-icon" aria-hidden="true">▧</span>
-                    <div>
-                        <strong>Ajouter une image</strong>
-                        <span>Colle l’URL d’une image pour illustrer ta question.</span>
-                    </div>
-                    <input id="image" name="image" type="url" placeholder="https://exemple.com/image.jpg" />
-                </div>
-            </div>
-
             <fieldset class="proposal-answers">
                 <legend>Les réponses</legend>
                 <p class="proposal-section-hint">Indique la bonne réponse, puis trois réponses incorrectes.</p>
@@ -115,6 +103,28 @@
                     </div>
                 </div>
             </fieldset>
+
+            <div class="proposal-image-field proposal-field">
+                <label for="imageFile">Image <span>(facultative)</span></label>
+                <div class="proposal-image-box" data-image-uploader>
+                    <div class="proposal-image-mode-toggle" role="group" aria-label="Mode d’ajout d’image">
+                        <button type="button" class="is-active" data-image-mode="file">Ajouter un fichier</button>
+                        <button type="button" data-image-mode="url">Utiliser plutôt une URL d’image</button>
+                    </div>
+                    <div data-image-panel="file">
+                        <input id="imageFile" name="imageFile" type="file" accept="image/jpeg,image/png,image/webp" />
+                        <span class="proposal-image-help">JPEG, PNG ou WebP, 5 Mo maximum.</span>
+                    </div>
+                    <div data-image-panel="url" hidden>
+                        <input id="image" name="image" type="url" inputmode="url" placeholder="https://exemple.com/image.jpg" aria-label="URL HTTPS de l’image" />
+                    </div>
+                    <div class="proposal-image-preview" data-image-preview hidden>
+                        <img data-image-preview-image alt="Aperçu de l’image sélectionnée" />
+                        <button type="button" data-image-remove>Supprimer l’image</button>
+                    </div>
+                    <p class="proposal-image-error" data-image-error role="alert"></p>
+                </div>
+            </div>
 
             <div class="proposal-form-footer">
                 <p class="proposal-review-note"><span aria-hidden="true">●</span> Ta question sera vérifiée avant publication.</p>

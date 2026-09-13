@@ -287,50 +287,95 @@ button:hover {
 }
 
 .proposal-image-box {
-  display: grid;
-  grid-template-columns: 44px minmax(0, 1fr);
-  gap: 4px 12px;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   padding: 15px;
   border: 1px dashed #b9c9bd;
   border-radius: 10px;
   background: #f7faf7;
 }
 
-.proposal-image-icon {
-  display: grid;
-  grid-row: span 2;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+.proposal-image-mode-toggle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+}
+
+.proposal-image-mode-toggle button {
+  width: auto;
+  min-height: 36px;
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid #cdd9d0;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #526258;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.proposal-image-mode-toggle button.is-active {
+  border-color: #008548;
   background: #e2f3e8;
-  color: #008548;
-  font-size: 22px;
+  color: #006d3b;
 }
 
-.proposal-image-box strong,
-.proposal-image-box > div span {
+.proposal-image-help {
   display: block;
-}
-
-.proposal-image-box strong {
-  color: #1e3026;
-  font-size: 14px;
-}
-
-.proposal-image-box > div span {
-  margin-top: 3px;
+  margin-top: 8px;
   color: #78867d;
   font-size: 12px;
 }
 
-.proposal-image-box input {
-  grid-column: 2;
+.proposal-image-box input[type="file"],
+.proposal-image-box input[type="url"] {
   width: 100%;
   min-height: 44px;
-  margin-top: 8px;
   background: #ffffff;
+}
+
+.proposal-image-preview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding-top: 10px;
+  border-top: 1px solid #dce7df;
+}
+
+.proposal-image-preview[hidden] {
+  display: none;
+}
+
+.proposal-image-preview img {
+  width: 92px;
+  height: 68px;
+  border-radius: 7px;
+  object-fit: cover;
+  background: #e9eeeb;
+}
+
+.proposal-image-preview button {
+  width: auto;
+  min-height: 36px;
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid #d9b8b6;
+  border-radius: 8px;
+  background: #fff7f7;
+  color: #a52220;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.proposal-image-error {
+  min-height: 18px;
+  margin: 0;
+  color: #b42318;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .proposal-answers {
@@ -387,9 +432,9 @@ button:hover {
 }
 
 .proposal-wrong-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
 .proposal-form-footer {
@@ -483,6 +528,14 @@ button:hover {
   font-weight: 800;
 }
 
+.proposal-history-image {
+  width: 84px;
+  height: 58px;
+  border-radius: 7px;
+  object-fit: cover;
+  background: #e9eeeb;
+}
+
 .proposal-history-item[data-status="pending"] .proposal-history-status {
   background: #fff4c8;
   color: #806400;
@@ -539,23 +592,8 @@ button:hover {
     padding: 20px 14px;
   }
 
-  .proposal-wrong-grid {
-    grid-template-columns: 1fr;
-  }
-
   .proposal-image-box {
-    grid-template-columns: 38px minmax(0, 1fr);
     padding: 12px;
-  }
-
-  .proposal-image-icon {
-    width: 36px;
-    height: 36px;
-  }
-
-  .proposal-image-box input {
-    grid-column: 1 / -1;
-    margin-top: 8px;
   }
 }
 

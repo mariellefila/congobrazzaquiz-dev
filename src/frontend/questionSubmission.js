@@ -1,6 +1,12 @@
 import { initSupabase } from '../lib/supabaseClient.js';
 import { fetchQuestionCategories } from '../api/adminQuestionsApi.js';
-import { fetchMyQuestionSubmissions, submitQuestionProposal } from '../api/playerQuestionsApi.js';
+import {
+  deleteQuestionImage,
+  fetchMyQuestionSubmissions,
+  submitQuestionProposal,
+  uploadQuestionImage,
+  validateQuestionImage,
+} from '../api/playerQuestionsApi.js';
 
 const form = document.querySelector('[data-question-submission-form]');
 const authState = document.querySelector('[data-question-submission-auth-state]');
@@ -9,6 +15,14 @@ const categorySelect = document.querySelector('[name="categorySlug"]');
 const submitButton = form?.querySelector('button[type="submit"]');
 const mySubmissionsSection = document.querySelector('[data-my-submissions]');
 const mySubmissionsList = document.querySelector('[data-my-submissions-list]');
+const imageFileInput = document.querySelector('[name="imageFile"]');
+const imageUrlInput = document.querySelector('[name="image"]');
+const imagePreview = document.querySelector('[data-image-preview]');
+const imagePreviewImage = document.querySelector('[data-image-preview-image]');
+const imageError = document.querySelector('[data-image-error]');
+const imageModeButtons = [...document.querySelectorAll('[data-image-mode]')];
+const imagePanels = [...document.querySelectorAll('[data-image-panel]')];
+const imageRemoveButton = document.querySelector('[data-image-remove]');
 
 const statusLabels = {
   pending: 'En attente',
@@ -21,6 +35,9 @@ const state = {
   user: null,
   playerId: null,
   categories: [],
+  imageMode: 'file',
+  selectedFile: null,
+  previewUrl: null,
 };
 
 function setStatus(message, isError = false) {
@@ -50,11 +67,56 @@ function collectFormValues() {
   return {
     categorySlug: String(data.get('categorySlug') || '').trim(),
     question: String(data.get('question') || '').trim(),
-    image: String(data.get('image') || '').trim(),
+    image: state.imageMode === 'url' ? String(data.get('image') || '').trim() : '',
     correctAnswer,
     wrongAnswers,
     options,
   };
+}
+
+function setImageError(message = '') {
+  if (imageError) imageError.textContent = message;
+}
+
+function clearImagePreview() {
+  if (state.previewUrl) URL.revokeObjectURL(state.previewUrl);
+  state.previewUrl = null;
+  state.selectedFile = null;
+  if (imageFileInput) imageFileInput.value = '';
+  if (imageUrlInput) imageUrlInput.value = '';
+  if (imagePreview) imagePreview.hidden = true;
+  if (imagePreviewImage) imagePreviewImage.removeAttribute('src');
+  setImageError();
+}
+
+function showImagePreview(url) {
+  if (!imagePreview || !imagePreviewImage) return;
+  imagePreviewImage.src = url;
+  imagePreview.hidden = false;
+}
+
+function setImageMode(mode) {
+  state.imageMode = mode;
+  imageModeButtons.forEach((button) => {
+    const active = button.dataset.imageMode === mode;
+    button.classList.toggle('is-active', active);
+    button.setAttribute('aria-pressed', String(active));
+  });
+  imagePanels.forEach((panel) => {
+    panel.hidden = panel.dataset.imagePanel !== mode;
+  });
+  clearImagePreview();
+}
+
+function validateExternalImageUrl(value) {
+  if (!value) return null;
+  try {
+    const url = new URL(value);
+    if (url.protocol !== 'https:') throw new Error();
+    return null;
+  } catch {
+    return 'L’URL de l’image doit être une URL HTTPS valide.';
+  }
 }
 
 function validateValues(values) {
@@ -123,13 +185,34 @@ function renderMySubmissions(submissions) {
   }
 
   mySubmissionsSection.hidden = false;
-  mySubmissionsList.innerHTML = submissions.map((submission) => `
-    <li class="proposal-history-item" data-status="${escapeHtml(submission.status)}">
-      <span class="proposal-history-question">${escapeHtml(submission.question)}</span>
-      <span class="proposal-history-status">${escapeHtml(statusLabels[submission.status] || submission.status)}</span>
-      ${submission.status === 'rejected' && submission.rejection_reason ? `<span class="proposal-history-reason">${escapeHtml(submission.rejection_reason)}</span>` : ''}
-    </li>
-  `).join('');
+  mySubmissionsList.replaceChildren(...submissions.map((submission) => {
+    const item = document.createElement('li');
+    item.className = 'proposal-history-item';
+    item.dataset.status = submission.status;
+    const question = document.createElement('span');
+    question.className = 'proposal-history-question';
+    question.textContent = submission.question;
+    item.appendChild(question);
+    const status = document.createElement('span');
+    status.className = 'proposal-history-status';
+    status.textContent = statusLabels[submission.status] || submission.status;
+    item.appendChild(status);
+    if (submission.image_url) {
+      const image = document.createElement('img');
+      image.className = 'proposal-history-image';
+      image.src = submission.image_url;
+      image.alt = 'Illustration de la proposition';
+      image.addEventListener('error', () => image.remove());
+      item.appendChild(image);
+    }
+    if (submission.status === 'rejected' && submission.rejection_reason) {
+      const reason = document.createElement('span');
+      reason.className = 'proposal-history-reason';
+      reason.textContent = submission.rejection_reason;
+      item.appendChild(reason);
+    }
+    return item;
+  }));
 }
 
 async function loadMySubmissions() {
@@ -141,6 +224,40 @@ async function loadMySubmissions() {
   }
   renderMySubmissions(submissions || []);
 }
+
+imageModeButtons.forEach((button) => {
+  button.addEventListener('click', () => setImageMode(button.dataset.imageMode));
+});
+
+imageFileInput?.addEventListener('change', () => {
+  setImageError();
+  const file = imageFileInput.files?.[0] || null;
+  if (!file) {
+    clearImagePreview();
+    return;
+  }
+  const validation = validateQuestionImage(file);
+  if (!validation.valid) {
+    imageFileInput.value = '';
+    state.selectedFile = null;
+    setImageError(validation.error);
+    return;
+  }
+  if (state.previewUrl) URL.revokeObjectURL(state.previewUrl);
+  state.selectedFile = file;
+  state.previewUrl = URL.createObjectURL(file);
+  showImagePreview(state.previewUrl);
+});
+
+imageUrlInput?.addEventListener('input', () => {
+  const value = imageUrlInput.value.trim();
+  const error = validateExternalImageUrl(value);
+  setImageError(error || '');
+  if (value && !error) showImagePreview(value);
+  else if (!value) clearImagePreview();
+});
+
+imageRemoveButton?.addEventListener('click', clearImagePreview);
 
 async function initialise() {
   if (!window.SUPABASE_URL || !window.SUPABASE_ANON_KEY) {
@@ -205,23 +322,40 @@ if (form) {
     try {
       const values = collectFormValues();
       validateValues(values);
+      if (state.imageMode === 'url') {
+        const urlError = validateExternalImageUrl(values.image);
+        if (urlError) throw new Error(urlError);
+      }
       if (submitButton) submitButton.disabled = true;
-      setStatus('Envoi de votre question en cours...');
+      let storedImagePath = values.image || null;
+
+      if (state.imageMode === 'file' && state.selectedFile) {
+        setStatus('Téléversement en cours...');
+        const upload = await uploadQuestionImage(state.supabase, state.user.id, state.selectedFile);
+        if (upload.error) throw new Error(upload.error.message || 'Le téléversement a échoué.');
+        storedImagePath = upload.path;
+      }
+
+      setStatus('Envoi en cours...');
 
       const result = await submitQuestionProposal(state.supabase, {
         playerId: state.playerId,
+        userId: state.user.id,
         categorySlug: values.categorySlug,
         question: values.question,
         options: values.options,
         correctAnswer: values.correctAnswer,
-        image: values.image,
+        image: storedImagePath,
       });
 
       if (result?.error || !result?.submission) {
+        if (storedImagePath && state.imageMode === 'file') await deleteQuestionImage(state.supabase, storedImagePath);
         throw new Error(result?.error?.message || 'La question n’a pas pu être soumise.');
       }
 
       form.reset();
+      clearImagePreview();
+      setImageMode('file');
       setStatus('Question soumise. Elle sera vérifiée avant publication.');
       await loadMySubmissions();
     } catch (error) {
