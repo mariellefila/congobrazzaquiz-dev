@@ -79,14 +79,14 @@ test.describe('Soumission de questions', () => {
     await page.locator('header.hero-nav').getByRole('link', { name: 'Proposer une question' }).click();
 
     await expect(page).toHaveURL(/\/pages\/proposer-question\.html$/);
-    await expect(page.getByRole('heading', { name: 'Proposer une question' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'À toi de jouer !' })).toBeVisible();
   });
 
   test('affiche le formulaire de soumission et enregistre la proposition', async ({ page }) => {
     await mockSupabase(page);
     await page.goto('/pages/proposer-question.html');
 
-    await expect(page.getByRole('heading', { name: 'Proposer une question' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'À toi de jouer !' })).toBeVisible();
     await expect(page.locator('form[data-question-submission-form]')).toBeVisible();
 
     await page.locator('[name="categorySlug"]').selectOption('geographie');

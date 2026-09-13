@@ -7,68 +7,107 @@
     <link rel="stylesheet" href="../style.css" />
 </head>
 <body class="proposal-page">
-    <div class="container proposal-container">
-        <p class="back-link"><a href="../index.html">&larr; Retour</a></p>
-        <main>
-            <h1>Proposer une question</h1>
-            <p class="proposal-intro">
-                Vous connaissez une anecdote ou une question sur le Congo-Brazzaville ?
-                Partagez-la pour aider la communauté à enrichir le quiz.
-            </p>
+    <header class="proposal-header">
+        <a class="proposal-brand" href="../index.html" aria-label="Congo Brazza Quiz, accueil">
+            <img src="../images/brand/logo-cbq.svg" alt="Congo Brazza Quiz" />
+        </a>
+        <nav class="proposal-nav" aria-label="Navigation principale">
+            <a href="../index.html">Jouer</a>
+            <a href="leaderboard.html">Classement</a>
+            <a class="is-current" href="proposer-question.html" aria-current="page">Proposer une question</a>
+        </nav>
+        <a class="proposal-nav-back" href="../index.html">Retour</a>
+    </header>
 
-            <div class="proposal-status-box" data-question-submission-auth-state hidden>
-                <p>Connectez-vous pour proposer une question.</p>
-                <a href="../index.html" class="proposal-link">Retour à l’accueil</a>
+    <main class="proposal-main">
+        <div class="proposal-heading">
+            <p class="proposal-eyebrow">Contribution communautaire</p>
+            <h1>À toi de jouer !</h1>
+            <p>Propose une question et contribue à faire découvrir le Congo autrement.</p>
+        </div>
+
+        <div class="proposal-status-box" data-question-submission-auth-state hidden>
+            <p>Connectez-vous pour proposer une question.</p>
+            <a href="../index.html" class="proposal-link">Retour à l’accueil</a>
+        </div>
+
+        <form class="proposal-card proposal-form" data-question-submission-form hidden>
+            <div class="proposal-form-header">
+                <div>
+                    <p class="proposal-card-kicker">Nouvelle proposition</p>
+                    <h2>Partage ta connaissance</h2>
+                </div>
+                <span class="proposal-step">01 / 01</span>
             </div>
 
-            <form class="proposal-form" data-question-submission-form hidden>
-                <div class="proposal-field">
-                    <label for="categorySlug">Catégorie</label>
-                    <select id="categorySlug" name="categorySlug" required>
-                        <option value="">Choisir une catégorie</option>
-                    </select>
-                </div>
+            <div class="proposal-field">
+                <label for="categorySlug">Catégorie</label>
+                <select id="categorySlug" name="categorySlug" required>
+                    <option value="">Choisir une catégorie</option>
+                </select>
+            </div>
 
-                <div class="proposal-field">
-                    <label for="question">Question</label>
-                    <textarea id="question" name="question" rows="4" placeholder="Ex. : Quelle est la capitale du Congo-Brazzaville ?" required></textarea>
-                </div>
+            <div class="proposal-field">
+                <label for="question">Ta question</label>
+                <textarea id="question" name="question" rows="5" placeholder="Ex. : Quelle est la capitale du Congo-Brazzaville ?" required></textarea>
+                <span class="proposal-field-hint">Une question claire, courte et liée au Congo.</span>
+            </div>
 
-                <div class="proposal-field">
-                    <label for="image">Image (facultative)</label>
-                    <input id="image" name="image" type="url" placeholder="https://..." />
+            <div class="proposal-image-field proposal-field">
+                <label for="image">Illustration <span>(facultative)</span></label>
+                <div class="proposal-image-box">
+                    <span class="proposal-image-icon" aria-hidden="true">▧</span>
+                    <div>
+                        <strong>Ajouter une image</strong>
+                        <span>Colle l’URL d’une image pour illustrer ta question.</span>
+                    </div>
+                    <input id="image" name="image" type="url" placeholder="https://exemple.com/image.jpg" />
                 </div>
+            </div>
 
-                <div class="proposal-field">
-                    <label for="correctAnswer">Bonne réponse</label>
+            <fieldset class="proposal-answers">
+                <legend>Les réponses</legend>
+                <p class="proposal-section-hint">Indique la bonne réponse, puis trois réponses incorrectes.</p>
+
+                <div class="proposal-field proposal-correct-answer">
+                    <label for="correctAnswer"><span class="answer-marker" aria-hidden="true">✓</span>Bonne réponse</label>
                     <input id="correctAnswer" name="correctAnswer" type="text" placeholder="Entrez la bonne réponse" required />
                 </div>
 
-                <div class="proposal-grid">
-                    <div class="proposal-field">
-                        <label for="wrongAnswer1">Réponse fausse 1</label>
-                        <input id="wrongAnswer1" name="wrongAnswer1" type="text" placeholder="Fausse réponse" required />
+                <div class="proposal-wrong-grid">
+                    <div class="proposal-field proposal-wrong-answer">
+                        <label for="wrongAnswer1"><span class="answer-number" aria-hidden="true">1</span>Réponse incorrecte</label>
+                        <input id="wrongAnswer1" name="wrongAnswer1" type="text" placeholder="Première réponse incorrecte" required />
                     </div>
-                    <div class="proposal-field">
-                        <label for="wrongAnswer2">Réponse fausse 2</label>
-                        <input id="wrongAnswer2" name="wrongAnswer2" type="text" placeholder="Fausse réponse" required />
+                    <div class="proposal-field proposal-wrong-answer">
+                        <label for="wrongAnswer2"><span class="answer-number" aria-hidden="true">2</span>Réponse incorrecte</label>
+                        <input id="wrongAnswer2" name="wrongAnswer2" type="text" placeholder="Deuxième réponse incorrecte" required />
                     </div>
-                    <div class="proposal-field">
-                        <label for="wrongAnswer3">Réponse fausse 3</label>
-                        <input id="wrongAnswer3" name="wrongAnswer3" type="text" placeholder="Fausse réponse" required />
+                    <div class="proposal-field proposal-wrong-answer">
+                        <label for="wrongAnswer3"><span class="answer-number" aria-hidden="true">3</span>Réponse incorrecte</label>
+                        <input id="wrongAnswer3" name="wrongAnswer3" type="text" placeholder="Troisième réponse incorrecte" required />
                     </div>
                 </div>
+            </fieldset>
 
-                <button type="submit" class="proposal-submit">Soumettre la question</button>
+            <div class="proposal-form-footer">
+                <p class="proposal-review-note"><span aria-hidden="true">●</span> Ta question sera vérifiée avant publication.</p>
+                <button type="submit" class="proposal-submit">Soumettre la question <span aria-hidden="true">&rarr;</span></button>
                 <p class="submission-status" data-submission-status aria-live="polite"></p>
-            </form>
+            </div>
+        </form>
 
-            <section class="proposal-history" data-my-submissions hidden>
-                <h2>Mes propositions</h2>
-                <ul class="proposal-history-list" data-my-submissions-list></ul>
-            </section>
-        </main>
-    </div>
+        <section class="proposal-card proposal-history" data-my-submissions hidden>
+            <div class="proposal-form-header">
+                <div>
+                    <p class="proposal-card-kicker">Suivi</p>
+                    <h2>Mes propositions</h2>
+                </div>
+                <span class="proposal-history-mark" aria-hidden="true">✓</span>
+            </div>
+            <ul class="proposal-history-list" data-my-submissions-list></ul>
+        </section>
+    </main>
 
     <script src="../supabase-config.js"></script>
     <script type="module" src="../src/frontend/questionSubmission.js"></script>
