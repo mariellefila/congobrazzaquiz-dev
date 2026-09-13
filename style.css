@@ -2158,9 +2158,10 @@ button:hover {
 .category-modal {
   position: relative;
   z-index: var(--z-modal);
-  width: min(100%, 1200px);
-  max-width: 1200px;
-  padding: 40px 48px;
+  width: min(100%, 1280px);
+  max-width: 1280px;
+  max-height: min(92vh, 980px);
+  padding: 40px 48px 30px;
   box-sizing: border-box;
   background: #ffffff;
   border-radius: 24px;
@@ -2863,6 +2864,21 @@ body.quiz-mode {
   color: #64748b;
   font-size: 18px;
   line-height: 1.5;
+}
+
+.category-modal__scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.category-modal__ads {
+  margin-top: 6px;
+}
+
+.category-modal__ads .ad-carousel {
+  width: min(100%, 920px);
+  margin: 0 auto;
 }
 
 .category-grid {

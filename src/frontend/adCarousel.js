@@ -4,9 +4,9 @@ const ads = [
   { id: 'le-sabre-et-le-goupillon', image: 'images/pub/Le%20sabre%20et%20le%20goupillon.png', href: 'https://www.leslettresmouchetees.com/product-page/le-sabre-et-le-goupillon', alt: 'Le Sabre et le Goupillon de Philippe Moukoko', label: 'Le Sabre et le Goupillon' },
 ];
 
-const carousel = document.querySelector('[data-ad-carousel]');
+const carousels = document.querySelectorAll('[data-ad-carousel], [data-category-ad-carousel]');
 
-if (carousel) {
+carousels.forEach((carousel) => {
   const track = carousel.querySelector('[data-ad-carousel-track]');
   const dots = carousel.querySelector('[data-ad-carousel-dots]');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -102,4 +102,4 @@ if (carousel) {
 
   showSlide(0);
   startAutoplay();
-}
+});
