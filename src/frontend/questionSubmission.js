@@ -47,6 +47,10 @@ function setStatus(message, isError = false) {
   statusMessage.dataset.state = isError ? 'error' : 'success';
 }
 
+function updateSubmitAvailability(isSubmitting = false) {
+  if (submitButton) submitButton.disabled = isSubmitting || !consentCheckbox?.checked;
+}
+
 function populateCategories(categories) {
   if (!categorySelect) return;
   const options = ['<option value="">Choisir une catégorie</option>'];
@@ -259,6 +263,8 @@ imageUrlInput?.addEventListener('input', () => {
 });
 
 imageRemoveButton?.addEventListener('click', clearImagePreview);
+consentCheckbox?.addEventListener('change', () => updateSubmitAvailability());
+updateSubmitAvailability();
 
 async function initialise() {
   if (!window.SUPABASE_URL || !window.SUPABASE_ANON_KEY) {
@@ -296,6 +302,7 @@ async function initialise() {
     if (form) {
       form.hidden = false;
     }
+    updateSubmitAvailability();
 
     await loadCategories();
     await loadPlayerProfile();
@@ -331,7 +338,7 @@ if (form) {
         const urlError = validateExternalImageUrl(values.image);
         if (urlError) throw new Error(urlError);
       }
-      if (submitButton) submitButton.disabled = true;
+      updateSubmitAvailability(true);
       let storedImagePath = values.image || null;
 
       if (state.imageMode === 'file' && state.selectedFile) {
@@ -367,7 +374,7 @@ if (form) {
       console.error('Soumission invalide', error);
       setStatus(error.message || 'La question n’a pas pu être soumise.', true);
     } finally {
-      if (submitButton) submitButton.disabled = false;
+      updateSubmitAvailability();
     }
   });
 }

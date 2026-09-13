@@ -219,12 +219,13 @@ test.describe('Soumission de questions', () => {
     await page.locator('[name="wrongAnswer2"]').fill('Kinshasa');
     await page.locator('[name="wrongAnswer3"]').fill('Poto-Poto');
 
-    await page.getByRole('button', { name: /soumettre/i }).click();
-    await expect(page.locator('[data-submission-status]')).toHaveText(/confirmation/i);
+    const submitButton = page.getByRole('button', { name: /soumettre/i });
+    await expect(submitButton).toBeDisabled();
     expect(await page.evaluate(() => window.__questionSubmission)).toBeUndefined();
 
     await page.locator('[name="publicationConsent"]').check();
-    await page.getByRole('button', { name: /soumettre/i }).click();
+    await expect(submitButton).toBeEnabled();
+    await submitButton.click();
     await expect(page.locator('[data-submission-status]')).toHaveText(/question soumise/i);
     await expect(page.locator('[name="publicationConsent"]')).not.toBeChecked();
   });
