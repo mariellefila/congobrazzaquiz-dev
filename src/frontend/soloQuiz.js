@@ -1,4 +1,5 @@
 import * as quizApi from '../api/quizApi.js';
+import './adCarousel.js';
 import { isSupabaseInitialized, getSupabase } from '../lib/supabaseClient.js';
 import { recordSoloGame } from '../api/playerProfile.js';
 
@@ -268,6 +269,14 @@ function showFinalScore() {
         <div><strong>—</strong><small>Positions gagnées<br />dans le classement</small></div>
       </article>
     </div>
+    <div class="solo-result-ad">
+      <div class="ad-carousel" data-result-ad-carousel aria-roledescription="carousel" aria-label="Publicités partenaires">
+        <div class="ad-carousel__viewport">
+          <div class="ad-carousel__track" data-ad-carousel-track></div>
+        </div>
+        <div class="ad-carousel__dots" data-ad-carousel-dots aria-label="Navigation des publicités"></div>
+      </div>
+    </div>
     <a class="solo-result-primary" href="pages/leaderboard.html">
       <img src="rebuild/Classement.svg" alt="" aria-hidden="true" />
       <span>Voir le classement</span>
@@ -301,6 +310,7 @@ function showFinalScore() {
   });
   quizEl.querySelector('[data-result-replay]').addEventListener('click', () => startSoloQuiz(currentCategorySlug));
   quizEl.querySelector('[data-result-category]').addEventListener('click', resetSoloQuizView);
+  if (window.initAdCarousels) window.initAdCarousels();
 }
 
 // Efface l'état d'une partie en cours et réaffiche la grille de catégories.

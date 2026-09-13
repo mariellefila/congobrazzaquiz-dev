@@ -88,6 +88,43 @@ test.describe('Congo-Brazza Quizz', () => {
     await expect(page.locator('#menu h3')).toHaveText('CHOISISSEZ VOTRE CATÉGORIE');
   });
 
+  test('le carrousel publicitaire apparaît au-dessus des boutons de fin', async ({ page }) => {
+    await page.goto('/pages/categorie.html');
+    await page.getByRole('button', { name: 'Géographie' }).click();
+
+    for (let index = 0; index < 10; index += 1) {
+      await page.locator('.quiz-option-btn').first().click();
+    }
+
+    const carousel = page.locator('[data-result-ad-carousel]');
+    await expect(carousel).toBeVisible();
+    await expect(carousel.locator('.ad-carousel__slide')).toHaveCount(3);
+
+    const carouselBox = await carousel.boundingBox();
+    const replayBox = await page.getByRole('button', { name: 'Rejouer' }).boundingBox();
+    const categoryBox = await page.getByRole('button', { name: 'Changer de catégorie' }).boundingBox();
+
+    expect(carouselBox?.y).toBeLessThan(replayBox?.y ?? Number.MAX_SAFE_INTEGER);
+    expect(carouselBox?.y).toBeLessThan(categoryBox?.y ?? Number.MAX_SAFE_INTEGER);
+  });
+
+  test('le message de félicitations reste dans la largeur du mobile', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/pages/categorie.html');
+    await page.getByRole('button', { name: 'Géographie' }).click();
+
+    for (let index = 0; index < 10; index += 1) {
+      await page.locator('.quiz-option-btn').first().click();
+    }
+
+    const title = page.locator('.solo-result-title');
+    await expect(title).toBeVisible();
+
+    const box = await title.boundingBox();
+    expect(box?.width).toBeLessThanOrEqual(340);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+  });
+
   test('smoke: reads all categories and starts a quiz with questions', async ({ page }) => {
     await page.goto('/pages/categorie.html');
     await expect(page.getByRole('heading', { name: /Quiz : Congo-Brazzaville/i })).toBeVisible();

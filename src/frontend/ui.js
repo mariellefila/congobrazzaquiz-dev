@@ -1,5 +1,6 @@
 import * as quizApi from '../api/quizApi.js';
 import * as quizService from '../application/quizService.js';
+import './adCarousel.js';
 import { isSupabaseInitialized, getSupabase } from '../lib/supabaseClient.js';
 
 const menuDiv = document.getElementById('menu');
@@ -385,6 +386,14 @@ function showFinalScore() {
       <article><span aria-hidden="true">◷</span><strong>${averageTime} s</strong><small>Temps moyen<br />par question</small></article>
       <article><span aria-hidden="true">★</span><strong>—</strong><small>Position au classement</small></article>
     </div>
+    <div class="solo-result-ad">
+      <div class="ad-carousel" data-result-ad-carousel aria-roledescription="carousel" aria-label="Publicités partenaires">
+        <div class="ad-carousel__viewport">
+          <div class="ad-carousel__track" data-ad-carousel-track></div>
+        </div>
+        <div class="ad-carousel__dots" data-ad-carousel-dots aria-label="Navigation des publicités"></div>
+      </div>
+    </div>
     <a class="solo-result-primary" href="pages/leaderboard.html">▥ &nbsp; Voir le classement &nbsp; →</a>
     <div class="solo-result-actions">
       <button class="solo-result-secondary" type="button" data-result-replay>◷ &nbsp; Rejouer</button>
@@ -411,6 +420,7 @@ function showFinalScore() {
   });
   quizDiv.querySelector('[data-result-replay]').addEventListener('click', () => startQuiz(currentCategorySlug));
   quizDiv.querySelector('[data-result-category]').addEventListener('click', renderMenu);
+  if (window.initAdCarousels) window.initAdCarousels();
 }
 
 function startQuiz(categorySlug) {
